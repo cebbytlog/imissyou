@@ -11,23 +11,19 @@
 <style>
 :root{
   --vh:1vh;
-  --u:clamp(2.4px,calc(var(--vh)*.55),6px);      /* base pixel size for sprites */
-  --mu:clamp(3px,calc(var(--vh)*.78),10px);        /* mountain pixel size */
-  --mb:calc(var(--u)*.72);                       /* small mailbox */
-  --hor:calc(var(--vh)*38);                      /* horizon line */
-  --hw:clamp(110px,min(41vw,calc(var(--vh)*30)),260px);
-  --gap:clamp(14px,6vw,70px);
+  --u:clamp(2.4px,calc(var(--vh)*.55),6px);
+  --mu:clamp(3px,calc(var(--vh)*.78),10px);
+  --mb:calc(var(--u)*.72);
+  --hor:calc(var(--vh)*38);
   --wood:#8a4b1e; --wood-d:#5a2f10; --paper:#fbe7b5; --ink:#4a2a10;
 }
 @supports (height:1svh){:root{--vh:1svh}}
 *{box-sizing:border-box}
 html,body{margin:0;overflow-x:hidden}
-body{
-  font-family:'VT323','Courier New',monospace;color:var(--ink);background:#2f6fd0;
-  -webkit-text-size-adjust:100%;touch-action:manipulation;
-}
+body{font-family:'VT323','Courier New',monospace;color:var(--ink);background:#2f6fd0;-webkit-text-size-adjust:100%;touch-action:manipulation}
 button{font:inherit;color:inherit}
 [hidden]{display:none!important}
+img{image-rendering:pixelated}
 .spr{display:inline-block;background-size:100% 100%;background-repeat:no-repeat;image-rendering:pixelated;flex:none}
 
 /* ===================== the world (sky, mountains, land) ===================== */
@@ -45,26 +41,37 @@ button{font:inherit;color:inherit}
 .decor{position:absolute;inset:0;pointer-events:none}
 .decor .spr{position:absolute}
 
-/* ===================== foreground UI (one screen, no scrolling) ===================== */
+/* ===================== foreground ===================== */
 .ui{
   position:relative;z-index:5;min-height:calc(var(--vh)*100);max-width:620px;margin:0 auto;
-  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:calc(var(--vh)*2);
-  padding:64px 10px 44px;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:calc(var(--vh)*1.5);
+  padding:56px 10px 34px;
 }
 .sign{
-  display:block;width:min(calc(100vw - 20px),580px);height:auto;flex:none;
+  display:block;width:min(calc(100vw - 20px),580px,calc(var(--vh)*54));height:auto;flex:none;
   filter:drop-shadow(0 5px 0 rgba(0,20,60,.3));visibility:hidden;
 }
 body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 @keyframes signdrop{0%{transform:translateY(-140%)}58%{transform:translateY(7%)}78%{transform:translateY(-3%)}100%{transform:translateY(0)}}
 
-/* cabin + small mailbox */
-.scene{position:relative;align-self:flex-end;display:flex;align-items:flex-end;gap:calc(var(--u)*3);padding-top:calc(var(--vh)*5);margin-right:1vw;flex:none}
-.cabin{position:relative;flex:none}
-.cabin .spr{display:block}
-.smoke{position:absolute;width:calc(var(--u)*2);height:calc(var(--u)*2);background:#fff;opacity:0;animation:smoke 3.4s steps(7) infinite}
-@keyframes smoke{0%{transform:translate(0,0) scale(.6);opacity:0}15%{opacity:.85}100%{transform:translate(12px,-52px) scale(1.7);opacity:0}}
-.mbwrap{position:relative;flex:none}
+/* the farm: everything is positioned in % of this box so it scales together */
+.farm{position:relative;flex:none;width:min(100%,calc(var(--vh)*48),520px);aspect-ratio:1/1.3}
+.farm>*{position:absolute}
+.tree{display:block;height:auto}
+#tPeach{left:-2%;top:35%;width:19%;z-index:1}
+#tTeal{left:72%;top:7%;width:17%;z-index:1}
+.hgrp{left:14%;top:14%;width:62%;aspect-ratio:294/309;z-index:2}
+.hgrp>img{position:absolute;display:block;height:auto}
+.hgrp .house{left:0;top:0;width:100%}
+.ch{transform-origin:50% 100%;animation:idle 2.6s steps(1,end) infinite;z-index:2}
+#girl{left:45.2%;top:79.3%;width:9.52%}
+#boy{left:54.8%;top:79.6%;width:8.84%;animation-delay:-1.3s;animation-duration:3s}
+@keyframes idle{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.5%)}}
+.smoke{position:absolute;left:76%;top:2%;width:3.4%;aspect-ratio:1;background:#fff;opacity:0;animation:smoke 3.6s steps(7) infinite;z-index:1}
+@keyframes smoke{0%{transform:translate(0,0) scale(.6);opacity:0}15%{opacity:.85}100%{transform:translate(60%,-800%) scale(1.7);opacity:0}}
+
+/* mailbox */
+.mbwrap{left:79%;bottom:35.5%;z-index:4;flex:none}
 .mailbox{position:relative;display:block;background:none;border:0;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .mb-art{position:relative;display:block}
 .mb-art>.spr{position:absolute}
@@ -81,56 +88,44 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 .mailnote{position:absolute;left:50%;bottom:calc(100% + 4px);margin-left:-24px;width:48px;height:36px;background:none;border:0;padding:0;cursor:pointer;z-index:4;animation:nb 1.1s steps(1,end) infinite}
 .mailnote .spr{display:block}
 .badge{position:absolute;right:-12px;top:-13px;min-width:24px;height:24px;padding:0 5px;background:#e0443a;border:3px solid #5a2f10;color:#fff;font:700 15px/18px "Courier New",monospace;text-align:center}
-@keyframes nb{0%{transform:translateY(0)}50%{transform:translateY(-6px)}}}
+@keyframes nb{0%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 
-/* chickens (still sprites: they only walk + kiss) */
-.stage{position:relative;width:100%;flex:none;margin-top:calc(var(--vh)*1.5)}
-.pair{display:flex;justify-content:center;align-items:flex-end;gap:var(--gap);position:relative}
-.hen{position:relative;width:var(--hw);flex:none;transition:transform 1.4s steps(8,end)}
-.shadow{position:absolute;left:12%;right:12%;bottom:-5px;height:12px;border-radius:50%;background:rgba(70,40,10,.3);z-index:0}
-.bob{position:relative;z-index:1;transform-origin:50% 100%}
-.hen img{display:block;width:100%;height:auto;image-rendering:pixelated;user-select:none;-webkit-user-drag:none}
-.love .brown{transform:translateX(calc(var(--gap)/2 - var(--hw)*.03))}
-.love .cream{transform:translateX(calc((var(--gap)/2 - var(--hw)*.03) * -1))}
-.sad .brown .bob{transform:rotate(13deg) translateY(7%) scaleY(.93)}
-.sad .cream .bob{transform:rotate(-9deg)}
-.mood{position:absolute;display:none;pointer-events:none}
-.sad .mood{display:block}
-.raincloud{left:50%;top:-52%;transform:translateX(-30%);width:calc(var(--hw)*.8)}
-.rain{position:absolute;top:70%;width:4px;height:12px;background:#6ec5ff;box-shadow:0 0 0 2px rgba(255,255,255,.5) inset;animation:rain .9s linear infinite}
-@keyframes rain{from{transform:translateY(0);opacity:1}to{transform:translateY(calc(var(--hw)*.75));opacity:.2}}
-.tear{left:67%;top:30%;animation:tear 1.2s steps(6,end) infinite}
-@keyframes tear{from{transform:translateY(0);opacity:1}to{transform:translateY(calc(var(--hw)*.35));opacity:0}}
-.qmark{font-family:'Press Start 2P',monospace;font-size:clamp(12px,3.6vw,20px);color:#fff;background:#7a5ad8;border:3px solid #3d2b8a;padding:6px 8px;left:12%;top:-34%}
-.qmark.b{left:48%;top:-52%;background:#e0577f;border-color:#8f2a46}
-.fx{position:absolute;inset:0;pointer-events:none;z-index:6;overflow:visible}
-.fx .spr{position:absolute}
-.fh{animation:floatup 2.4s ease-out forwards}
-@keyframes floatup{
-  0%{transform:translate(-50%,0) scale(.4);opacity:0}
-  15%{opacity:1;transform:translate(-50%,-10px) scale(1)}
-  55%{transform:translate(calc(-50% + 12px),-52px) scale(1)}
-  100%{transform:translate(calc(-50% - 8px),-110px) scale(.9);opacity:0}
+/* chickens wander in the yard below the house */
+.hen{left:0;top:0;width:15%;z-index:6;will-change:transform}
+.shadow{position:absolute;left:12%;right:12%;bottom:-4px;height:10px;border-radius:50%;background:rgba(70,40,10,.3)}
+.fl{position:relative;transform:scaleX(var(--f,1))}
+.bob{position:relative;transform-origin:50% 100%;animation:breathe 2.6s steps(1,end) infinite}
+.hen.walk .bob{animation:hop .34s steps(1,end) infinite}
+.hen img{display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none}
+@keyframes breathe{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.96)}}
+@keyframes hop{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-7%) rotate(-2deg)}}
+
+/* pixel speech bubbles */
+.say{position:absolute;left:50%;bottom:calc(100% + 4px);transform:translateX(-50%);pointer-events:none;z-index:7;white-space:nowrap}
+.say-in{
+  position:relative;padding:3px 10px 4px;background:#fff6dd;color:#7a2d45;
+  font-family:'VT323','Courier New',monospace;font-size:clamp(18px,5vw,23px);line-height:1.1;
+  border:3px solid #5a2f10;box-shadow:inset 0 0 0 2px #f6dca0,0 3px 0 #5a2f10;
+  opacity:0;transition:opacity .45s steps(5,end)
 }
-.fs{animation:twinkle 1.1s steps(5,end) forwards}
-@keyframes twinkle{0%{transform:translate(-50%,-50%) scale(0);opacity:0}40%{transform:translate(-50%,-50%) scale(1.2);opacity:1}100%{transform:translate(-50%,-60%) scale(0);opacity:0}}
-.fpulse{transform:translateX(-50%);animation:pulse .8s steps(2,end) infinite}
-@keyframes pulse{50%{transform:translateX(-50%) scale(1.25)}}
-.mwah{font-family:'Press Start 2P',monospace;font-size:clamp(10px,3vw,14px);color:#fff;text-shadow:2px 2px 0 #c2447a,-2px -2px 0 #c2447a,2px -2px 0 #c2447a,-2px 2px 0 #c2447a;animation:floatup 1.9s ease-out forwards;white-space:nowrap;position:absolute}
+.say-in::after{content:"";position:absolute;left:50%;bottom:-11px;width:8px;height:8px;margin-left:-5px;background:#fff6dd;border:3px solid #5a2f10;border-top:0;border-left:0;transform:rotate(45deg) translate(-2px,-2px)}
+.say.hush .say-in{opacity:0}
+.say.on .say-in{opacity:1;animation:sfloat 2.4s ease-in-out infinite}
+@keyframes sfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 
-/* dialogue box (big text) + buttons */
+/* start screen dialogue */
 .dlg{
   position:relative;z-index:3;width:100%;max-width:540px;flex:none;
   background:#fbe7b5;border:5px solid #8a4b1e;outline:4px solid #5a2f10;border-radius:6px;
   box-shadow:inset 0 0 0 4px #f3cf86,0 8px 0 #5a2f10;
-  padding:calc(var(--vh)*2.2) 18px calc(var(--vh)*2.4);min-height:calc(var(--vh)*21);
+  padding:calc(var(--vh)*2.2) 18px calc(var(--vh)*2.4);
   font-family:"Courier New",ui-monospace,monospace;font-weight:700;color:#4a2a10;text-align:center;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
 }
 .tag{position:absolute;top:-24px;left:14px;background:#8a4b1e;color:#ffe9b8;padding:2px 10px;font-size:13px;border:3px solid #5a2f10;line-height:1.4}
 .nx{position:absolute;right:10px;bottom:4px;color:#8a4b1e;animation:nx .6s steps(2) infinite;font-size:20px}
 @keyframes nx{50%{transform:translateY(3px)}}
-.q{margin:0;width:100%;font-size:clamp(21px,min(7.4vw,calc(var(--vh)*3.9)),42px);line-height:1.28;display:flex;align-items:center;justify-content:center;min-height:2.6em}
+.q{margin:0;width:100%;line-height:1.28;display:flex;align-items:center;justify-content:center}
 .btns{position:relative;z-index:3;display:flex;gap:18px;align-items:center;justify-content:center;flex:none}
 .pb{
   font-family:"Courier New",ui-monospace,monospace;font-weight:700;font-size:clamp(18px,5.4vw,26px);
@@ -139,9 +134,8 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 }
 .pb:hover{transform:translateY(-2px)}
 .pb:active{transform:translateY(4px);box-shadow:inset 0 -6px 0 #0003,0 2px 0 #5a2f10}
-#yes,#startBtn{background:#3fae5a}#no{background:#d9605a}
+#startBtn{background:#3fae5a}
 .pb:focus-visible,.mailbox:focus-visible,.music:focus-visible,.svb:focus-visible,.svok:focus-visible,.mail:focus-visible{outline:4px solid #fff;outline-offset:3px;box-shadow:0 0 0 7px #3d2b8a}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* corner controls */
 .ctrl{position:fixed;z-index:40;top:8px;right:8px;display:flex;flex-direction:row;gap:8px}
@@ -154,8 +148,8 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 .start::before{content:"";position:absolute;left:50%;bottom:-70px;width:200px;height:200px;margin-left:-100px;border-radius:50%;background:#fff1a8;box-shadow:0 0 0 14px #ffe08a88,0 0 0 32px #ffc46a55,0 0 90px 45px #ffb36b66}
 .start>*{position:relative;z-index:1}
 .start.out{opacity:0;pointer-events:none}
-.start .dlg{max-width:420px;min-height:0}
-.start .q{min-height:0;font-size:clamp(20px,6vw,28px)}
+.start .dlg{max-width:420px}
+.start .q{font-size:clamp(20px,6vw,28px)}
 
 /* ===================== Stardew-style mailbox + letters ===================== */
 .modal{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:14px;background:rgba(8,18,50,.62)}
@@ -278,42 +272,33 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 <main class="ui" id="ui">
   <img class="sign" src="assets/sign.png" data-asset="sign" onerror="__imgErr(this)" onload="__imgLoad(this)" alt="Wooden sign reading JEAM ABBY KEITH PANGANIBAN" width="1100" height="488">
 
-  <section class="scene" id="scene" aria-label="Cabin and mailbox">
-    <div class="cabin" id="cabin" aria-hidden="true"></div>
+  <section class="farm" id="farm" aria-label="Our little farm">
+    <img class="tree" id="tPeach" src="assets/tree-peach.png" alt="" width="512" height="853">
+    <img class="tree" id="tTeal" src="assets/tree-teal.png" alt="" width="192" height="408">
+
+    <div class="hgrp" id="hgrp">
+      <img class="house" src="assets/house.png" alt="Our farmhouse" width="294" height="291">
+      <i class="smoke"></i><i class="smoke" style="animation-delay:-1.2s"></i><i class="smoke" style="animation-delay:-2.4s"></i>
+      <img class="ch" id="girl" src="assets/girl.png" alt="Pink-haired girl" width="28" height="64">
+      <img class="ch" id="boy" src="assets/boy.png" alt="Gray-haired boy" width="26" height="63">
+    </div>
+
     <div class="mbwrap" id="mbwrap">
       <button class="mailnote" id="bubble" type="button" tabindex="-1" aria-hidden="true"><span class="badge" id="badge">3</span></button>
       <button class="mailbox unread" id="mailbox" type="button" aria-label="You have 3 new messages. Open the mailbox"></button>
     </div>
-  </section>
 
-  <section class="stage" id="stage" aria-label="Two chickens on the farm">
-    <div class="pair">
-      <div class="hen brown" id="henB">
-        <span class="shadow"></span>
-        <div class="bob"><img src="assets/brown.png" data-asset="brown" onerror="__imgErr(this)" onload="__imgLoad(this)" alt="Brown pixel chicken" width="960" height="960"></div>
-        <span class="mood raincloud" id="raincloud"></span>
-        <span class="mood tear" id="tear"></span>
-      </div>
-      <div class="hen cream" id="henC">
-        <span class="shadow"></span>
-        <div class="bob"><img src="assets/cream.png" data-asset="cream" onerror="__imgErr(this)" onload="__imgLoad(this)" alt="Cream pixel chicken" width="329" height="330"></div>
-        <span class="mood qmark">?</span>
-        <span class="mood qmark b">?</span>
-      </div>
+    <div class="hen" id="henB">
+      <div class="say" id="sayB"><div class="say-in"></div></div>
+      <span class="shadow"></span>
+      <div class="fl"><div class="bob"><img src="assets/brown.png" data-asset="brown" onerror="__imgErr(this)" onload="__imgLoad(this)" alt="Brown pixel chicken" width="960" height="960"></div></div>
     </div>
-    <div class="fx" id="fx" aria-hidden="true"></div>
+    <div class="hen" id="henC">
+      <div class="say" id="sayC"><div class="say-in"></div></div>
+      <span class="shadow"></span>
+      <div class="fl"><div class="bob"><img src="assets/cream.png" data-asset="cream" onerror="__imgErr(this)" onload="__imgLoad(this)" alt="Cream pixel chicken" width="329" height="330"></div></div>
+    </div>
   </section>
-
-  <section class="dlg" id="box" aria-label="Do you miss me?">
-    <span class="tag">Someone special</span>
-    <p class="q" id="q" aria-live="polite">Do you miss me?</p>
-    <span class="nx" aria-hidden="true">▼</span>
-  </section>
-
-  <div class="btns">
-    <button class="pb" id="yes" type="button">💚 YES</button>
-    <button class="pb" id="no" type="button">❤️ NO</button>
-  </div>
 </main>
 </div>
 
@@ -368,37 +353,17 @@ const rows=g=>g.map(r=>r.join(''));
 
 /* ---------- sprite art ---------- */
 const HEART=sprite(['.pp.pp.','pwppppp','pppppPP','.ppppP.','..pPP..','...P...']);
-const SPARK=['..y..','..y..','yywyy','..y..','..y..'];
-const SPK={pink:sprite(SPARK,{y:'#ff8fb1'}),gold:sprite(SPARK,{y:'#ffd93a'}),white:sprite(SPARK,{y:'#ffffff',w:'#ffe3ef'})};
 const FLOWER=['.p.p.','ppypp','.ppp.','..g..','.gg..','..g..'];
 const FL=[
   sprite(FLOWER,{p:'#ff8fb1',y:'#ffe066'}),sprite(FLOWER,{p:'#fffaf0',y:'#f08a3c'}),
   sprite(FLOWER,{p:'#9bb8ff',y:'#ffe066'}),sprite(FLOWER,{p:'#ffe066',y:'#f08a3c'}),sprite(FLOWER,{p:'#ffb3d1',y:'#fff6dd'}),sprite(FLOWER,{p:'#c79bff',y:'#ffe066'})];
-const TREE=sprite(['.....kkkkkk.....','...kkgghhhhkk...','..kghhhhhhhhgk..','.kghhhhwhhhhhgk.','.kghhhhhhhhhhgk.','kgghhhhhhhhhhggk','kghhhhhhhhhhhhgk','kghhhwhhhhhhhhgk','kgghhhhhhhhhhggk','.kgghhhhhhhhggk.','.kGgghhhhhhggGk.','..kGGgggggggGk..','...kkGGGGGGkk...','.....kkbbkk.....','......kbBk......','......kbBk......','......kbBk......','.....kbbBBk.....','....kbbbBBBk....','....kkkkkkkk....']);
 const BUSH=sprite(['................','...kkkk....kkk..','..kghhgk..kghgk.','.kghhhhgkkghhhgk','kghhhhhhgghhhhgk','kgghhhhhhhhhhggk','kGgghhhhhhhhggGk','kkGgggggggggGGkk','..kkkkkkkkkkkk..']);
 const CLOUD=sprite(['.......wwww.........','.....wwwwwwww..ww...','..wwwwwwwwwwwwwwww..','.wwwwwwwwwwwwwwwwww.','wwwwwwwwwwwwwwwwwwww','.ssssssssssssssssss.'],{w:'#ffffff',s:'#c9defa'});
-const GCLOUD=sprite(['.......wwww.........','.....wwwwwwww..ww...','..wwwwwwwwwwwwwwww..','.wwwwwwwwwwwwwwwwww.','wwwwwwwwwwwwwwwwwwww','.ssssssssssssssssss.'],{w:'#a9b4c9',s:'#7f8aa3'});
-const TEAR=sprite(['.u.','uwu','uuu','.u.']);
 const BF_O=['Pp.k.pP','pppkppp','.ppkpp.','.pp.pp.'],BF_C=['...k...','..pkp..','..pkp..','...k...'];
 const PETAL=sprite(['pp.','.pp'],{p:'#ffb3d1'});
 const ENV=sprite(['kkkkkkkkkkkk','kwwwwwwwwwwk','kkwwwwwwwwkk','kwkwwwwwwkwk','kwwkwwwwkwwk','kwwwkppkwwwk','kwwwwkkwwwwk','kwwwwwwwwwwk','kkkkkkkkkkkk']);
 const ENVO=sprite(['.....kk.....','...kkwwkk...','.kkwwwwwwkk.','kwwwwwwwwwwk','kwtttttttwwk','kwwwwwwwwwwk','kwwwwwwwwwwk','kwwwwwwwwwwk','kkkkkkkkkkkk']);
 
-/* pine tree */
-function pineSprite(){
-  const W=15,H=26,g=grid(W,H);
-  [{y:1,h:7,w:3},{y:7,h:8,w:5},{y:14,h:9,w:7}].forEach(t=>{
-    for(let r=0;r<t.h;r++){
-      const hw=Math.round(1+(t.w-1)*r/(t.h-1)),x0=7-hw,x1=7+hw;
-      for(let x=x0;x<=x1;x++)g[t.y+r][x]=x>7?'g':'h';
-      g[t.y+r][x0]='k';g[t.y+r][x1]='k';
-      if(r===t.h-1)for(let x=x0;x<=x1;x++)g[t.y+r][x]='k';
-    }
-  });
-  for(let y=22;y<26;y++){g[y][6]='k';g[y][7]='b';g[y][8]='k'}
-  g[25][6]='k';g[25][7]='k';g[25][8]='k';
-  return sprite(rows(g),{h:'#4fae4a',g:'#2e7d3a'});
-}
 /* wooden fence tile */
 function fenceTile(){
   const W=16,H=12,g=grid(W,H);
@@ -443,7 +408,7 @@ function mtnLayer(W,H,peaks,slope,minH,c){
   return sprite(rows(g),{f:c.f,d:c.d,h:c.h});
 }
 
-/* ---------- the world: sky, stars, clouds, mountains, land, trees, flowers ---------- */
+/* ---------- the world: sky, stars, clouds, mountains, land, fence, flowers ---------- */
 (function(){
   const sky=$('#sky'),decor=$('#decor');
   const R=rng(5);
@@ -458,7 +423,7 @@ function mtnLayer(W,H,peaks,slope,minH,c){
   const far=mtnLayer(128,22,[[16,20],[52,17],[88,21],[116,15]],.55,8,{f:'#86c4da',d:'#62a5c4',h:'#b0dcea'});
   const mid=mtnLayer(112,17,[[30,15],[70,13],[100,16]],.75,5,{f:'#6cc96d',d:'#3d9c5d',h:'#9de57f'});
   const near=mtnLayer(96,11,[[14,10],[48,9],[78,10]],.9,3,{f:'#52b755',d:'#2d8b4b',h:'#8fe26e'});
-  [['#m1',far,22,128,0],['#m2',mid,17,112,0],['#m3',near,11,96,0]].forEach(([id,sp,H,W])=>{
+  [['#m1',far,22,128],['#m2',mid,17,112],['#m3',near,11,96]].forEach(([id,sp,H,W])=>{
     const n=$(id);n.style.height=`calc(var(--mu)*${H})`;n.style.top=`calc(var(--hor) - var(--mu)*${H} + 1px)`;
     n.style.backgroundImage=sp.url;n.style.backgroundSize=`calc(var(--mu)*${W}) calc(var(--mu)*${H})`;
   });
@@ -468,18 +433,11 @@ function mtnLayer(W,H,peaks,slope,minH,c){
   di.style.backgroundImage=dt.url;di.style.backgroundSize='calc(var(--u)*16) calc(var(--u)*16)';di.style.setProperty('--edge',de.url);
 
   const put=(n,css)=>{Object.assign(n.style,css);decor.appendChild(n);return n};
-  // fence on the left, behind everything
   const fence=fenceTile(),fn=document.createElement('div');
   put(fn,{position:'absolute',left:'0',width:'34%',top:'calc(var(--vh)*44)',height:'calc(var(--u)*12)',
     backgroundImage:fence.url,backgroundRepeat:'repeat-x',backgroundSize:'calc(var(--u)*16) 100%',imageRendering:'pixelated'});
-  // trees: pine behind the cabin, round trees on the left
-  const pine=pineSprite();
-  put(el(pine,'calc(var(--u)*1.7)'),{left:'27vw',top:'calc(var(--vh)*22)'});
-  put(el(TREE,'calc(var(--u)*1.8)'),{left:'-3vw',top:'calc(var(--vh)*38)'});
-  put(el(TREE,'calc(var(--u)*1.2)'),{left:'21vw',top:'calc(var(--vh)*38.5)'});
   put(el(BUSH,'calc(var(--u)*1.6)'),{left:'30vw',top:'calc(var(--vh)*48)'});
   put(el(BUSH,'calc(var(--u)*1.4)'),{right:'-2vw',top:'calc(var(--vh)*55)'});
-  // flowers on the grass (and a few at the edges)
   const r2=rng(21),n=small?64:90;
   for(let i=0;i<n;i++){
     const f=el(FL[Math.floor(r2()*FL.length)],small?3:4);
@@ -519,23 +477,10 @@ function noise(t0,dur,vol,freq){
 const SFX=fn=>()=>{if(sfxOn&&ac)fn(ac.currentTime)};
 const blip=SFX(t=>tone(380+Math.random()*320,t,.06,'square',.05));
 const sClick=SFX(t=>{tone(520,t,.06,'square',.06);tone(780,t+.06,.08,'square',.06)});
-const sStep=SFX(t=>{tone(150,t,.07,'triangle',.14,90);noise(t,.04,.05,900)});
-const sKiss=SFX(t=>{tone(700,t,.09,'sine',.18,1700);noise(t+.09,.05,.25,2500);[1047,1319,1568,2093].forEach((f,i)=>tone(f,t+.18+i*.09,.35,'sine',.1))});
-const sSad=SFX(t=>{[392,349,294].forEach((f,i)=>tone(f,t+i*.2,.3,'triangle',.14))});
 const sCreak=SFX(t=>{tone(160,t,.4,'sawtooth',.05,300);tone(1175,t+.45,.2,'sine',.1);tone(1568,t+.58,.3,'sine',.1)});
 const sRustle=SFX(t=>{noise(t,.18,.18,3000);noise(t+.12,.12,.12,5000)});
+const sPop=SFX(t=>{tone(880,t,.07,'sine',.05,1320)});
 
-/* ---------- typewriter (Stardew-style blips) ---------- */
-function typeText(node,text,cb,speed){
-  clearInterval(node._t);node.textContent='';
-  const ch=Array.from(text);let i=0;
-  if(reduce){node.textContent=text;if(cb)cb();return}
-  node._t=setInterval(()=>{
-    const c=ch[i++];node.textContent=ch.slice(0,i).join('');
-    if(c!==' '&&i%2===0)blip();
-    if(i>=ch.length){clearInterval(node._t);if(cb)cb()}
-  },speed||34);
-}
 /* letters: reserve the full layout, reveal text as it types */
 function typeReserve(p,text,cb,speed){
   clearInterval(p._t);
@@ -557,136 +502,84 @@ function typeReserve(p,text,cb,speed){
   },speed||18);
 }
 
-/* ---------- cabin ---------- */
-function cabinSprite(){
-  const W=32,H=28,g=grid(W,H);
-  const px=(x,y,c)=>{if(x>=0&&x<W&&y>=0&&y<H)g[y][x]=c};
-  const rect=(x,y,w,h,c)=>{for(let j=0;j<h;j++)for(let i=0;i<w;i++)px(x+i,y+j,c)};
-  rect(22,0,4,9,'S');for(let y=0;y<9;y++){px(22,y,'k');px(25,y,'k')}rect(22,0,4,1,'k');
-  rect(3,13,26,14,'b');
-  for(const y of [15,18,21,24])rect(3,y,26,1,'B');
-  for(let y=13;y<27;y++){px(3,y,'k');px(28,y,'k')}
-  for(let y=2;y<=12;y++){
-    const hw=Math.min(16,Math.round(3+(y-2)*1.45)),x0=16-hw,x1=15+hw;
-    for(let x=x0;x<=x1;x++)px(x,y,(y%2===0)?'r':'R');
-    for(let x=x0+1;x<x1;x+=3)px(x,y,'l');
-    px(x0,y,'k');px(x1,y,'k');
-  }
-  for(let x=0;x<W;x++){px(x,12,'k')}
-  for(let x=1;x<W-1;x++)px(x,13,'B');
-  rect(14,2,4,1,'k');
-  rect(13,18,6,9,'B');for(let y=18;y<27;y++){px(13,y,'k');px(18,y,'k')}rect(13,18,6,1,'k');
-  px(16,22,'t');px(16,23,'t');px(17,23,'y');
-  rect(12,27,8,1,'t');
-  for(const x of [5,21]){
-    rect(x,17,6,5,'y');rect(x,17,6,1,'k');rect(x,21,6,1,'k');
-    for(let y=17;y<22;y++){px(x,y,'k');px(x+5,y,'k')}
-    for(let y=18;y<21;y++){px(x+2,y,'w');px(x+3,y,'w')}
-    rect(x-1,22,8,2,'B');px(x,22,'p');px(x+2,22,'y');px(x+4,22,'p');px(x+6,22,'w');
-    px(x,21,'g');px(x+3,21,'g');px(x+5,21,'g');
-  }
-  rect(2,27,28,1,'S');
-  return sprite(rows(g),{S:'#9aa0ad'});
+/* ---------- chickens: wander around the yard, with little messages ---------- */
+const farm=$('#farm'),henB=$('#henB'),henC=$('#henC'),sayB=$('#sayB'),sayC=$('#sayC');
+const HEN_IMG_FACES_RIGHT=false; /* flip to true if your chicken art faces right */
+const hens=[henB,henC].map((node,i)=>({node,say:i?sayC:sayB,x:0,y:0,tx:0,ty:0,state:'idle',wait:1+i*1.4,dir:i?1:-1,speed:0}));
+let FW=0,FH=0,HW=0,minX=0,maxX=0,minY=0,maxY=0,meetAt=6;
+function bounds(){
+  FW=farm.clientWidth;FH=farm.clientHeight;HW=henB.offsetWidth;
+  const bw=Math.max(sayB.offsetWidth,sayC.offsetWidth,124);
+  minX=Math.max(4,Math.round(bw/2-HW/2)+2);maxX=Math.max(minX,FW-HW-minX);
+  minY=Math.round(FH*.755);maxY=Math.max(minY,Math.round(FH-HW-4));
 }
-(function(){
-  const C=cabinSprite(),cab=$('#cabin');
-  cab.style.width=`calc(var(--u)*${C.w})`;cab.style.height=`calc(var(--u)*${C.h})`;
-  cab.appendChild(el(C,'var(--u)'));
-  for(let i=0;i<3;i++){const s=document.createElement('i');s.className='smoke';s.style.left=`calc(var(--u)*23)`;s.style.top=`calc(var(--u)*-2)`;s.style.animationDelay=(-i*1.1)+'s';cab.appendChild(s)}
-})();
-
-/* ---------- chickens: moods ---------- */
-const stage=$('#stage'),fx=$('#fx'),qEl=$('#q'),henB=$('#henB'),henC=$('#henC');
-(function(){
-  const rc=$('#raincloud');const c=el(GCLOUD,5);c.style.width='100%';c.style.height='auto';c.style.aspectRatio='20/6';rc.appendChild(c);
-  [18,40,62,80].forEach((l,i)=>{const d=document.createElement('i');d.className='rain';d.style.left=l+'%';d.style.animationDelay=(-i*.22)+'s';rc.appendChild(d)});
-  $('#tear').appendChild(el(TEAR,3));
-})();
-
-let kissT,loveT;
-function say(t){typeText(qEl,t)}
-function reset(){
-  stage.classList.remove('love','kiss','sad');
-  clearTimeout(kissT);clearInterval(loveT);fx.innerHTML='';
-  void stage.offsetWidth;
+const rnd=(a,b)=>a+Math.random()*(b-a);
+const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+function place(h){
+  const px=Math.round(h.x/2)*2,py=Math.round(h.y/2)*2;
+  h.node.style.transform=`translate(${px}px,${py}px)`;
+  h.node.style.zIndex=6+Math.floor(py/4);
+  h.node.firstElementChild.nextElementSibling.nextElementSibling.style.setProperty('--f',(h.dir>0)===HEN_IMG_FACES_RIGHT?1:-1);
 }
-function rel(n){const s=stage.getBoundingClientRect(),r=n.getBoundingClientRect();return{x:r.left-s.left+r.width/2,y:r.top-s.top,w:r.width,h:r.height,l:r.left-s.left}}
-function heart(x,y,px,delay){
-  const h=el(HEART,px,'fh');h.style.left=x+'px';h.style.top=y+'px';if(delay)h.style.animationDelay=delay+'ms';fx.appendChild(h);setTimeout(()=>h.remove(),2600+(delay||0));
-}
-function spark(x,y,kind,px){
-  const s=el(SPK[kind],px,'fs');s.style.left=x+'px';s.style.top=y+'px';s.style.animationDelay=Math.floor(Math.random()*500)+'ms';fx.appendChild(s);setTimeout(()=>s.remove(),1800);
-}
-function burst(){
-  const a=rel(henB),b=rel(henC),mx=(a.x+b.x)/2,top=Math.min(a.y,b.y);
-  const hp=Math.max(2,Math.round(a.w/42));
-  [a,b].forEach(p=>{for(let i=0;i<4;i++)heart(p.x+(Math.random()-.5)*p.w*.7,p.y+p.h*.15,hp+Math.floor(Math.random()*2),i*220)});
-  const bp=Math.max(5,Math.round(a.w/14)),big=el(HEART,bp,'fpulse');big.style.left=mx+'px';big.style.top=(top-HEART.h*bp-6)+'px';fx.appendChild(big);
-  const m=document.createElement('span');m.className='mwah';m.textContent='MWAAA!';m.style.left=mx+'px';m.style.top=(top+a.h*.35)+'px';fx.appendChild(m);setTimeout(()=>m.remove(),2100);
-  const kinds=['pink','gold','white'],sp=Math.max(2,Math.round(a.w/40));
-  for(let i=0;i<16;i++){
-    const ang=Math.random()*Math.PI*2,rad=(a.w*.5+Math.random()*a.w*.9);
-    spark(mx+Math.cos(ang)*rad,top+a.h*.55+Math.sin(ang)*rad*.55,kinds[i%3],sp);
+function pickTarget(h,o,now){
+  if(now>meetAt){
+    meetAt=now+rnd(11,18);
+    const side=h.x<o.x?-1:1;
+    h.tx=clamp(o.x+side*HW*.95,minX,maxX);h.ty=clamp(o.y+rnd(-4,4),minY,maxY);h.meet=true;
+  }else{
+    h.tx=rnd(minX,maxX);h.ty=rnd(minY,maxY);h.meet=false;
   }
 }
-function trickle(){
-  const p=rel(Math.random()<.5?henB:henC),hp=Math.max(2,Math.round(p.w/42));
-  heart(p.x+(Math.random()-.5)*p.w*.6,p.y+p.h*.1,hp+Math.floor(Math.random()*2));
-  const mx=(rel(henB).x+rel(henC).x)/2;
-  spark(mx+(Math.random()-.5)*p.w*2,p.y+p.h*(.1+Math.random()*.7),Math.random()<.5?'pink':'gold',Math.max(2,Math.round(p.w/42)));
+let last=0,running=false;
+function frame(ts){
+  if(!running)return;
+  requestAnimationFrame(frame);
+  const now=ts/1000,dt=Math.min(.05,last?now-last:.016);last=now;
+  if(document.hidden)return;
+  hens.forEach((h,i)=>{
+    const o=hens[1-i];
+    if(h.state==='idle'){
+      h.wait-=dt;
+      if(h.wait<=0){pickTarget(h,o,now);h.state='walk';h.speed=HW*rnd(.32,.5);h.node.classList.add('walk')}
+    }else{
+      const dx=h.tx-h.x,dy=h.ty-h.y,d=Math.hypot(dx,dy);
+      if(d<2){h.state='idle';h.wait=h.meet?rnd(3.5,5.5):rnd(1.2,3.6);h.node.classList.remove('walk')}
+      else{
+        const st=Math.min(d,h.speed*dt);h.x+=dx/d*st;h.y+=dy/d*st;
+        if(Math.abs(dx)>3)h.dir=dx>0?1:-1;
+      }
+    }
+    h.x=clamp(h.x,minX,maxX);h.y=clamp(h.y,minY,maxY);place(h);
+  });
+  /* when the two are side by side, only one bubble shows so the words never overlap */
+  hens[1].say.classList.toggle('hush',Math.abs(hens[0].x-hens[1].x)<Math.max(sayB.offsetWidth,sayC.offsetWidth,124)*.9);
 }
-$('#yes').addEventListener('click',()=>{
-  reset();sClick();stage.classList.add('love');
-  say('Awww! I miss you too! Come hereee. Mwaaa! 💋');
-  for(let i=0;i<8;i++)setTimeout(sStep,80+i*175);
-  kissT=setTimeout(()=>{stage.classList.add('kiss');sKiss();burst()},1500);
-  loveT=setInterval(()=>{if(stage.classList.contains('kiss'))trickle()},650);
-});
-$('#no').addEventListener('click',()=>{
-  reset();sClick();stage.classList.add('sad');sSad();
-  say('Halaaa! Sure ka? Try again, please. 🥺');
-});
+function startHens(){
+  bounds();
+  hens[0].x=clamp(FW*.28,minX,maxX);hens[0].y=clamp(FH*.8,minY,maxY);
+  hens[1].x=clamp(FW*.6,minX,maxX);hens[1].y=clamp(FH*.86,minY,maxY);
+  hens.forEach(place);
+  if(reduce)return;
+  running=true;requestAnimationFrame(frame);
+}
+addEventListener('resize',()=>{bounds();hens.forEach(h=>{h.x=clamp(h.x,minX,maxX);h.y=clamp(h.y,minY,maxY);place(h)})});
 
-/* ---------- mailbox: 3 letters, each clicked open ---------- */
+/* little floating messages: "I miss you." / "I love you." */
+const LINES=['I miss you.','I love you.'];
+let turn=0;
+function showSay(h,text){h.say.firstElementChild.textContent=text;h.say.classList.add('on')}
+function cycleSay(){
+  hens.forEach(h=>h.say.classList.remove('on'));
+  setTimeout(()=>{
+    const a=turn%2;
+    if(turn%3===2){const only=Math.random()<.5?0:1;showSay(hens[only],LINES[a])}   /* sometimes only one chicken speaks */
+    else{showSay(hens[0],LINES[a]);showSay(hens[1],LINES[1-a])}
+    sPop();turn++;
+  },reduce?0:600);
+}
+
+/* ---------- mailbox: 3 personal letters, each clicked open ---------- */
 const LETTERS=[
- {title:'A Little Message for You 💌',text:`Hi, love!
-
-Just a little reminder that someone is thinking about you right now.
-
-I hope you know how special you are to me. Even on ordinary days, you make everything feel a little more magical.
-
-If I could, I'd send you little kisses, warm hugs, and flowers every single day.
-
-I miss you. I hope I get to see you soon.
-
-With lots of love,
-Jeam Abby Keith Panganiban ♡`},
- {title:'Open When You Miss Me 🌙',text:`Hi again, love!
-
-If you're reading this, it means you're missing me a little. That's okay, because I'm missing you too.
-
-Close your eyes for a second and imagine my hand holding yours. Feel that? That's me, sending you a tiny hug through the screen.
-
-Distance is only a number, and one day I'll be right beside you.
-
-Until then, drink water, eat well, and get lots of rest, okay?
-
-Always yours,
-Jeam Abby Keith Panganiban ♡`},
- {title:'Three Little Reasons 🌻',text:`Hello, my favorite person!
-
-Here are three tiny reasons I smile whenever I think of you:
-
-One, your laugh makes my whole day brighter.
-Two, you turn ordinary moments into my favorite memories.
-Three, you feel like home.
-
-Thank you for being you. I'll always keep a little spot on the farm just for you.
-
-Mahal kita.
-
-Forever yours,
-Jeam Abby Keith Panganiban ♡`},
 {title:"First Mail 💌",text:"i don't know if you'll ever get to read or see this, but i really hope you do. and if you do, thank you for giving me your time to read all of this. thank you rin sa kapatid mo. don't worry, hindi ko na rin siya guguluhin.\n\ncan you finish reading everything first, by? i still have two more messages pa.\n\ni guess this is my final act of love. i have another code pa, pero hanggang unfinished business na lang muna siya. maybe someday ko na lang tapusin. i don't know when, but for now, i'll just leave it as it is.\n\nand this is probably my last chance na rin in case mabasa mo pa 'to. so anyway, i just have a few more things i want to say. i don't want to keep bothering you, but i also don't want to leave without saying everything i've been keeping to myself. feel ko sasabog na rin kasi ako if i keep all of these to myself.\n\ndon't worry, i'm not writing this to change your mind or make you reconsider anything. i know things are the way they are now, and i respect that. i just want to say these things, not because i'm expecting anything in return, but because there are still words i want you to hear from me, even if you don't believe them anymore.\n\ni hope you can read these messages hanggang dulo. that's all i'm asking. thank you, baby."},
 {title:"2nd Mail 💌",text:"from the bottom of my heart, i just want to say i'm sorry. it's all my fault, by. always has been. sinira ko lang talaga lahat ng kung anong meron tayo. i'm sorry for all the fears, for the promises i made but couldn't keep, and for letting my situation at home affect us the way it did. i'm sorry for always worrying about the future and letting my anxiety get in the way.\n\nbut by, i still wanted it. i still wanted us. i wanted to make things work despite everything that was happening around me. i really thought magpahinga muna rin tayo, but i guess hindi mo na rin talaga kaya. and i cant blame you for that.\n\ni blame myself, by, for letting my fears ruin something so beautiful. i wish i had handled things better. i wish i had reassured you more pa, understood you better, and kept the promises i made.\n\ni know you hate me now, and you can't forgive me anymore. ang sakit lang, but i understand. i'm not going to tell you how you should feel after everything that happened. you have every reason to be hurt, and i'm sorry ako yung reason kung bakit ka nasasaktan ngayon.\n\ni'm sorry, by. i really am. i know i ruined something that meant so much to me, and that's something i'll have to live with for the rest of my life."},
 {title:"3rd Mail 💌",text:"alam mo, may napanood akong movie dati. i think comet ata yun. sabi nung guy doon, “i feel like i'm in the wrong world. 'cause i don't belong in a world where we don't end up together. i don't. there are parallel universes out there where this didn't happen. where i was with you, and you were with me. and whatever universe that is, that's the one where my heart lives in.” and i felt that.\n\nsana nga may ibang universe aside from this one. i'd like to believe na somewhere out there, there's a version of us na naging okay ang lahat. na we got our timing right, na hindi natin kinailangang mawala sa isa't isa, and that we got to experience the kind of love we both deserved. i'd like to think na happy tayo doon, na we're still choosing each other, and that things worked out differently for us.\n\nmaybe in this universe, things just weren't meant to be. and as much as it hurts, i think it's time for me to accept that. i wish things had turned out differently, by. i wish i could've given you more reasons to stay, and i wish i had done some things differently when i still had the chance.\n\ni love you, by. i really do.\n\nthank you for giving me your time. thank you for listening to me, for being patient with me, and for making time for us despite everything. thank you for making me happy in ways you probably didn't even realize. thank you for the random conversations, the laughter, the chikas and mga rant natin, and all those ordinary moments that somehow became special because they were with you. i'll miss those things more than i can explain.\n\nthank you for letting me get to know you, and for allowing me to be part of your life, even just for a while. i'm grateful i got to experience what it felt like to have you around.\n\nplease take care of yourself, baby. eat on time, please. get enough rest din, and don't be too hard on yourself. i hope you'll find yourself again. i hope you find happiness and peace. you deserve that, and i genuinely hope life becomes kinder to you.\n\ni don't know if we'll ever get to talk again, or if this will really be the last time you'll hear from me. but if it is, i just want my last words to you to be thank you, not goodbye.\n\ni love you, mylove. thank you for everything. i'll always wish you well, wherever life takes you. and if there's really a parallel universe out there, i hope we find each other in that one. i hope that's the universe where we get to stay, where things finally work out, and where we don't have to say goodbye."}
@@ -715,8 +608,6 @@ const read=new Set();let typing=0,userScrolled=false;
   const door=el(DOOR,'var(--mb)','mb-door');door.style.left=M(15);door.style.top=M(3);
   const flag=el(FLAG,'var(--mb)','mb-flag');flag.style.left=M(-5);flag.style.top=M(2);flag.style.transformOrigin=M(5.5)+' '+M(6.5);
   art.append(peek,body,door,flag);mbx.appendChild(art);
-  const hr=sprite(['.......p.....','p.p...ppp..p.','...p..ppp....'].map(r=>r),{});
-  // little pixel-heart divider for the letters
   const hs=sprite(['.p.p.','ppppp','.ppp.','..p..']);
   $('#hr').style.backgroundImage=hs.url;$('#hr').style.backgroundSize='auto 100%';
   $('#hr').style.width='60%';
@@ -742,7 +633,7 @@ function renderInbox(){
     b.addEventListener('click',()=>{sClick();openLetter(i)});
     mlist.appendChild(b);
   });
-  inhint.textContent=read.size<LETTERS.length?'Tap each mail to open it 💌':'You read all '+LETTERS.length+' letters 💚';
+  inhint.textContent=read.size<LETTERS.length?'Tap each mail to open it 💌':'You read all your messages 💚';
 }
 function showInbox(){
   typing++;
@@ -757,18 +648,16 @@ function openLetter(i){
   svin.scrollTop=0;letterBox.style.animation='none';void letterBox.offsetWidth;letterBox.style.animation='';
   skipEl.hidden=false;userScrolled=false;
   const sp=L.text.length>1800?6:L.text.length>1000?10:16;
-  const finish=()=>{typing++;ps.forEach((p,k)=>{clearInterval(p._t);typeReserveDone(p,texts[k])});skipEl.hidden=true};
+  const finish=()=>{typing++;ps.forEach((p,k)=>{clearInterval(p._t);p.textContent=texts[k]});skipEl.hidden=true};
   lBody.onclick=finish;
   let k=0;
   (function nxt(){
     if(id!==typing)return;
     if(k>=ps.length){skipEl.hidden=true;return}
     const idx=k++;typeReserve(ps[idx],texts[idx],()=>setTimeout(nxt,140),sp);
-    ps[idx].scrollIntoView&&0;
   })();
   sRustle();updateBubble();backBtn.focus({preventScroll:true});
 }
-function typeReserveDone(p,text){p.textContent=text}
 updateBubble();
 let lastFocus=null,busy=false;
 function openMail(){
@@ -779,7 +668,7 @@ function openMail(){
   },reduce?0:1200);
 }
 function closeMail(){
-  typing++;sClick();modal.hidden=true;
+  typing++;sClick();modal.hidden=true;document.body.style.overflow='';
   setTimeout(()=>{mbx.classList.remove('open');if(read.size===LETTERS.length)mbx.classList.add('read')},250);
   updateBubble();
   if(lastFocus&&lastFocus.focus)lastFocus.focus();
@@ -865,9 +754,10 @@ $('#startBtn').addEventListener('click',()=>{
   unlock();sClick();setMusic(true);
   document.body.classList.add('go');
   const st=$('#start');st.classList.add('out');setTimeout(()=>st.remove(),650);
-  const full=qEl.textContent;
-  setTimeout(()=>typeText(qEl,full),reduce?0:1250);
+  setTimeout(()=>{startHens();cycleSay();setInterval(cycleSay,5200)},reduce?0:900);
 });
+/* chickens are placed even before the start screen closes, so layout is ready */
+bounds();
 })();
 </script>
 </body>
