@@ -15,13 +15,13 @@
   --mu:clamp(3px,calc(var(--vh)*.78),10px);        /* mountain pixel size */
   --mb:calc(var(--u)*.72);                       /* small mailbox */
   --hor:calc(var(--vh)*38);                      /* horizon line */
-  --hw:clamp(60px,min(31vw,calc(var(--vh)*15.5)),190px);
-  --gap:clamp(16px,min(12vw,calc(var(--vh)*6)),90px);
+  --hw:clamp(110px,min(41vw,calc(var(--vh)*30)),260px);
+  --gap:clamp(14px,6vw,70px);
   --wood:#8a4b1e; --wood-d:#5a2f10; --paper:#fbe7b5; --ink:#4a2a10;
 }
 @supports (height:1svh){:root{--vh:1svh}}
 *{box-sizing:border-box}
-html,body{height:100%;margin:0;overflow:hidden;overscroll-behavior:none}
+html,body{margin:0;overflow-x:hidden}
 body{
   font-family:'VT323','Courier New',monospace;color:var(--ink);background:#2f6fd0;
   -webkit-text-size-adjust:100%;touch-action:manipulation;
@@ -31,8 +31,9 @@ button{font:inherit;color:inherit}
 .spr{display:inline-block;background-size:100% 100%;background-repeat:no-repeat;image-rendering:pixelated;flex:none}
 
 /* ===================== the world (sky, mountains, land) ===================== */
-.world{position:fixed;inset:0;overflow:hidden}
-.sky{position:absolute;inset:0;background:linear-gradient(#10277a 0%,#1b47ad 14%,#2f6fd0 26%,#5aa6ef 36%,#a9d9ff 44%,#d6efff 50%)}
+.page{position:relative;min-height:calc(var(--vh)*100);overflow:hidden}
+.world{position:absolute;inset:0;overflow:hidden}
+.sky{position:absolute;left:0;right:0;top:0;height:var(--hor);background:linear-gradient(#10277a 0%,#1b47ad 22%,#2f6fd0 45%,#5aa6ef 66%,#a9d9ff 85%,#d6efff 100%)}
 .star{position:absolute;width:3px;height:3px;background:#fff;animation:tw 2.4s steps(1) infinite}
 @keyframes tw{50%{opacity:.25}}
 .cl{position:absolute;animation:cl 70s linear infinite alternate}
@@ -46,12 +47,12 @@ button{font:inherit;color:inherit}
 
 /* ===================== foreground UI (one screen, no scrolling) ===================== */
 .ui{
-  position:relative;z-index:5;height:calc(var(--vh)*100);max-width:600px;margin:0 auto;
-  display:flex;flex-direction:column;align-items:center;justify-content:space-between;
-  padding:calc(var(--vh)*1.5) 10px calc(var(--vh)*2.2);
+  position:relative;z-index:5;min-height:calc(var(--vh)*100);max-width:620px;margin:0 auto;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:calc(var(--vh)*2);
+  padding:64px 10px 44px;
 }
 .sign{
-  display:block;height:calc(var(--vh)*16.5);width:auto;max-width:calc(100vw - 92px);flex:none;
+  display:block;width:min(calc(100vw - 20px),580px);height:auto;flex:none;
   filter:drop-shadow(0 5px 0 rgba(0,20,60,.3));visibility:hidden;
 }
 body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
@@ -83,7 +84,7 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 @keyframes nb{0%{transform:translateY(0)}50%{transform:translateY(-6px)}}}
 
 /* chickens (still sprites: they only walk + kiss) */
-.stage{position:relative;width:100%;flex:none}
+.stage{position:relative;width:100%;flex:none;margin-top:calc(var(--vh)*1.5)}
 .pair{display:flex;justify-content:center;align-items:flex-end;gap:var(--gap);position:relative}
 .hen{position:relative;width:var(--hw);flex:none;transition:transform 1.4s steps(8,end)}
 .shadow{position:absolute;left:12%;right:12%;bottom:-5px;height:12px;border-radius:50%;background:rgba(70,40,10,.3);z-index:0}
@@ -143,7 +144,7 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* corner controls */
-.ctrl{position:fixed;z-index:40;top:8px;right:8px;display:flex;flex-direction:column;gap:8px}
+.ctrl{position:fixed;z-index:40;top:8px;right:8px;display:flex;flex-direction:row;gap:8px}
 .music{position:relative;width:40px;height:40px;font-size:20px;line-height:1;display:grid;place-items:center;background:#fbe7b5;border:4px solid #5a2f10;box-shadow:inset 0 0 0 2px #f3cf86,0 3px 0 #5a2f10;cursor:pointer;color:#4a2a10}
 .music[aria-pressed="false"]{opacity:.7}
 .music[aria-pressed="false"]::after{content:"";position:absolute;left:3px;right:3px;top:50%;border-top:4px solid #d9605a;transform:rotate(-38deg)}
@@ -263,6 +264,7 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
   <div class="btns"><button class="pb" id="startBtn" type="button">TAP TO OPEN 💌</button></div>
 </div>
 
+<div class="page" id="page">
 <div class="world" id="world" aria-hidden="true">
   <div class="sky" id="sky"></div>
   <div class="ml" id="m1"></div>
@@ -313,6 +315,7 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
     <button class="pb" id="no" type="button">❤️ NO</button>
   </div>
 </main>
+</div>
 
 <div class="amb" id="amb" aria-hidden="true"></div>
 
@@ -544,7 +547,12 @@ function typeReserve(p,text,cb,speed){
   set(0);
   p._t=setInterval(()=>{
     const c=ch[i++];set(i);
-    if(c!==' '&&c!=='\n'&&i%3===0)blip();
+    const now=performance.now();
+    if(c!==' '&&c!=='\n'&&now-(typeReserve._b||0)>55){typeReserve._b=now;blip()}
+    if(!userScrolled&&i%10===0){
+      const r=a.getBoundingClientRect(),sr=svin.getBoundingClientRect();
+      if(r.bottom>sr.bottom-30)svin.scrollTop+=r.bottom-sr.bottom+60;
+    }
     if(i>=ch.length){clearInterval(p._t);if(cb)cb()}
   },speed||18);
 }
@@ -678,11 +686,15 @@ Thank you for being you. I'll always keep a little spot on the farm just for you
 Mahal kita.
 
 Forever yours,
-Jeam Abby Keith Panganiban ♡`}
+Jeam Abby Keith Panganiban ♡`},
+{title:"First Mail 💌",text:"i don't know if you'll ever get to read or see this, but i really hope you do. and if you do, thank you for giving me your time to read all of this. thank you rin sa kapatid mo. don't worry, hindi ko na rin siya guguluhin.\n\ncan you finish reading everything first, by? i still have two more messages pa.\n\ni guess this is my final act of love. i have another code pa, pero hanggang unfinished business na lang muna siya. maybe someday ko na lang tapusin. i don't know when, but for now, i'll just leave it as it is.\n\nand this is probably my last chance na rin in case mabasa mo pa 'to. so anyway, i just have a few more things i want to say. i don't want to keep bothering you, but i also don't want to leave without saying everything i've been keeping to myself. feel ko sasabog na rin kasi ako if i keep all of these to myself.\n\ndon't worry, i'm not writing this to change your mind or make you reconsider anything. i know things are the way they are now, and i respect that. i just want to say these things, not because i'm expecting anything in return, but because there are still words i want you to hear from me, even if you don't believe them anymore.\n\ni hope you can read these messages hanggang dulo. that's all i'm asking. thank you, baby."},
+{title:"2nd Mail 💌",text:"from the bottom of my heart, i just want to say i'm sorry. it's all my fault, by. always has been. sinira ko lang talaga lahat ng kung anong meron tayo. i'm sorry for all the fears, for the promises i made but couldn't keep, and for letting my situation at home affect us the way it did. i'm sorry for always worrying about the future and letting my anxiety get in the way.\n\nbut by, i still wanted it. i still wanted us. i wanted to make things work despite everything that was happening around me. i really thought magpahinga muna rin tayo, but i guess hindi mo na rin talaga kaya. and i cant blame you for that.\n\ni blame myself, by, for letting my fears ruin something so beautiful. i wish i had handled things better. i wish i had reassured you more pa, understood you better, and kept the promises i made.\n\ni know you hate me now, and you can't forgive me anymore. ang sakit lang, but i understand. i'm not going to tell you how you should feel after everything that happened. you have every reason to be hurt, and i'm sorry ako yung reason kung bakit ka nasasaktan ngayon.\n\ni'm sorry, by. i really am. i know i ruined something that meant so much to me, and that's something i'll have to live with for the rest of my life."},
+{title:"3rd Mail 💌",text:"alam mo, may napanood akong movie dati. i think comet ata yun. sabi nung guy doon, “i feel like i'm in the wrong world. 'cause i don't belong in a world where we don't end up together. i don't. there are parallel universes out there where this didn't happen. where i was with you, and you were with me. and whatever universe that is, that's the one where my heart lives in.” and i felt that.\n\nsana nga may ibang universe aside from this one. i'd like to believe na somewhere out there, there's a version of us na naging okay ang lahat. na we got our timing right, na hindi natin kinailangang mawala sa isa't isa, and that we got to experience the kind of love we both deserved. i'd like to think na happy tayo doon, na we're still choosing each other, and that things worked out differently for us.\n\nmaybe in this universe, things just weren't meant to be. and as much as it hurts, i think it's time for me to accept that. i wish things had turned out differently, by. i wish i could've given you more reasons to stay, and i wish i had done some things differently when i still had the chance.\n\ni love you, by. i really do.\n\nthank you for giving me your time. thank you for listening to me, for being patient with me, and for making time for us despite everything. thank you for making me happy in ways you probably didn't even realize. thank you for the random conversations, the laughter, the chikas and mga rant natin, and all those ordinary moments that somehow became special because they were with you. i'll miss those things more than i can explain.\n\nthank you for letting me get to know you, and for allowing me to be part of your life, even just for a while. i'm grateful i got to experience what it felt like to have you around.\n\nplease take care of yourself, baby. eat on time, please. get enough rest din, and don't be too hard on yourself. i hope you'll find yourself again. i hope you find happiness and peace. you deserve that, and i genuinely hope life becomes kinder to you.\n\ni don't know if we'll ever get to talk again, or if this will really be the last time you'll hear from me. but if it is, i just want my last words to you to be thank you, not goodbye.\n\ni love you, mylove. thank you for everything. i'll always wish you well, wherever life takes you. and if there's really a parallel universe out there, i hope we find each other in that one. i hope that's the universe where we get to stay, where things finally work out, and where we don't have to say goodbye."}
 ];
 const mbx=$('#mailbox'),bubble=$('#bubble'),badge=$('#badge'),modal=$('#modal'),closeBtn=$('#close');
 const lTitle=$('#ltitle'),lBody=$('#lbody'),letterBox=$('#letter'),svin=$('#svin'),inbox=$('#inbox'),reader=$('#reader'),mlist=$('#mlist'),inhint=$('#inhint'),backBtn=$('#back'),rib=$('#rib'),skipEl=$('#skip');
-const read=new Set();let typing=0;
+const read=new Set();let typing=0,userScrolled=false;
+['wheel','touchstart','keydown'].forEach(ev=>svin.addEventListener(ev,()=>{userScrolled=true},{passive:true}));
 
 (function(){
   const BODY=sprite([
@@ -743,19 +755,21 @@ function openLetter(i){
   const texts=L.text.split('\n\n'),ps=texts.map((t,k)=>{const p=document.createElement('p');if(k===texts.length-1)p.className='sig';lBody.appendChild(p);return p});
   inbox.hidden=true;reader.hidden=false;backBtn.hidden=false;rib.textContent='LETTER '+(i+1)+' / '+LETTERS.length;
   svin.scrollTop=0;letterBox.style.animation='none';void letterBox.offsetWidth;letterBox.style.animation='';
-  skipEl.hidden=false;
+  skipEl.hidden=false;userScrolled=false;
+  const sp=L.text.length>1800?6:L.text.length>1000?10:16;
   const finish=()=>{typing++;ps.forEach((p,k)=>{clearInterval(p._t);typeReserveDone(p,texts[k])});skipEl.hidden=true};
   lBody.onclick=finish;
   let k=0;
   (function nxt(){
     if(id!==typing)return;
     if(k>=ps.length){skipEl.hidden=true;return}
-    const idx=k++;typeReserve(ps[idx],texts[idx],()=>setTimeout(nxt,140),16);
+    const idx=k++;typeReserve(ps[idx],texts[idx],()=>setTimeout(nxt,140),sp);
     ps[idx].scrollIntoView&&0;
   })();
   sRustle();updateBubble();backBtn.focus({preventScroll:true});
 }
 function typeReserveDone(p,text){p.textContent=text}
+updateBubble();
 let lastFocus=null,busy=false;
 function openMail(){
   if(busy||!modal.hidden)return;busy=true;lastFocus=document.activeElement;
