@@ -54,18 +54,24 @@ img{image-rendering:pixelated}
 body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 @keyframes signdrop{0%{transform:translateY(-140%)}58%{transform:translateY(7%)}78%{transform:translateY(-3%)}100%{transform:translateY(0)}}
 
-/* the farm: everything is positioned in % of this box so it scales together */
-.farm{position:relative;flex:none;width:min(100%,calc((var(--vh)*76 - 90px)/1.3),620px);aspect-ratio:1/1.3;container-type:inline-size}
+/* the farm: everything is positioned in % of this box so it scales together.
+   z-index of every object = its ground line (% from the top), so nearer things draw in front */
+.farm{position:relative;flex:none;width:min(100%,760px,calc((var(--vh)*100 - 112px - min(100vw - 20px,580px,var(--vh)*54)*.4436)/1.3));aspect-ratio:1/1.3;container-type:inline-size}
 .farm>*{position:absolute}
 .tree{display:block;height:auto}
 .w-only{display:none}
-#t1{left:0;top:46.8%;width:15%;z-index:3}
-#t2{left:91%;top:51.3%;width:9%;z-index:3}
-#t3{left:5%;top:2.2%;width:10%;z-index:1}
-#t4{left:29%;top:2.6%;width:7%;z-index:1}
-#t5{left:66%;top:3.1%;width:7%;z-index:1}
-#t6{left:84%;top:15.2%;width:10%;z-index:1}
-.hgrp{left:16%;top:14%;width:60%;aspect-ratio:294/309;z-index:2}
+#t1{left:0%;top:46.78%;width:15%;z-index:66}
+#t2{left:91%;top:51.29%;width:9%;z-index:66}
+#t3{left:5%;top:2.18%;width:10%;z-index:15}
+#t4{left:29%;top:2.56%;width:7%;z-index:14}
+#t5{left:66%;top:3.06%;width:7%;z-index:14}
+#t6{left:88%;top:15.18%;width:10%;z-index:28}
+#n1{left:43%;top:0.88%;width:8.5%;z-index:14}
+#n2{left:77%;top:17.44%;width:10.5%;z-index:38}
+#n3{left:1%;top:19.81%;width:10%;z-index:36}
+.fence{left:calc(50% - 50vw);width:100vw;top:26%;height:calc(var(--u)*9);z-index:34;background-repeat:repeat-x;background-size:auto 100%;image-rendering:pixelated;pointer-events:none}
+@supports (width:1cqw){.fence{height:10.5cqw;background-size:14cqw 100%}}
+.hgrp{left:16%;top:14%;width:60%;aspect-ratio:294/309;z-index:62}
 .hgrp>img{position:absolute;display:block;height:auto}
 .hgrp .house{left:0;top:0;width:100%}
 .ch{transform-origin:50% 100%;animation:idle 2.6s steps(1,end) infinite;z-index:2}
@@ -74,10 +80,10 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 @keyframes idle{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.5%)}}
 .smoke{position:absolute;left:76%;top:2%;width:3.4%;aspect-ratio:1;background:#fff;opacity:0;animation:smoke 3.6s steps(7) infinite;z-index:1}
 @keyframes smoke{0%{transform:translate(0,0) scale(.6);opacity:0}15%{opacity:.85}100%{transform:translate(60%,-800%) scale(1.7);opacity:0}}
-.yard{left:3%;top:76%;width:94%;height:23%;visibility:hidden;pointer-events:none}
+.yard{left:3%;top:76%;width:94%;height:23.5%;visibility:hidden;pointer-events:none}
 
 /* mailbox */
-.mbwrap{left:77.5%;bottom:37.5%;z-index:4;flex:none;--mb:calc(var(--u)*.6)}
+.mbwrap{left:77.5%;bottom:40.5%;z-index:63;flex:none;--mb:calc(var(--u)*.6)}
 @supports (width:1cqw){.mbwrap{--mb:calc(60cqw*.0082)}}
 .mailbox{position:relative;display:block;background:none;border:0;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .mb-art{position:relative;display:block}
@@ -98,11 +104,13 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 @keyframes nb{0%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 
 /* chickens wander in the yard below the house */
-.hen{left:0;top:0;width:15%;z-index:6;will-change:transform}
+.hen{left:0;top:0;width:15%;z-index:100;will-change:transform}
 .shadow{position:absolute;left:12%;right:12%;bottom:-4px;height:10px;border-radius:50%;background:rgba(70,40,10,.3)}
 .fl{position:relative;transform:scaleX(var(--f,1))}
 .bob{position:relative;transform-origin:50% 100%;animation:breathe 2.6s steps(1,end) infinite}
 .hen.walk .bob{animation:hop .34s steps(1,end) infinite}
+.hen.peck .bob{animation:peck .76s steps(1,end)}
+@keyframes peck{0%,100%{transform:translateY(0) rotate(0)}20%{transform:translateY(3%) rotate(16deg)}40%{transform:translateY(0) rotate(2deg)}60%{transform:translateY(3%) rotate(16deg)}80%{transform:translateY(0) rotate(2deg)}}
 .hen img{display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none}
 @keyframes breathe{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.96)}}
 @keyframes hop{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-7%) rotate(-2deg)}}
@@ -132,7 +140,7 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 .tag{position:absolute;top:-24px;left:14px;background:#8a4b1e;color:#ffe9b8;padding:2px 10px;font-size:13px;border:3px solid #5a2f10;line-height:1.4}
 .nx{position:absolute;right:10px;bottom:4px;color:#8a4b1e;animation:nx .6s steps(2) infinite;font-size:20px}
 @keyframes nx{50%{transform:translateY(3px)}}
-.q{margin:0;width:100%;line-height:1.28;display:flex;align-items:center;justify-content:center}
+.q{margin:0;width:100%;line-height:1.28;display:flex;align-items:center;justify-content:center;text-align:center}
 .btns{position:relative;z-index:3;display:flex;gap:18px;align-items:center;justify-content:center;flex:none}
 .pb{
   font-family:"Courier New",ui-monospace,monospace;font-weight:700;font-size:clamp(18px,5.4vw,26px);
@@ -156,7 +164,7 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 .start>*{position:relative;z-index:1}
 .start.out{opacity:0;pointer-events:none}
 .start .dlg{max-width:420px}
-.start .q{font-size:clamp(20px,6vw,28px)}
+.start .q{font-size:clamp(20px,6vw,28px);text-align:center;text-wrap:balance}
 
 /* ===================== Stardew-style mailbox + letters ===================== */
 .modal{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:14px;background:rgba(8,18,50,.62)}
@@ -178,10 +186,12 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
   background-image:radial-gradient(#ecc98e 1px,transparent 1.5px);background-size:9px 9px;
 }
 .inhint{margin:0 0 16px;text-align:center;font-family:'Courier New',monospace;font-weight:700;font-size:clamp(15px,4.2vw,18px);color:#6b3a1a}
-.mail{display:flex;align-items:center;gap:14px;width:100%;text-align:left;margin:0 0 14px;padding:10px 14px;background:#ffefc6;border:4px solid #5a2f10;box-shadow:inset 0 0 0 3px #f3cf86,0 5px 0 #5a2f10;cursor:pointer;font-family:'Courier New',monospace;font-weight:700;font-size:clamp(16px,4.6vw,20px);color:#4a2a10;line-height:1.25}
+.mail{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:14px;width:100%;text-align:left;margin:0 0 14px;padding:10px 14px;background:#ffefc6;border:4px solid #5a2f10;box-shadow:inset 0 0 0 3px #f3cf86,0 5px 0 #5a2f10;cursor:pointer;font-family:'Courier New',monospace;font-weight:700;font-size:clamp(16px,4.6vw,20px);color:#4a2a10;line-height:1.25}
 .mail:hover{transform:translateY(-2px)}
+.mail>.spr:first-child{justify-self:start}
+.mail .lbl{grid-column:2;display:flex;align-items:center;justify-content:center;min-width:2.2em;font-family:'Press Start 2P',monospace;font-size:clamp(26px,7vw,34px);line-height:1;color:#9b2f45;text-align:center;padding:6px 0}
 .mail.done{background:#f1d79c}
-.mail .new{margin-left:auto;flex:none;background:#d9605a;color:#fff;font-size:11px;padding:4px 7px;border:3px solid #5a2f10;animation:newblink .9s steps(1) infinite}
+.mail .new{grid-column:3;justify-self:end;background:#d9605a;color:#fff;font-size:11px;padding:4px 7px;border:3px solid #5a2f10;animation:newblink .9s steps(1) infinite}
 @keyframes newblink{50%{background:#ff8f6b}}
 #reader h2{margin:0 0 6px;text-align:center;font-family:'Press Start 2P',monospace;font-size:clamp(11px,3.3vw,14px);line-height:1.7;color:#9b2f45}
 .hr{height:calc(var(--u)*2.5);margin:0 auto 14px;width:70%;background-repeat:repeat-x;background-position:center;background-size:auto 100%;image-rendering:pixelated}
@@ -210,25 +220,30 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 @keyframes fly{0%{transform:translate(-60px,0)}25%{transform:translate(28vw,-40px)}50%{transform:translate(55vw,30px)}75%{transform:translate(82vw,-30px)}100%{transform:translate(112vw,10px)}}
 
 
-/* ===================== wide screens: iPad landscape + desktop ===================== */
+/* ===================== wide screens: iPad landscape + desktop (its own composition) ===================== */
 @media (min-width:700px) and (min-aspect-ratio:5/4){
-  .ui{max-width:1400px;padding:calc(var(--vh)*2.2) 14px calc(var(--vh)*2);gap:calc(var(--vh)*1.2)}
-  .sign{width:min(calc(100vw - 20px),calc(var(--vh)*38))}
-  .farm{width:min(100%,1320px,calc(var(--vh)*117));aspect-ratio:1/.66}
+  .ui{--fw:min(calc(100vw - 28px),1400px,calc(var(--vh)*139));max-width:none;justify-content:center;padding:calc(var(--vh)*2) 14px;gap:0}
+  .sign{position:absolute;margin:0;width:calc(var(--fw)*.3);z-index:300;left:calc(50% - var(--fw)/2 + var(--fw)*.02);top:calc(50% - var(--fw)*.345 + var(--fw)*.0104)}
+  .farm{width:var(--fw);aspect-ratio:1/.69}
   .w-only{display:block}
-  .hgrp{left:25%;top:10%;width:38%}
-  .yard{left:4%;top:79%;width:92%;height:20%}
-  .mbwrap{left:64.5%;bottom:29.5%;--mb:calc(38cqw*.0082)}
-  .hen{width:7.5%}
+#t1{left:6%;top:47.03%;width:12%;z-index:76}
+#t8{left:0%;top:45.98%;width:6.5%;z-index:66}
+#t3{left:18.5%;top:23.51%;width:6%;z-index:38}
+#t4{left:8.5%;top:22.14%;width:4.5%;z-index:36}
+#n2{left:1%;top:21.35%;width:6.5%;z-index:43}
+#n1{left:19%;top:46.30%;width:10.5%;z-index:78}
+#t5{left:74.5%;top:20.60%;width:5%;z-index:36}
+#t6{left:83%;top:23.51%;width:6%;z-index:38}
+#n3{left:91%;top:20.08%;width:8.5%;z-index:46}
+#t2{left:82%;top:42.28%;width:9%;z-index:70}
+#t7{left:91.5%;top:52.68%;width:8%;z-index:72}
+  .fence{top:34%;height:calc(var(--u)*7);z-index:41}
+  @supports (width:1cqw){.fence{height:4.875cqw;background-size:6.5cqw 100%}}
+  .hgrp{left:31.5%;top:10%;width:40%}
+  .yard{left:4%;top:79%;width:92%;height:20.5%}
+  .mbwrap{left:72.7%;bottom:32.9%;--mb:calc(40cqw*.0082)}
+  .hen{width:8.5%}
   .shadow{height:calc(var(--vh)*1.1);bottom:calc(var(--vh)*-.5)}
-  #t1{left:8%;top:43.7%;width:12%}
-  #t2{left:74%;top:45%;width:9%}
-  #t3{left:17%;top:16.8%;width:6%}
-  #t4{left:9%;top:13.5%;width:4.5%}
-  #t5{left:66%;top:13.9%;width:5%}
-  #t6{left:80%;top:18.8%;width:6%}
-  #t7{left:85%;top:44.8%;width:10%;z-index:3}
-  #t8{left:.5%;top:45.1%;width:6.5%;z-index:3}
   .say-in{font-size:clamp(20px,2.3vw,30px);padding:4px 12px 5px}
   .mailnote{width:60px;height:45px;margin-left:-30px}
   .mailnote .spr{transform:scale(1.25);transform-origin:50% 100%}
@@ -237,11 +252,25 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
   #lbody p{font-size:clamp(24px,2.7vw,34px)}
   #reader h2{font-size:clamp(13px,1.5vw,18px)}
   .mail{font-size:clamp(18px,2vw,24px);padding:14px 18px}
+  .mail .lbl{font-size:clamp(34px,3.6vw,46px)}
+  .mail .lbl .spr{transform:scale(1.25)}
   .svok{width:68px;height:68px}
   .svb{font-size:13px;padding:14px 16px}
   .start .dlg{max-width:620px}
-  .start .q{font-size:clamp(26px,3vw,38px)}
-  .pb{font-size:28px;padding:16px 30px}
+  .start .q{font-size:clamp(22px,min(3vw,7vh),38px)}
+  .pb{font-size:clamp(20px,min(2.6vw,6vh),28px);padding:16px 30px}
+}
+/* very short landscape screens (phones turned sideways) */
+@media (orientation:landscape) and (max-height:520px){
+  .sv{max-height:94vh;padding:8px}
+  .sv-in{padding:14px 14px 8px}
+  #lbody p{font-size:20px}
+  .mail{padding:6px 12px;margin-bottom:10px}
+  .svok{width:46px;height:46px;font-size:26px}
+  .music{width:36px;height:36px;font-size:18px}
+  .start{gap:14px}
+  .start .dlg{padding:12px 16px}
+  .pb{padding:10px 20px}
 }
 
 @media (prefers-reduced-motion:reduce){
@@ -294,7 +323,7 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 <div class="start" id="start" role="dialog" aria-label="Start">
   <section class="dlg">
     <span class="tag">Psst...</span>
-    <p class="q">Someone made a little farm just for you.</p>
+    <p class="q">Some idiot made a little farm just for you.</p>
     <span class="nx" aria-hidden="true">▼</span>
   </section>
   <div class="btns"><button class="pb" id="startBtn" type="button">TAP TO OPEN 💌</button></div>
@@ -323,6 +352,10 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
     <img class="tree" id="t6" src="assets/tree-peach.png" alt="" width="512" height="853">
     <img class="tree w-only" id="t7" src="assets/tree-peach.png" alt="" width="512" height="853">
     <img class="tree w-only" id="t8" src="assets/tree-teal.png" alt="" width="192" height="408">
+    <img class="tree" id="n1" src="assets/tree-green.png" alt="" width="96" height="200">
+    <img class="tree" id="n2" src="assets/tree-blue.png" alt="" width="94" height="216">
+    <img class="tree" id="n3" src="assets/tree-pine.png" alt="" width="96" height="202">
+    <div class="fence" id="fence" aria-hidden="true"></div>
     <div class="yard" id="yard" aria-hidden="true"></div>
 
     <div class="hgrp" id="hgrp">
@@ -406,7 +439,9 @@ const FLOWER=['.p.p.','ppypp','.ppp.','..g..','.gg..','..g..'];
 const FL=[
   sprite(FLOWER,{p:'#ff8fb1',y:'#ffe066'}),sprite(FLOWER,{p:'#fffaf0',y:'#f08a3c'}),
   sprite(FLOWER,{p:'#9bb8ff',y:'#ffe066'}),sprite(FLOWER,{p:'#ffe066',y:'#f08a3c'}),sprite(FLOWER,{p:'#ffb3d1',y:'#fff6dd'}),sprite(FLOWER,{p:'#c79bff',y:'#ffe066'})];
-const BUSH=sprite(['................','...kkkk....kkk..','..kghhgk..kghgk.','.kghhhhgkkghhhgk','kghhhhhhgghhhhgk','kgghhhhhhhhhhggk','kGgghhhhhhhhggGk','kkGgggggggggGGkk','..kkkkkkkkkkkk..']);
+const LHEART=sprite(['..kk.kk..','.kppkppk.','kpwpppppk','kppppppPk','kppppppPk','.kppppPk.','..kppPk..','...kPk...','....k....']);
+const TUFT=sprite(['..h.h...','.hgGgh..','hgGGGgh.','.GGGGG..'],{h:'#8fd860',g:'#5fa92f',G:'#47862a'});
+const PEBBLE=sprite(['.ssS.','sssSS','.SSS.'],{s:'#c9c2b2',S:'#8f897c'});
 const CLOUD=sprite(['.......wwww.........','.....wwwwwwww..ww...','..wwwwwwwwwwwwwwww..','.wwwwwwwwwwwwwwwwww.','wwwwwwwwwwwwwwwwwwww','.ssssssssssssssssss.'],{w:'#ffffff',s:'#c9defa'});
 const BF_O=['Pp.k.pP','pppkppp','.ppkpp.','.pp.pp.'],BF_C=['...k...','..pkp..','..pkp..','...k...'];
 const PETAL=sprite(['pp.','.pp'],{p:'#ffb3d1'});
@@ -482,20 +517,22 @@ function mtnLayer(W,H,peaks,slope,minH,c){
   di.style.backgroundImage=dt.url;di.style.backgroundSize='calc(var(--u)*16) calc(var(--u)*16)';di.style.setProperty('--edge',de.url);
 
   const put=(n,css)=>{Object.assign(n.style,css);decor.appendChild(n);return n};
-  const fence=fenceTile(),fn=document.createElement('div');
-  put(fn,{position:'absolute',left:'0',width:'34%',top:'calc(var(--vh)*44)',height:'calc(var(--u)*12)',
-    backgroundImage:fence.url,backgroundRepeat:'repeat-x',backgroundSize:'calc(var(--u)*16) 100%',imageRendering:'pixelated'});
-  put(el(BUSH,'calc(var(--u)*1.6)'),{left:'30vw',top:'calc(var(--vh)*48)'});
-  put(el(BUSH,'calc(var(--u)*1.4)'),{right:'-2vw',top:'calc(var(--vh)*55)'});
-  const r2=rng(21),n=small?64:90;
+  $('#fence').style.backgroundImage=fenceTile().url;
+  const r2=rng(21),n=small?64:100,fp=small?3:'calc(var(--u)*1.2)';
   for(let i=0;i<n;i++){
-    const f=el(FL[Math.floor(r2()*FL.length)],small?3:4);
+    const f=el(FL[Math.floor(r2()*FL.length)],fp);
     f.style.left=(1+r2()*96)+'%';f.style.top=`calc(var(--vh)*${40+r2()*17})`;decor.appendChild(f);
   }
   for(let i=0;i<14;i++){
-    const f=el(FL[Math.floor(r2()*FL.length)],small?3:4);
+    const f=el(FL[Math.floor(r2()*FL.length)],fp);
     const left=r2()<.5?r2()*5:93+r2()*5;
     f.style.left=left+'%';f.style.top=`calc(var(--vh)*${60+r2()*36})`;decor.appendChild(f);
+  }
+  for(let i=0;i<(small?22:36);i++){
+    const t=el(TUFT,small?3:'calc(var(--u)*1.1)');t.style.left=(r2()*98)+'%';t.style.top=`calc(var(--vh)*${39+r2()*17})`;decor.appendChild(t);
+  }
+  for(let i=0;i<(small?7:11);i++){
+    const t=el(PEBBLE,small?3:'calc(var(--u)*1)');t.style.left=(r2()*98)+'%';t.style.top=`calc(var(--vh)*${60+r2()*34})`;decor.appendChild(t);
   }
 })();
 
@@ -554,32 +591,39 @@ function typeReserve(p,text,cb,speed){
 /* ---------- chickens: each has its own side of the yard, never cross or overlap ---------- */
 const farm=$('#farm'),yard=$('#yard'),henB=$('#henB'),henC=$('#henC'),sayB=$('#sayB'),sayC=$('#sayC');
 const HEN_IMG_FACES_RIGHT=true; /* the chicken art faces right; set to false if yours faces left */
-const hens=[henB,henC].map((node,i)=>({node,say:i?sayC:sayB,x:0,y:0,tx:0,ty:0,state:'idle',wait:.8+i*1.5,dir:i?-1:1,v:0,top:0,meet:false}));
-let FW=0,FH=0,HW=0,GAP=0,Q=2,minX=0,maxX=0,minY=0,maxY=0,meetAt=8;
+const hens=[henB,henC].map((node,i)=>({node,fl:node.querySelector('.fl'),say:i?sayC:sayB,x:0,y:0,tx:0,ty:0,maxY:0,state:'idle',wait:1+i*1.7,dir:i?-1:1,v:0,top:0,meet:false,peck:1.5+i*1.3}));
+sayB.firstElementChild.textContent='I miss you.';sayC.firstElementChild.textContent='I love you.';
+let FW=0,FH=0,HW=0,GAP=0,Q=2,minX=0,maxX=0,minY=0,meetAt=9;
 function bounds(){
-  FW=farm.clientWidth;FH=farm.clientHeight;HW=henB.offsetWidth;GAP=HW*1.12;Q=Math.max(2,Math.round(FW/300));
-  const bw=Math.max(sayB.offsetWidth,sayC.offsetWidth,HW*2.6),side=Math.round(bw/2-HW/2)+2;
+  FW=farm.clientWidth;FH=farm.clientHeight;HW=henB.offsetWidth||FW*.15;GAP=HW*1.35;Q=Math.max(2,Math.round(FW/300));
+  const bw=Math.max(sayB.offsetWidth,sayC.offsetWidth,HW*2),side=Math.round(bw/2-HW/2)+2;
   const yl=yard.offsetLeft,yt=yard.offsetTop,yw=yard.offsetWidth,yh=yard.offsetHeight;
   minX=Math.max(yl,side);maxX=Math.max(minX+GAP*2.4,Math.min(yl+yw-HW,FW-side-HW));
-  minY=yt;maxY=Math.max(minY,yt+yh-HW);
+  minY=yt;hens.forEach(h=>{h.maxY=Math.max(minY,yt+yh-(h.node.offsetHeight||HW))});
 }
 const rnd=(a,b)=>a+Math.random()*(b-a);
 const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
-/* the brown hen always stays left of the cream hen, with a gap between them */
-function limits(i){const o=hens[1-i];return i===0?[minX,Math.min(maxX,o.x-GAP)]:[Math.max(minX,o.x+GAP),maxX]}
+/* the brown hen always stays left of the cream hen, with a clear gap between them */
+function limits(i){const o=hens[1-i];const r=i===0?[minX,Math.min(maxX,o.x-GAP)]:[Math.max(minX,o.x+GAP),maxX];r[1]=Math.max(r[0],r[1]);return r}
 function place(h){
   const px=Math.round(h.x/Q)*Q,py=Math.round(h.y/Q)*Q;
   h.node.style.transform=`translate(${px}px,${py}px)`;
-  h.node.style.zIndex=6+Math.floor(py/4);
-  h.node.querySelector('.fl').style.setProperty('--f',(h.dir>0)===HEN_IMG_FACES_RIGHT?1:-1);
+  h.node.style.zIndex=100+Math.floor(py/4);
+  h.fl.style.setProperty('--f',(h.dir>0)===HEN_IMG_FACES_RIGHT?1:-1);
 }
-function zoneTarget(i){const mid=(minX+maxX)/2;return i===0?rnd(minX,mid-GAP*.55):rnd(mid+GAP*.55,maxX)}
+function zone(i){const mid=(minX+maxX)/2;return i===0?[minX,mid-GAP*.55]:[mid+GAP*.55,maxX]}
+function shortWalk(h,i){
+  const [zl,zh]=zone(i),hh=h.node.offsetHeight||HW;
+  let tx=clamp(h.x+rnd(-3,3)*HW,zl,zh);
+  if(Math.abs(tx-h.x)<HW*.8)tx=clamp(h.x+(Math.random()<.5?-1:1)*HW*rnd(1,2.2),zl,zh);
+  h.tx=tx;h.ty=clamp(h.y+rnd(-.9,.9)*hh,minY,h.maxY);
+}
 function startMeet(now){
   meetAt=now+rnd(14,22);
-  const mid=(minX+maxX)/2,y=rnd(minY,maxY);
+  const mid=(minX+maxX)/2,y=rnd(minY,Math.min(hens[0].maxY,hens[1].maxY));
   hens.forEach((h,i)=>{
-    h.tx=mid+(i?1:-1)*GAP*.56-(i?0:0);h.ty=clamp(y+(i?rnd(-5,5):0),minY,maxY);
-    h.meet=true;h.state='walk';h.top=HW*rnd(.3,.42);h.node.classList.add('walk');
+    h.tx=mid+(i?1:-1)*GAP*.56;h.ty=clamp(y+(i?rnd(-5,5):0),minY,h.maxY);
+    h.meet=true;h.state='walk';h.top=HW*rnd(.3,.4);h.node.classList.add('walk');
   });
 }
 let last=0,running=false;
@@ -590,42 +634,50 @@ function frame(ts){
   if(document.hidden)return;
   if(now>meetAt&&hens.every(h=>!h.meet))startMeet(now);
   hens.forEach((h,i)=>{
-    const o=hens[1-i];let [lo,hi]=limits(i);hi=Math.max(lo,hi);
+    const o=hens[1-i];let [lo,hi]=limits(i);
     if(h.state==='idle'){
-      h.wait-=dt;h.v=0;
+      h.wait-=dt;h.v=0;h.peck-=dt;
+      if(h.peck<=0&&h.wait>.9){h.peck=rnd(1.8,4);h.node.classList.add('peck');setTimeout(()=>h.node.classList.remove('peck'),780)}
       if(h.wait<=0){
-        if(!h.meet){h.tx=zoneTarget(i);h.ty=rnd(minY,maxY)}
-        h.state='walk';h.top=HW*rnd(.3,.46);h.node.classList.add('walk');
+        if(!h.meet)shortWalk(h,i);
+        h.state='walk';h.top=HW*rnd(.28,.4);h.node.classList.add('walk');h.node.classList.remove('peck');
       }
     }else{
       h.tx=clamp(h.tx,lo,hi);
       const dx=h.tx-h.x,dy=h.ty-h.y,d=Math.hypot(dx,dy);
       if(d<2){
-        const was=h.meet;h.meet=false;h.state='idle';h.wait=was?rnd(4,6):rnd(1.4,3.8);h.node.classList.remove('walk');
+        const was=h.meet;h.meet=false;h.state='idle';h.wait=was?rnd(4,6):rnd(1.8,4.2);h.node.classList.remove('walk');
         if(was)h.dir=o.x>h.x?1:-1;   /* face your partner */
       }else{
-        h.v+=(h.top-h.v)*Math.min(1,dt*5);                 /* ease in */
-        const sp=Math.min(h.v,d*3+6),st=Math.min(d,sp*dt);   /* ease out near the target */
+        h.v+=(h.top-h.v)*Math.min(1,dt*5);
+        const sp=Math.min(h.v,d*3+6),st=Math.min(d,sp*dt);
         h.x+=dx/d*st;h.y+=dy/d*st;
-        if(Math.abs(dx)>1.5)h.dir=dx>0?1:-1;               /* always face where you are going */
+        if(Math.abs(dx)>1.5)h.dir=dx>0?1:-1;   /* always face where you are going */
       }
     }
-    [lo,hi]=limits(i);hi=Math.max(lo,hi);
-    h.x=clamp(h.x,lo,hi);h.y=clamp(h.y,minY,maxY);place(h);
+    [lo,hi]=limits(i);
+    h.x=clamp(h.x,lo,hi);h.y=clamp(h.y,minY,h.maxY);place(h);
   });
-  /* when they stand side by side only one bubble shows, so words never overlap */
-  hens[1].say.classList.toggle('hush',Math.abs(hens[0].x-hens[1].x)<Math.max(sayB.offsetWidth,sayC.offsetWidth,HW*2.6)*.9);
+  hens[1].say.classList.toggle('hush',Math.abs(hens[0].x-hens[1].x)<Math.max(sayB.offsetWidth,sayC.offsetWidth,HW*2)*.9);
 }
-function startHens(){
+function spawn(){   /* both hens start standing in the yard, each on her own side */
   bounds();
-  hens[0].x=minX+(maxX-minX)*.22;hens[0].y=minY+(maxY-minY)*.3;
-  hens[1].x=minX+(maxX-minX)*.72;hens[1].y=minY+(maxY-minY)*.75;
-  hens[1].dir=-1;
+  const [l0,h0]=zone(0),[l1,h1]=zone(1);
+  hens[0].x=l0+(h0-l0)*.35;hens[1].x=l1+(h1-l1)*.65;
+  hens[0].y=minY+(hens[0].maxY-minY)*.35;hens[1].y=minY+(hens[1].maxY-minY)*.7;
+  hens[0].dir=1;hens[1].dir=-1;
   hens.forEach(place);
-  if(reduce)return;
+}
+function refit(){bounds();hens.forEach((h,i)=>{const [lo,hi]=limits(i);h.x=clamp(h.x,lo,hi);h.y=clamp(h.y,minY,h.maxY);place(h)})}
+function startHens(){
+  spawn();
+  if(reduce||running)return;
   running=true;requestAnimationFrame(frame);
 }
-addEventListener('resize',()=>{bounds();hens.forEach((h,i)=>{let [lo,hi]=limits(i);hi=Math.max(lo,hi);h.x=clamp(h.x,lo,hi);h.y=clamp(h.y,minY,maxY);place(h)})});
+addEventListener('resize',refit);addEventListener('load',refit);
+if(window.ResizeObserver){const ro=new ResizeObserver(refit);ro.observe(farm);ro.observe(henB);ro.observe(henC)}
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(refit);
+spawn();   /* right away, so nothing is ever drawn at the wrong spot */
 
 /* little floating messages: "I miss you." / "I love you." */
 const LINES=['I miss you.','I love you.'];
@@ -696,7 +748,9 @@ function renderInbox(){
     const done=read.has(i),b=document.createElement('button');
     b.type='button';b.className='mail'+(done?' done':'');
     b.appendChild(el(done?ENVO:ENV,4));
-    const t=document.createElement('span');t.textContent=done?L.title:'Mail '+(i+1);b.appendChild(t);
+    const t=document.createElement('span');t.className='lbl';
+    if(i===1)t.appendChild(el(LHEART,4));else t.textContent=['I','','ü'][i];
+    b.appendChild(t);b.setAttribute('aria-label','Mail '+(i+1)+(done?' (read)':' (new)'));
     if(!done){const n=document.createElement('span');n.className='new';n.textContent='NEW!';b.appendChild(n)}
     b.addEventListener('click',()=>{sClick();openLetter(i)});
     mlist.appendChild(b);
@@ -822,10 +876,9 @@ $('#startBtn').addEventListener('click',()=>{
   unlock();sClick();setMusic(true);
   document.body.classList.add('go');
   const st=$('#start');st.classList.add('out');setTimeout(()=>st.remove(),650);
-  setTimeout(()=>{startHens();cycleSay();setInterval(cycleSay,5200)},reduce?0:900);
+  startHens();
+  setTimeout(()=>{cycleSay();setInterval(cycleSay,5200)},reduce?0:900);
 });
-/* chickens are placed even before the start screen closes, so layout is ready */
-bounds();
 })();
 </script>
 </body>
