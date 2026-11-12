@@ -25,16 +25,17 @@ body{
 }
 .spr{display:inline-block;background-size:100% 100%;background-repeat:no-repeat;image-rendering:pixelated;flex:none}
 button{font:inherit;color:inherit}
+[hidden]{display:none!important}
 
 /* ---------- sky + header ---------- */
 .top{
   position:relative; z-index:1; overflow:hidden;
   --sun:clamp(120px,28vw,210px);
-  padding:clamp(26px,6vw,46px) 12px calc(var(--sun)*.7 + 26px);
+  padding:clamp(26px,6vw,46px) 12px calc(var(--sun)*.7 + 56px);
   background:linear-gradient(#6c4a9e 0%,#c9648f 38%,#ff9a6b 72%,#ffd27a 100%);
   display:flex; justify-content:center;
 }
-.sun{position:absolute;z-index:0;left:50%;bottom:calc(var(--sun)/-3 + 10px);width:var(--sun);aspect-ratio:1;margin-left:calc(var(--sun)/-2);background:#fff1a8;border-radius:50%;box-shadow:0 0 0 12px #ffe08a88,0 0 0 28px #ffc46a55,0 0 80px 40px #ffb36b66;animation:sunbob 6s steps(6) infinite alternate}
+.sun{position:absolute;z-index:0;left:50%;bottom:calc(var(--sun)/-3 + 44px);width:var(--sun);aspect-ratio:1;margin-left:calc(var(--sun)/-2);background:#fff1a8;border-radius:50%;box-shadow:0 0 0 12px #ffe08a88,0 0 0 28px #ffc46a55,0 0 80px 40px #ffb36b66;animation:sunbob 6s steps(6) infinite alternate}
 @keyframes sunbob{to{transform:translateY(6px)}}
 .cloud{position:absolute;opacity:.9;animation:drift linear infinite}
 @keyframes drift{from{transform:translateX(-30vw)}to{transform:translateX(130vw)}}
@@ -112,7 +113,7 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
   position:relative;z-index:3;width:min(92vw,520px);margin:30px auto 0;
   background:#fbe7b5;border:5px solid #8a4b1e;outline:4px solid #5a2f10;border-radius:6px;
   box-shadow:inset 0 0 0 4px #f3cf86,0 8px 0 #5a2f10;
-  padding:18px 22px 20px;min-height:104px;
+  padding:20px 24px 24px;min-height:132px;
   font-family:"Courier New",ui-monospace,monospace;font-weight:700;color:#4a2a10;
   font-size:clamp(15px,4.2vw,20px);line-height:1.45;text-align:center;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -120,7 +121,7 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 .tag{position:absolute;top:-24px;left:14px;background:#8a4b1e;color:#ffe9b8;padding:2px 10px;font-size:13px;border:3px solid #5a2f10;line-height:1.4}
 .nx{position:absolute;right:10px;bottom:4px;color:#8a4b1e;animation:nx .6s steps(2) infinite}
 @keyframes nx{50%{transform:translateY(3px)}}
-.q{margin:0;font-size:clamp(17px,5vw,22px)}
+.q{margin:0;font-size:clamp(17px,5vw,22px);line-height:1.5;min-height:3em;display:flex;align-items:center;justify-content:center}
 .msg{margin:6px 0 0;min-height:2.9em;display:flex;align-items:center;justify-content:center}
 .btns{position:relative;z-index:3;display:flex;gap:18px;margin-top:26px;align-items:center;justify-content:center;flex-wrap:wrap}
 .pb{
@@ -135,8 +136,14 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* ---------- mailbox ---------- */
-.yard{position:relative;z-index:3;margin-top:clamp(64px,14vw,90px);display:flex;justify-content:center;width:100%}
-.mbwrap{position:relative;padding-top:78px}
+
+.yard{position:relative;z-index:3;margin-top:clamp(56px,12vw,80px);display:flex;justify-content:center;width:100%}
+.scene{position:relative;width:min(92vw,360px);padding-top:84px;display:flex;justify-content:space-between;align-items:flex-end}
+.cabin{position:relative;flex:none}
+.cabin .spr{display:block}
+.smoke{position:absolute;width:8px;height:8px;background:#fff;opacity:0;animation:smoke 3.4s steps(7) infinite}
+@keyframes smoke{0%{transform:translate(0,0) scale(.6);opacity:0}15%{opacity:.85}100%{transform:translate(12px,-52px) scale(1.7);opacity:0}}
+.mbwrap{position:relative;flex:none}
 .mailbox{position:relative;display:block;background:none;border:0;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .mb-art{position:relative;display:block}
 .mb-art>.spr{position:absolute}
@@ -150,14 +157,14 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 .mailbox:not(.open):hover .mb-art{animation:wiggle .5s steps(1,end) 2}
 @keyframes wiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-2deg)}75%{transform:rotate(2deg)}}
 .bubble{
-  position:absolute;left:50%;top:0;transform:translateX(-50%);
-  white-space:nowrap;background:var(--parch);border:4px solid var(--wood-dd);box-shadow:0 0 0 3px var(--wood);
+  position:absolute;right:0;top:0;white-space:nowrap;background:var(--parch);border:4px solid var(--wood-dd);box-shadow:0 0 0 3px var(--wood);
   padding:7px 12px 8px;font-size:clamp(22px,5.6vw,26px);line-height:1;z-index:4;cursor:pointer;
-  animation:bubble 1.1s steps(1,end) infinite;
+  animation:bubble 1.1s steps(1,end) infinite;font-family:'VT323','Courier New',monospace;color:var(--ink)
 }
-.bubble::after{content:"";position:absolute;left:50%;bottom:-17px;margin-left:-8px;border:8px solid transparent;border-top:9px solid var(--wood-dd)}
-.bubble::before{content:"";position:absolute;left:50%;bottom:-11px;margin-left:-5px;border:5px solid transparent;border-top:6px solid var(--parch);z-index:1}
-@keyframes bubble{0%{transform:translate(-50%,0)}50%{transform:translate(-50%,-6px)}}
+
+.bubble::after{content:"";position:absolute;right:var(--tail,32px);bottom:-17px;border:8px solid transparent;border-top:9px solid var(--wood-dd)}
+.bubble::before{content:"";position:absolute;right:calc(var(--tail,32px) + 3px);bottom:-11px;border:5px solid transparent;border-top:6px solid var(--parch);z-index:1}
+@keyframes bubble{0%{transform:translateY(0)}50%{transform:translateY(-6px)}}}
 .bubble[hidden]{display:none}
 
 /* ---------- letter modal ---------- */
@@ -212,11 +219,19 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 .start.out{opacity:0;pointer-events:none}
 .start .dlg{margin:0}
 .start .btns{margin-top:26px}
-.lfoot{position:sticky;bottom:-22px;margin:0 -22px -22px;padding:12px 22px 22px;background:var(--parch);border-top:4px solid var(--wood-d)}
+.lfoot{position:sticky;bottom:-22px;margin:18px -22px -22px;padding:12px 22px 22px;background:var(--parch);border-top:4px solid var(--wood-d);display:flex;justify-content:space-between;align-items:center;gap:10px}
 .pager{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 14px}
 .pager span{font-family:'Press Start 2P',monospace;font-size:11px;color:#8b3550}
 .nav{font-family:'Press Start 2P',monospace;font-size:11px;padding:10px 10px;background:#f4b855;color:#4a2a12;border:4px solid var(--wood-dd);cursor:pointer;box-shadow:inset 0 3px 0 rgba(255,255,255,.4),inset 0 -3px 0 rgba(0,0,0,.18),0 4px 0 var(--wood-dd)}
 .nav:disabled{opacity:.35;cursor:default}
+.lfoot .close{margin:0 0 0 auto}
+.letter .inhint{font-family:'Courier New',monospace;font-weight:700;font-size:clamp(14px,4vw,17px);line-height:24px;text-align:center;margin:0 0 20px;color:#6b3a1a}
+.mail{display:flex;align-items:center;gap:14px;width:100%;text-align:left;margin:0 0 16px;padding:12px 14px;background:#fff3cf;border:4px solid var(--wood-dd);box-shadow:inset 0 0 0 3px #f3cf86,0 5px 0 var(--wood-dd);cursor:pointer;font-family:'Courier New',monospace;font-weight:700;font-size:clamp(15px,4.4vw,19px);color:var(--ink);line-height:1.25}
+.mail:hover{transform:translateY(-2px)}
+.mail:focus-visible{outline:4px solid #fff;outline-offset:3px;box-shadow:0 0 0 7px #3d2b8a}
+.mail.done{background:#f3e2b0}
+.mail .new{margin-left:auto;flex:none;background:#d9605a;color:#fff;font-size:11px;padding:4px 7px;border:3px solid #5a2f10;animation:newblink .9s steps(1) infinite}
+@keyframes newblink{50%{background:#ff8f6b}}
 .nav:focus-visible{outline:4px solid #fff;outline-offset:3px;box-shadow:0 0 0 7px #3d2b8a}
 
 @media (prefers-reduced-motion:reduce){
@@ -270,9 +285,7 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 
     <section class="dlg" id="box" aria-label="Do you miss me?">
       <span class="tag">Someone special</span>
-      <p class="q" id="q" aria-hidden="true">Do you miss me?</p>
-      <p class="msg" id="msg" aria-hidden="true"></p>
-      <p class="sr" id="msgSr" aria-live="polite"></p>
+      <p class="q" id="q" aria-live="polite">Do you miss me?</p>
       <span class="nx" aria-hidden="true">▼</span>
     </section>
     <div class="btns">
@@ -280,10 +293,13 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
       <button class="pb" id="no" type="button">❤️ NO</button>
     </div>
 
-    <section class="yard" aria-label="Mailbox">
-      <div class="mbwrap" id="mbwrap">
+    <section class="yard" aria-label="Cabin and mailbox">
+      <div class="scene" id="scene">
         <button class="bubble" id="bubble" type="button" tabindex="-1" aria-hidden="true">You have 3 messages! 💌</button>
-        <button class="mailbox" id="mailbox" type="button" aria-label="You have 3 messages! Open the mailbox"></button>
+        <div class="cabin" id="cabin" aria-hidden="true"></div>
+        <div class="mbwrap" id="mbwrap">
+          <button class="mailbox" id="mailbox" type="button" aria-label="You have 3 messages! Open the mailbox"></button>
+        </div>
       </div>
     </section>
 
@@ -293,15 +309,18 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 <div class="amb" id="amb" aria-hidden="true"></div>
 
 <div class="modal" id="modal" hidden>
-  <div class="letter" role="dialog" aria-modal="true" aria-labelledby="ltitle" id="letter">
-    <h2 id="ltitle"></h2>
-    <div id="lbody"></div>
+  <div class="letter" role="dialog" aria-modal="true" aria-label="Mailbox" id="letter">
+    <div id="inbox">
+      <h2>Your Mailbox 📬</h2>
+      <p class="inhint" id="inhint">Tap each mail to open it 💌</p>
+      <div id="mlist"></div>
+    </div>
+    <div id="reader" hidden>
+      <h2 id="ltitle"></h2>
+      <div id="lbody"></div>
+    </div>
     <div class="lfoot">
-      <div class="pager">
-        <button class="nav" id="prev" type="button">◀ PREV</button>
-        <span id="pcount">1 / 3</span>
-        <button class="nav" id="next" type="button">NEXT ▶</button>
-      </div>
+      <button class="nav" id="back" type="button" hidden>◀ BACK</button>
       <button class="close" id="close" type="button">CLOSE</button>
     </div>
   </div>
@@ -351,10 +370,35 @@ const meadow=$('#meadow'),decor=$('#decor');
   for(let i=0;i<7;i++){const x=Math.floor(R()*15),y=Math.floor(R()*15);a[y][x]='L'}
   const tile=sprite(a.map(r=>r.join('')),{h:'#86cc5b',g:'#6db849',L:'#9adf72'});
   meadow.style.backgroundImage=tile.url;
-  const bpx=small?4:5;
-  meadow.style.setProperty('--bushh',BUSH.h*bpx+'px');
+  const bpx=small?4:5,MW=96,MH=16;
+  function mountains(){
+    const g=Array.from({length:MH},()=>Array(MW).fill('.'));
+    const layers=[
+      {peaks:[[10,15],[38,13],[70,14]],f:'m',d:'M',snow:true,slope:.85},
+      {peaks:[[24,8],[56,10],[86,9]],f:'n',d:'N',snow:false,slope:1}
+    ];
+    layers.forEach(L=>{
+      for(let x=0;x<MW;x++){
+        let best=2,side=0,pk=0;
+        L.peaks.forEach(([px,h])=>{
+          let dx=x-px;if(dx>MW/2)dx-=MW;if(dx<-MW/2)dx+=MW;
+          const v=Math.floor(h-Math.abs(dx)*L.slope);
+          if(v>best){best=v;side=dx;pk=h}
+        });
+        const top=MH-best;
+        for(let y=top;y<MH;y++){
+          let c=side>0?L.d:L.f;
+          if(L.snow&&best>pk-4&&y<top+3)c='w';
+          g[y][x]=c;
+        }
+      }
+    });
+    return sprite(g.map(r=>r.join('')),{m:'#a77fc4',M:'#8a62ab',n:'#6f4f9e',N:'#583d84',w:'#ffe9f1'});
+  }
+  const MTN=mountains();
+  meadow.style.setProperty('--bushh',MH*bpx+'px');
   const st=document.createElement('style');
-  st.textContent=`.meadow::before{background-image:${BUSH.url}}`;
+  st.textContent=`.meadow::before{background-image:${MTN.url};background-size:${MW*bpx}px ${MH*bpx}px}`;
   document.head.appendChild(st);
   // trees
   const tpx=small?5:8;
@@ -363,7 +407,7 @@ const meadow=$('#meadow'),decor=$('#decor');
   const t3=el(TREE,tpx);t3.style.right=-tpx*6+'px';t3.style.top='56%';decor.appendChild(t3);
   const t4=el(TREE,tpx);t4.style.left=-tpx*5+'px';t4.style.top='62%';decor.appendChild(t4);
   // flowers
-  const r2=rng(21),n=small?26:38;
+  const r2=rng(21),n=small?80:130;
   for(let i=0;i<n;i++){
     const f=el(FL[Math.floor(r2()*FL.length)],small?3:4);
     f.style.left=(2+r2()*94)+'%';f.style.top=(2+r2()*95)+'%';decor.appendChild(f);
@@ -412,7 +456,7 @@ const sCreak=SFX(t=>{tone(160,t,.4,'sawtooth',.05,300);tone(1175,t+.45,.2,'sine'
 const sRustle=SFX(t=>{noise(t,.18,.18,3000);noise(t+.12,.12,.12,5000)});
 
 /* ---------- chickens: moods ---------- */
-const stage=$('#stage'),fx=$('#fx'),msg=$('#msg'),msgSr=$('#msgSr'),henB=$('#henB'),henC=$('#henC');
+const stage=$('#stage'),fx=$('#fx'),qEl=$('#q'),henB=$('#henB'),henC=$('#henC');
 (function(){
   const rc=$('#raincloud');rc.appendChild(el(GCLOUD,5));rc.firstChild.style.width='100%';rc.firstChild.style.height='auto';rc.firstChild.style.aspectRatio='20/6';
   [18,40,62,80].forEach((l,i)=>{const d=document.createElement('i');d.className='rain';d.style.left=l+'%';d.style.animationDelay=(-i*.22)+'s';rc.appendChild(d)});
@@ -430,7 +474,7 @@ function typeText(node,text,cb){
     if(i>=ch.length){clearInterval(node._t);if(cb)cb()}
   },34);
 }
-function say(t){msgSr.textContent=t;typeText(msg,t)}
+function say(t){typeText(qEl,t)}
 function reset(){
   stage.classList.remove('love','kiss','sad');
   clearTimeout(kissT);clearInterval(loveT);fx.innerHTML='';
@@ -471,6 +515,50 @@ $('#no').addEventListener('click',()=>{
   reset();sClick();stage.classList.add('sad');sSad();
   say('Halaaa! Sure ka? Try again, please. 🥺');
 });
+
+/* ---------- cabin ---------- */
+function cabinSprite(){
+  const W=32,H=28,g=Array.from({length:H},()=>Array(W).fill('.'));
+  const px=(x,y,c)=>{if(x>=0&&x<W&&y>=0&&y<H)g[y][x]=c};
+  const rect=(x,y,w,h,c)=>{for(let j=0;j<h;j++)for(let i=0;i<w;i++)px(x+i,y+j,c)};
+  // chimney
+  rect(22,0,4,9,'S');for(let y=0;y<9;y++){px(22,y,'k');px(25,y,'k')}rect(22,0,4,1,'k');
+  // log walls
+  rect(3,13,26,14,'b');
+  for(const y of [15,18,21,24])rect(3,y,26,1,'B');
+  for(let y=13;y<27;y++){px(3,y,'k');px(28,y,'k')}
+  // roof (stepped triangle)
+  for(let y=2;y<=12;y++){
+    const hw=Math.min(16,Math.round(3+(y-2)*1.45)),x0=16-hw,x1=15+hw;
+    for(let x=x0;x<=x1;x++)px(x,y,(y%2===0)?'r':'R');
+    for(let x=x0+1;x<x1;x+=3)px(x,y,'l');
+    px(x0,y,'k');px(x1,y,'k');
+  }
+  for(let x=0;x<W;x++){px(x,12,'k')}
+  for(let x=1;x<W-1;x++)px(x,13,'B');
+  rect(14,2,4,1,'k');
+  // door
+  rect(13,18,6,9,'B');for(let y=18;y<27;y++){px(13,y,'k');px(18,y,'k')}rect(13,18,6,1,'k');
+  px(16,22,'t');px(16,23,'t');px(17,23,'y');
+  rect(12,27,8,1,'t');
+  // windows (warm glow)
+  for(const x of [5,21]){
+    rect(x,17,6,5,'y');rect(x,17,6,1,'k');rect(x,21,6,1,'k');
+    for(let y=17;y<22;y++){px(x,y,'k');px(x+5,y,'k')}
+    for(let y=18;y<21;y++)px(x+2,y,'w'),px(x+3,y,'w');
+    rect(x-1,22,8,2,'B');px(x,22,'p');px(x+2,22,'y');px(x+4,22,'p');px(x+6,22,'w');
+    px(x,21,'g');px(x+3,21,'g');px(x+5,21,'g');
+  }
+  // foundation
+  rect(2,27,28,1,'S');
+  return sprite(g.map(r=>r.join('')),{S:'#9aa0ad'});
+}
+(function(){
+  const CP=small?4:5,C=cabinSprite(),cab=$('#cabin');
+  cab.style.width=C.w*CP+'px';cab.style.height=C.h*CP+'px';
+  cab.appendChild(el(C,CP));
+  for(let i=0;i<3;i++){const s=document.createElement('i');s.className='smoke';s.style.left=(23*CP)+'px';s.style.top=(-2*CP)+'px';s.style.animationDelay=(-i*1.1)+'s';cab.appendChild(s)}
+})();
 
 /* ---------- mailbox: 3 letters ---------- */
 const LETTERS=[
@@ -514,9 +602,11 @@ Forever yours,
 Jeam Abby Keith Panganiban ♡`}
 ];
 const mbx=$('#mailbox'),bubble=$('#bubble'),modal=$('#modal'),closeBtn=$('#close');
-const lTitle=$('#ltitle'),lBody=$('#lbody'),prevBtn=$('#prev'),nextBtn=$('#next'),pcount=$('#pcount'),letterBox=$('#letter');
-const read=new Set();let cur=0;
-const MPX=small?5:6;
+const lTitle=$('#ltitle'),lBody=$('#lbody'),letterBox=$('#letter'),inbox=$('#inbox'),reader=$('#reader'),mlist=$('#mlist'),inhint=$('#inhint'),backBtn=$('#back');
+const read=new Set();
+const MPX=small?4:5;
+const ENV=sprite(['kkkkkkkkkkkk','kwwwwwwwwwwk','kkwwwwwwwwkk','kwkwwwwwwkwk','kwwkwwwwkwwk','kwwwkppkwwwk','kwwwwkkwwwwk','kwwwwwwwwwwk','kkkkkkkkkkkk']);
+const ENVO=sprite(['.....kk.....','...kkwwkk...','.kkwwwwwwkk.','kwwwwwwwwwwk','kwtttttttwwk','kwwwwwwwwwwk','kwwwwwwwwwwk','kwwwwwwwwwwk','kkkkkkkkkkkk']);
 (function(){
   const BODY=sprite([
     '...kkkkkkkkkkkkkk...','..krlllllllllllrrk..','.krllllllllllllllrk.',
@@ -534,6 +624,7 @@ const MPX=small?5:6;
   const door=el(DOOR,MPX,'mb-door');door.style.left=15*MPX+'px';door.style.top=3*MPX+'px';
   const flag=el(FLAG,MPX,'mb-flag');flag.style.left=-5*MPX+'px';flag.style.top=2*MPX+'px';flag.style.transformOrigin=(5.5*MPX)+'px '+(6.5*MPX)+'px';
   art.append(peek,body,door,flag);mbx.appendChild(art);
+  $('#scene').style.setProperty('--tail',(BODY.w*MPX/2-8)+'px');
 })();
 
 function updateBubble(){
@@ -546,25 +637,38 @@ function updateBubble(){
     bubble.hidden=true;mbx.setAttribute('aria-label','Open the mailbox');
   }
 }
-function showLetter(i,quiet){
-  cur=i;read.add(i);
+function renderInbox(){
+  mlist.innerHTML='';
+  LETTERS.forEach((L,i)=>{
+    const done=read.has(i),b=document.createElement('button');
+    b.type='button';b.className='mail'+(done?' done':'');
+    b.appendChild(el(done?ENVO:ENV,4));
+    const t=document.createElement('span');t.textContent=done?L.title:'Mail '+(i+1);b.appendChild(t);
+    if(!done){const n=document.createElement('span');n.className='new';n.textContent='NEW!';b.appendChild(n)}
+    b.addEventListener('click',()=>{sClick();openLetter(i)});
+    mlist.appendChild(b);
+  });
+  inhint.textContent=read.size<LETTERS.length?'Tap each mail to open it 💌':'You read all '+LETTERS.length+' letters 💚';
+}
+function showInbox(){
+  reader.hidden=true;inbox.hidden=false;backBtn.hidden=true;renderInbox();letterBox.scrollTop=0;
+  (mlist.querySelector('.mail:not(.done)')||mlist.querySelector('.mail')||closeBtn).focus({preventScroll:true});
+}
+function openLetter(i){
+  read.add(i);
   const L=LETTERS[i];lTitle.textContent=L.title;lBody.innerHTML='';
   const paras=L.text.split('\n\n');
   paras.forEach((t,k)=>{const p=document.createElement('p');p.textContent=t;p.style.whiteSpace='pre-line';if(k===paras.length-1)p.className='sig';lBody.appendChild(p)});
-  prevBtn.disabled=i===0;nextBtn.disabled=i===LETTERS.length-1;
-  pcount.textContent=(i+1)+' / '+LETTERS.length;
+  inbox.hidden=true;reader.hidden=false;backBtn.hidden=false;
   letterBox.scrollTop=0;letterBox.style.animation='none';void letterBox.offsetWidth;letterBox.style.animation='';
-  if(!quiet)sRustle();
-  updateBubble();
+  sRustle();updateBubble();backBtn.focus({preventScroll:true});
 }
 let lastFocus=null,busy=false;
 function openMail(){
   if(busy||!modal.hidden)return;busy=true;lastFocus=document.activeElement;
   sClick();sCreak();mbx.classList.add('open');bubble.hidden=true;
-  const first=LETTERS.findIndex((_,i)=>!read.has(i));
   setTimeout(()=>{
-    showLetter(first<0?0:first,true);sRustle();
-    modal.hidden=false;document.body.style.overflow='hidden';closeBtn.focus({preventScroll:true});letterBox.scrollTop=0;busy=false;
+    modal.hidden=false;document.body.style.overflow='hidden';showInbox();sRustle();busy=false;
   },reduce?0:1200);
 }
 function closeMail(){
@@ -576,18 +680,15 @@ function closeMail(){
 mbx.addEventListener('click',openMail);
 bubble.addEventListener('click',openMail);
 closeBtn.addEventListener('click',closeMail);
-prevBtn.addEventListener('click',()=>{sClick();showLetter(cur-1)});
-nextBtn.addEventListener('click',()=>{sClick();showLetter(cur+1)});
+backBtn.addEventListener('click',()=>{sClick();showInbox()});
 modal.addEventListener('click',e=>{if(e.target===modal)closeMail()});
 document.addEventListener('keydown',e=>{
   if(modal.hidden)return;
   if(e.key==='Escape')closeMail();
-  if(e.key==='ArrowLeft'&&!prevBtn.disabled)prevBtn.click();
-  if(e.key==='ArrowRight'&&!nextBtn.disabled)nextBtn.click();
   if(e.key==='Tab'){
     e.preventDefault();
-    const f=[prevBtn,nextBtn,closeBtn].filter(b=>!b.disabled),i=f.indexOf(document.activeElement);
-    f[(i+(e.shiftKey?-1:1)+f.length)%f.length].focus();
+    const f=[...letterBox.querySelectorAll('button')].filter(b=>!b.hidden&&!b.disabled&&b.offsetParent!==null),k=f.indexOf(document.activeElement);
+    f[(k+(e.shiftKey?-1:1)+f.length)%f.length].focus();
   }
 });
 
@@ -635,9 +736,9 @@ function tick(){
     next+=EIGHTH;step++;
   }
 }
-musicBtn.addEventListener('click',()=>{
+function setMusic(v){
   unlock();if(!ac)return;
-  on=!on;musicBtn.setAttribute('aria-pressed',on);musicBtn.innerHTML='&#9834; Music: '+(on?'ON':'OFF');
+  on=v;musicBtn.setAttribute('aria-pressed',on);musicBtn.innerHTML='&#9834; Music: '+(on?'ON':'OFF');
   musicBus.gain.cancelScheduledValues(ac.currentTime);
   if(on){
     musicBus.gain.linearRampToValueAtTime(.5,ac.currentTime+1.2);
@@ -646,7 +747,8 @@ musicBtn.addEventListener('click',()=>{
     musicBus.gain.linearRampToValueAtTime(0,ac.currentTime+.6);
     setTimeout(()=>{if(!on)clearInterval(sched)},700);
   }
-});
+}
+musicBtn.addEventListener('click',()=>setMusic(!on));
 sfxBtn.addEventListener('click',()=>{
   unlock();sfxOn=!sfxOn;sfxBtn.setAttribute('aria-pressed',sfxOn);sfxBtn.innerHTML='&#9835; Sound: '+(sfxOn?'ON':'OFF');
   if(sfxOn)sClick();
@@ -654,7 +756,7 @@ sfxBtn.addEventListener('click',()=>{
 
 /* ---------- start screen (unlocks sound, then the farm begins) ---------- */
 $('#startBtn').addEventListener('click',()=>{
-  unlock();sClick();
+  unlock();sClick();setMusic(true);
   document.body.classList.add('go');
   const st=$('#start');st.classList.add('out');setTimeout(()=>st.remove(),650);
   const q=$('#q');const full=q.textContent;
