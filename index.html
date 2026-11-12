@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#1f4fb5">
+<meta name="theme-color" content="#6c4a9e">
 <title>A Little Farm for Jeam Abby Keith Panganiban</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,7 +12,7 @@
 :root{
   --vh:1vh;
   --u:clamp(2.4px,calc(var(--vh)*.55),6px);      /* base pixel size for sprites */
-  --mu:clamp(3px,calc(var(--vh)*.6),8px);        /* mountain pixel size */
+  --mu:clamp(3px,calc(var(--vh)*.78),10px);        /* mountain pixel size */
   --mb:calc(var(--u)*.72);                       /* small mailbox */
   --hor:calc(var(--vh)*38);                      /* horizon line */
   --hw:clamp(60px,min(31vw,calc(var(--vh)*15.5)),190px);
@@ -58,7 +58,7 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 @keyframes signdrop{0%{transform:translateY(-140%)}58%{transform:translateY(7%)}78%{transform:translateY(-3%)}100%{transform:translateY(0)}}
 
 /* cabin + small mailbox */
-.scene{position:relative;align-self:flex-end;display:flex;align-items:flex-end;gap:calc(var(--u)*3);padding-top:calc(var(--vh)*6.5);margin-right:1vw;flex:none;--tail:calc(var(--mb)*10 - 8px)}
+.scene{position:relative;align-self:flex-end;display:flex;align-items:flex-end;gap:calc(var(--u)*3);padding-top:calc(var(--vh)*5);margin-right:1vw;flex:none}
 .cabin{position:relative;flex:none}
 .cabin .spr{display:block}
 .smoke{position:absolute;width:calc(var(--u)*2);height:calc(var(--u)*2);background:#fff;opacity:0;animation:smoke 3.4s steps(7) infinite}
@@ -71,19 +71,16 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 .mb-door{z-index:3;transform-origin:50% 100%;transition:transform .5s steps(5,end)}
 .mb-peek{z-index:1;left:0;top:0;transition:transform .9s steps(7,end) .35s}
 .mb-flag{z-index:3;transition:transform .45s steps(4,end)}
+.mailbox.unread .mb-peek{transform:translateY(calc(var(--mpx) * -4))}
 .mailbox.open .mb-door{transform:scaleY(.16)}
 .mailbox.open .mb-peek{transform:translateY(calc(var(--mpx) * -9))}
 .mailbox.read .mb-flag,.mailbox.open .mb-flag{transform:rotate(-90deg)}
 .mailbox:not(.open):hover .mb-art{animation:wiggle .5s steps(1,end) 2}
 @keyframes wiggle{0%,100%{transform:rotate(0)}25%{transform:rotate(-2deg)}75%{transform:rotate(2deg)}}
-.bubble{
-  position:absolute;right:0;top:0;white-space:nowrap;background:var(--paper);border:4px solid var(--wood-d);box-shadow:0 0 0 3px var(--wood);
-  padding:6px 12px 7px;font-size:clamp(20px,5.4vw,26px);line-height:1;z-index:4;cursor:pointer;
-  animation:bubble 1.1s steps(1,end) infinite;font-family:'VT323','Courier New',monospace;color:var(--ink)
-}
-.bubble::after{content:"";position:absolute;right:var(--tail);bottom:-17px;border:8px solid transparent;border-top:9px solid var(--wood-d)}
-.bubble::before{content:"";position:absolute;right:calc(var(--tail) + 3px);bottom:-11px;border:5px solid transparent;border-top:6px solid var(--paper);z-index:1}
-@keyframes bubble{0%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+.mailnote{position:absolute;left:50%;bottom:calc(100% + 4px);margin-left:-24px;width:48px;height:36px;background:none;border:0;padding:0;cursor:pointer;z-index:4;animation:nb 1.1s steps(1,end) infinite}
+.mailnote .spr{display:block}
+.badge{position:absolute;right:-12px;top:-13px;min-width:24px;height:24px;padding:0 5px;background:#e0443a;border:3px solid #5a2f10;color:#fff;font:700 15px/18px "Courier New",monospace;text-align:center}
+@keyframes nb{0%{transform:translateY(0)}50%{transform:translateY(-6px)}}}
 
 /* chickens (still sprites: they only walk + kiss) */
 .stage{position:relative;width:100%;flex:none}
@@ -152,7 +149,9 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 .music[aria-pressed="false"]::after{content:"";position:absolute;left:3px;right:3px;top:50%;border-top:4px solid #d9605a;transform:rotate(-38deg)}
 
 /* start screen */
-.start{position:fixed;inset:0;z-index:100;display:grid;place-items:center;align-content:center;gap:28px;padding:24px;background:linear-gradient(#10277a 0%,#2f6fd0 40%,#8fd0ff 70%,#78c442 70%);transition:opacity .5s steps(5)}
+.start{position:fixed;inset:0;z-index:100;display:grid;place-items:center;align-content:center;gap:28px;padding:24px;background:linear-gradient(#6c4a9e 0%,#c9648f 38%,#ff9a6b 72%,#ffd27a 100%);transition:opacity .5s steps(5);overflow:hidden}
+.start::before{content:"";position:absolute;left:50%;bottom:-70px;width:200px;height:200px;margin-left:-100px;border-radius:50%;background:#fff1a8;box-shadow:0 0 0 14px #ffe08a88,0 0 0 32px #ffc46a55,0 0 90px 45px #ffb36b66}
+.start>*{position:relative;z-index:1}
 .start.out{opacity:0;pointer-events:none}
 .start .dlg{max-width:420px;min-height:0}
 .start .q{min-height:0;font-size:clamp(20px,6vw,28px)}
@@ -213,6 +212,40 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
   .amb,.cl,.star{display:none}
 }
 </style>
+<script>
+/* If an image is not found at assets/<name>.png, try other likely paths (including the original upload names). */
+(function(){
+  var CAND={
+    sign:['assets/sign.png','Assets/sign.png','./sign.png','sign.png','assets/1000037414.png','Assets/1000037414.png','1000037414.png'],
+    brown:['assets/brown.png','Assets/brown.png','./brown.png','brown.png','assets/1000037412.png','Assets/1000037412.png','1000037412.png'],
+    cream:['assets/cream.png','Assets/cream.png','./cream.png','cream.png','assets/1000037413.png','Assets/1000037413.png','1000037413.png']
+  };
+  window.__imgErr=function(img){
+    var list=CAND[img.getAttribute('data-asset')]||[],i=+(img.getAttribute('data-try')||0)+1;
+    if(i<list.length){img.setAttribute('data-try',i);img.src=list[i]}
+  };
+  /* original uploads have a white / checkered background baked in: remove it in the browser */
+  window.__imgLoad=function(img){
+    if(img.getAttribute('data-clean')||!/1000037\d+\.png/.test(img.currentSrc||img.src))return;
+    img.setAttribute('data-clean','1');
+    try{
+      var key=img.getAttribute('data-asset'),minc=key==='sign'?232:(key==='cream'?236:250),spread=key==='sign'?10:6;
+      var W=img.naturalWidth,H=img.naturalHeight,c=document.createElement('canvas');c.width=W;c.height=H;
+      var x=c.getContext('2d');x.drawImage(img,0,0);var d=x.getImageData(0,0,W,H),a=d.data,seen=new Uint8Array(W*H),st=[];
+      function bg(p){var i=p*4,r=a[i],g=a[i+1],b=a[i+2];return a[i+3]===0||(Math.min(r,g,b)>=minc&&Math.max(r,g,b)-Math.min(r,g,b)<=spread)}
+      function push(p){if(!seen[p]&&bg(p)){seen[p]=1;st.push(p)}}
+      for(var i=0;i<W;i++){push(i);push((H-1)*W+i)}for(var j=0;j<H;j++){push(j*W);push(j*W+W-1)}
+      while(st.length){var p=st.pop(),px=p%W,py=(p-px)/W;a[p*4+3]=0;
+        if(px>0)push(p-1);if(px<W-1)push(p+1);if(py>0)push(p-W);if(py<H-1)push(p+W)}
+      var x0=W,y0=H,x1=0,y1=0;
+      for(var q=0;q<W*H;q++){if(a[q*4+3]){var qx=q%W,qy=(q-qx)/W;if(qx<x0)x0=qx;if(qx>x1)x1=qx;if(qy<y0)y0=qy;if(qy>y1)y1=qy}}
+      x.putImageData(d,0,0);
+      var o=document.createElement('canvas');o.width=x1-x0+1;o.height=y1-y0+1;o.getContext('2d').drawImage(c,x0,y0,o.width,o.height,0,0,o.width,o.height);
+      img.src=o.toDataURL('image/png');
+    }catch(e){}
+  };
+})();
+</script>
 </head>
 <body>
 
@@ -241,13 +274,13 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 </div>
 
 <main class="ui" id="ui">
-  <img class="sign" src="__SIGN__" alt="Wooden sign reading JEAM ABBY KEITH PANGANIBAN" width="1100" height="488">
+  <img class="sign" src="assets/sign.png" data-asset="sign" onerror="__imgErr(this)" onload="__imgLoad(this)" alt="Wooden sign reading JEAM ABBY KEITH PANGANIBAN" width="1100" height="488">
 
   <section class="scene" id="scene" aria-label="Cabin and mailbox">
-    <button class="bubble" id="bubble" type="button" tabindex="-1" aria-hidden="true">You have 3 messages! 💌</button>
     <div class="cabin" id="cabin" aria-hidden="true"></div>
     <div class="mbwrap" id="mbwrap">
-      <button class="mailbox" id="mailbox" type="button" aria-label="You have 3 messages! Open the mailbox"></button>
+      <button class="mailnote" id="bubble" type="button" tabindex="-1" aria-hidden="true"><span class="badge" id="badge">3</span></button>
+      <button class="mailbox unread" id="mailbox" type="button" aria-label="You have 3 new messages. Open the mailbox"></button>
     </div>
   </section>
 
@@ -255,13 +288,13 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
     <div class="pair">
       <div class="hen brown" id="henB">
         <span class="shadow"></span>
-        <div class="bob"><img src="__BROWN__" alt="Brown pixel chicken" width="960" height="960"></div>
+        <div class="bob"><img src="assets/brown.png" data-asset="brown" onerror="__imgErr(this)" onload="__imgLoad(this)" alt="Brown pixel chicken" width="960" height="960"></div>
         <span class="mood raincloud" id="raincloud"></span>
         <span class="mood tear" id="tear"></span>
       </div>
       <div class="hen cream" id="henC">
         <span class="shadow"></span>
-        <div class="bob"><img src="__CREAM__" alt="Cream pixel chicken" width="329" height="330"></div>
+        <div class="bob"><img src="assets/cream.png" data-asset="cream" onerror="__imgErr(this)" onload="__imgLoad(this)" alt="Cream pixel chicken" width="329" height="330"></div>
         <span class="mood qmark">?</span>
         <span class="mood qmark b">?</span>
       </div>
@@ -438,7 +471,7 @@ function mtnLayer(W,H,peaks,slope,minH,c){
     backgroundImage:fence.url,backgroundRepeat:'repeat-x',backgroundSize:'calc(var(--u)*16) 100%',imageRendering:'pixelated'});
   // trees: pine behind the cabin, round trees on the left
   const pine=pineSprite();
-  put(el(pine,'calc(var(--u)*1.7)'),{right:'0.5vw',top:'calc(var(--vh)*21)'});
+  put(el(pine,'calc(var(--u)*1.7)'),{left:'27vw',top:'calc(var(--vh)*22)'});
   put(el(TREE,'calc(var(--u)*1.8)'),{left:'-3vw',top:'calc(var(--vh)*38)'});
   put(el(TREE,'calc(var(--u)*1.2)'),{left:'21vw',top:'calc(var(--vh)*38.5)'});
   put(el(BUSH,'calc(var(--u)*1.6)'),{left:'30vw',top:'calc(var(--vh)*48)'});
@@ -647,7 +680,7 @@ Mahal kita.
 Forever yours,
 Jeam Abby Keith Panganiban ♡`}
 ];
-const mbx=$('#mailbox'),bubble=$('#bubble'),modal=$('#modal'),closeBtn=$('#close');
+const mbx=$('#mailbox'),bubble=$('#bubble'),badge=$('#badge'),modal=$('#modal'),closeBtn=$('#close');
 const lTitle=$('#ltitle'),lBody=$('#lbody'),letterBox=$('#letter'),svin=$('#svin'),inbox=$('#inbox'),reader=$('#reader'),mlist=$('#mlist'),inhint=$('#inhint'),backBtn=$('#back'),rib=$('#rib'),skipEl=$('#skip');
 const read=new Set();let typing=0;
 
@@ -661,6 +694,7 @@ const read=new Set();let typing=0;
   const DOOR=sprite(['kwwrk','krrrk','krrrk','krrrk','kryrk','krrrk','krrrk','krrrk','kRRRk']);
   const PEEK=sprite(['kkkkkkkk','kwwwwwwk','kwtttwwk','kwwwwwwk','kwttwwwk','kwwpwwwk','kkkkkkkk']);
   const FLAG=sprite(['.....yy','....yyy','.....yy','.....k.','.....k.','.....k.','.....k.']);
+  bubble.insertBefore(el(ENV,4),bubble.firstChild);
   const M=n=>`calc(var(--mb)*${n})`;
   const art=document.createElement('span');art.className='mb-art';art.style.width=M(BODY.w);art.style.height=M(BODY.h);
   mbx.style.setProperty('--mpx','var(--mb)');
@@ -679,11 +713,10 @@ const read=new Set();let typing=0;
 function updateBubble(){
   const left=LETTERS.length-read.size;
   if(left>0){
-    bubble.hidden=false;
-    bubble.textContent='You have '+left+(left===1?' message! 💌':' messages! 💌');
-    mbx.setAttribute('aria-label',bubble.textContent+' Open the mailbox');
+    bubble.hidden=false;badge.textContent=left;mbx.classList.add('unread');
+    mbx.setAttribute('aria-label','You have '+left+(left===1?' new message':' new messages')+'. Open the mailbox');
   }else{
-    bubble.hidden=true;mbx.setAttribute('aria-label','Open the mailbox');
+    bubble.hidden=true;mbx.classList.remove('unread');mbx.setAttribute('aria-label','Open the mailbox');
   }
 }
 function renderInbox(){
