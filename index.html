@@ -55,12 +55,17 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 @keyframes signdrop{0%{transform:translateY(-140%)}58%{transform:translateY(7%)}78%{transform:translateY(-3%)}100%{transform:translateY(0)}}
 
 /* the farm: everything is positioned in % of this box so it scales together */
-.farm{position:relative;flex:none;width:min(100%,calc(var(--vh)*48),520px);aspect-ratio:1/1.3}
+.farm{position:relative;flex:none;width:min(100%,calc((var(--vh)*76 - 90px)/1.3),620px);aspect-ratio:1/1.3;container-type:inline-size}
 .farm>*{position:absolute}
 .tree{display:block;height:auto}
-#tPeach{left:-2%;top:35%;width:19%;z-index:1}
-#tTeal{left:72%;top:7%;width:17%;z-index:1}
-.hgrp{left:14%;top:14%;width:62%;aspect-ratio:294/309;z-index:2}
+.w-only{display:none}
+#t1{left:0;top:46.8%;width:15%;z-index:3}
+#t2{left:91%;top:51.3%;width:9%;z-index:3}
+#t3{left:5%;top:2.2%;width:10%;z-index:1}
+#t4{left:29%;top:2.6%;width:7%;z-index:1}
+#t5{left:66%;top:3.1%;width:7%;z-index:1}
+#t6{left:84%;top:15.2%;width:10%;z-index:1}
+.hgrp{left:16%;top:14%;width:60%;aspect-ratio:294/309;z-index:2}
 .hgrp>img{position:absolute;display:block;height:auto}
 .hgrp .house{left:0;top:0;width:100%}
 .ch{transform-origin:50% 100%;animation:idle 2.6s steps(1,end) infinite;z-index:2}
@@ -69,9 +74,11 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 @keyframes idle{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.5%)}}
 .smoke{position:absolute;left:76%;top:2%;width:3.4%;aspect-ratio:1;background:#fff;opacity:0;animation:smoke 3.6s steps(7) infinite;z-index:1}
 @keyframes smoke{0%{transform:translate(0,0) scale(.6);opacity:0}15%{opacity:.85}100%{transform:translate(60%,-800%) scale(1.7);opacity:0}}
+.yard{left:3%;top:76%;width:94%;height:23%;visibility:hidden;pointer-events:none}
 
 /* mailbox */
-.mbwrap{left:79%;bottom:35.5%;z-index:4;flex:none}
+.mbwrap{left:77.5%;bottom:37.5%;z-index:4;flex:none;--mb:calc(var(--u)*.6)}
+@supports (width:1cqw){.mbwrap{--mb:calc(60cqw*.0082)}}
 .mailbox{position:relative;display:block;background:none;border:0;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .mb-art{position:relative;display:block}
 .mb-art>.spr{position:absolute}
@@ -109,7 +116,7 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
   opacity:0;transition:opacity .45s steps(5,end)
 }
 .say-in::after{content:"";position:absolute;left:50%;bottom:-11px;width:8px;height:8px;margin-left:-5px;background:#fff6dd;border:3px solid #5a2f10;border-top:0;border-left:0;transform:rotate(45deg) translate(-2px,-2px)}
-.say.hush .say-in{opacity:0}
+.say.on.hush .say-in{opacity:0}
 .say.on .say-in{opacity:1;animation:sfloat 2.4s ease-in-out infinite}
 @keyframes sfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 
@@ -202,6 +209,41 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 @keyframes fl2{0%{opacity:0}50%{opacity:1}}
 @keyframes fly{0%{transform:translate(-60px,0)}25%{transform:translate(28vw,-40px)}50%{transform:translate(55vw,30px)}75%{transform:translate(82vw,-30px)}100%{transform:translate(112vw,10px)}}
 
+
+/* ===================== wide screens: iPad landscape + desktop ===================== */
+@media (min-width:700px) and (min-aspect-ratio:5/4){
+  .ui{max-width:1400px;padding:calc(var(--vh)*2.2) 14px calc(var(--vh)*2);gap:calc(var(--vh)*1.2)}
+  .sign{width:min(calc(100vw - 20px),calc(var(--vh)*38))}
+  .farm{width:min(100%,1320px,calc(var(--vh)*117));aspect-ratio:1/.66}
+  .w-only{display:block}
+  .hgrp{left:25%;top:10%;width:38%}
+  .yard{left:4%;top:79%;width:92%;height:20%}
+  .mbwrap{left:64.5%;bottom:29.5%;--mb:calc(38cqw*.0082)}
+  .hen{width:7.5%}
+  .shadow{height:calc(var(--vh)*1.1);bottom:calc(var(--vh)*-.5)}
+  #t1{left:8%;top:43.7%;width:12%}
+  #t2{left:74%;top:45%;width:9%}
+  #t3{left:17%;top:16.8%;width:6%}
+  #t4{left:9%;top:13.5%;width:4.5%}
+  #t5{left:66%;top:13.9%;width:5%}
+  #t6{left:80%;top:18.8%;width:6%}
+  #t7{left:85%;top:44.8%;width:10%;z-index:3}
+  #t8{left:.5%;top:45.1%;width:6.5%;z-index:3}
+  .say-in{font-size:clamp(20px,2.3vw,30px);padding:4px 12px 5px}
+  .mailnote{width:60px;height:45px;margin-left:-30px}
+  .mailnote .spr{transform:scale(1.25);transform-origin:50% 100%}
+  .music{width:50px;height:50px;font-size:24px}
+  .sv{width:min(86vw,800px);max-height:90vh}
+  #lbody p{font-size:clamp(24px,2.7vw,34px)}
+  #reader h2{font-size:clamp(13px,1.5vw,18px)}
+  .mail{font-size:clamp(18px,2vw,24px);padding:14px 18px}
+  .svok{width:68px;height:68px}
+  .svb{font-size:13px;padding:14px 16px}
+  .start .dlg{max-width:620px}
+  .start .q{font-size:clamp(26px,3vw,38px)}
+  .pb{font-size:28px;padding:16px 30px}
+}
+
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;animation-delay:0s!important}
   .amb,.cl,.star{display:none}
@@ -273,8 +315,15 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
   <img class="sign" src="assets/sign.png" data-asset="sign" onerror="__imgErr(this)" onload="__imgLoad(this)" alt="Wooden sign reading JEAM ABBY KEITH PANGANIBAN" width="1100" height="488">
 
   <section class="farm" id="farm" aria-label="Our little farm">
-    <img class="tree" id="tPeach" src="assets/tree-peach.png" alt="" width="512" height="853">
-    <img class="tree" id="tTeal" src="assets/tree-teal.png" alt="" width="192" height="408">
+    <img class="tree" id="t1" src="assets/tree-peach.png" alt="" width="512" height="853">
+    <img class="tree" id="t2" src="assets/tree-teal.png" alt="" width="192" height="408">
+    <img class="tree" id="t3" src="assets/tree-peach.png" alt="" width="512" height="853">
+    <img class="tree" id="t4" src="assets/tree-teal.png" alt="" width="192" height="408">
+    <img class="tree" id="t5" src="assets/tree-teal.png" alt="" width="192" height="408">
+    <img class="tree" id="t6" src="assets/tree-peach.png" alt="" width="512" height="853">
+    <img class="tree w-only" id="t7" src="assets/tree-peach.png" alt="" width="512" height="853">
+    <img class="tree w-only" id="t8" src="assets/tree-teal.png" alt="" width="192" height="408">
+    <div class="yard" id="yard" aria-hidden="true"></div>
 
     <div class="hgrp" id="hgrp">
       <img class="house" src="assets/house.png" alt="Our farmhouse" width="294" height="291">
@@ -502,33 +551,36 @@ function typeReserve(p,text,cb,speed){
   },speed||18);
 }
 
-/* ---------- chickens: wander around the yard, with little messages ---------- */
-const farm=$('#farm'),henB=$('#henB'),henC=$('#henC'),sayB=$('#sayB'),sayC=$('#sayC');
-const HEN_IMG_FACES_RIGHT=false; /* flip to true if your chicken art faces right */
-const hens=[henB,henC].map((node,i)=>({node,say:i?sayC:sayB,x:0,y:0,tx:0,ty:0,state:'idle',wait:1+i*1.4,dir:i?1:-1,speed:0}));
-let FW=0,FH=0,HW=0,minX=0,maxX=0,minY=0,maxY=0,meetAt=6;
+/* ---------- chickens: each has its own side of the yard, never cross or overlap ---------- */
+const farm=$('#farm'),yard=$('#yard'),henB=$('#henB'),henC=$('#henC'),sayB=$('#sayB'),sayC=$('#sayC');
+const HEN_IMG_FACES_RIGHT=true; /* the chicken art faces right; set to false if yours faces left */
+const hens=[henB,henC].map((node,i)=>({node,say:i?sayC:sayB,x:0,y:0,tx:0,ty:0,state:'idle',wait:.8+i*1.5,dir:i?-1:1,v:0,top:0,meet:false}));
+let FW=0,FH=0,HW=0,GAP=0,Q=2,minX=0,maxX=0,minY=0,maxY=0,meetAt=8;
 function bounds(){
-  FW=farm.clientWidth;FH=farm.clientHeight;HW=henB.offsetWidth;
-  const bw=Math.max(sayB.offsetWidth,sayC.offsetWidth,124);
-  minX=Math.max(4,Math.round(bw/2-HW/2)+2);maxX=Math.max(minX,FW-HW-minX);
-  minY=Math.round(FH*.755);maxY=Math.max(minY,Math.round(FH-HW-4));
+  FW=farm.clientWidth;FH=farm.clientHeight;HW=henB.offsetWidth;GAP=HW*1.12;Q=Math.max(2,Math.round(FW/300));
+  const bw=Math.max(sayB.offsetWidth,sayC.offsetWidth,HW*2.6),side=Math.round(bw/2-HW/2)+2;
+  const yl=yard.offsetLeft,yt=yard.offsetTop,yw=yard.offsetWidth,yh=yard.offsetHeight;
+  minX=Math.max(yl,side);maxX=Math.max(minX+GAP*2.4,Math.min(yl+yw-HW,FW-side-HW));
+  minY=yt;maxY=Math.max(minY,yt+yh-HW);
 }
 const rnd=(a,b)=>a+Math.random()*(b-a);
 const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+/* the brown hen always stays left of the cream hen, with a gap between them */
+function limits(i){const o=hens[1-i];return i===0?[minX,Math.min(maxX,o.x-GAP)]:[Math.max(minX,o.x+GAP),maxX]}
 function place(h){
-  const px=Math.round(h.x/2)*2,py=Math.round(h.y/2)*2;
+  const px=Math.round(h.x/Q)*Q,py=Math.round(h.y/Q)*Q;
   h.node.style.transform=`translate(${px}px,${py}px)`;
   h.node.style.zIndex=6+Math.floor(py/4);
-  h.node.firstElementChild.nextElementSibling.nextElementSibling.style.setProperty('--f',(h.dir>0)===HEN_IMG_FACES_RIGHT?1:-1);
+  h.node.querySelector('.fl').style.setProperty('--f',(h.dir>0)===HEN_IMG_FACES_RIGHT?1:-1);
 }
-function pickTarget(h,o,now){
-  if(now>meetAt){
-    meetAt=now+rnd(11,18);
-    const side=h.x<o.x?-1:1;
-    h.tx=clamp(o.x+side*HW*.95,minX,maxX);h.ty=clamp(o.y+rnd(-4,4),minY,maxY);h.meet=true;
-  }else{
-    h.tx=rnd(minX,maxX);h.ty=rnd(minY,maxY);h.meet=false;
-  }
+function zoneTarget(i){const mid=(minX+maxX)/2;return i===0?rnd(minX,mid-GAP*.55):rnd(mid+GAP*.55,maxX)}
+function startMeet(now){
+  meetAt=now+rnd(14,22);
+  const mid=(minX+maxX)/2,y=rnd(minY,maxY);
+  hens.forEach((h,i)=>{
+    h.tx=mid+(i?1:-1)*GAP*.56-(i?0:0);h.ty=clamp(y+(i?rnd(-5,5):0),minY,maxY);
+    h.meet=true;h.state='walk';h.top=HW*rnd(.3,.42);h.node.classList.add('walk');
+  });
 }
 let last=0,running=false;
 function frame(ts){
@@ -536,33 +588,44 @@ function frame(ts){
   requestAnimationFrame(frame);
   const now=ts/1000,dt=Math.min(.05,last?now-last:.016);last=now;
   if(document.hidden)return;
+  if(now>meetAt&&hens.every(h=>!h.meet))startMeet(now);
   hens.forEach((h,i)=>{
-    const o=hens[1-i];
+    const o=hens[1-i];let [lo,hi]=limits(i);hi=Math.max(lo,hi);
     if(h.state==='idle'){
-      h.wait-=dt;
-      if(h.wait<=0){pickTarget(h,o,now);h.state='walk';h.speed=HW*rnd(.32,.5);h.node.classList.add('walk')}
+      h.wait-=dt;h.v=0;
+      if(h.wait<=0){
+        if(!h.meet){h.tx=zoneTarget(i);h.ty=rnd(minY,maxY)}
+        h.state='walk';h.top=HW*rnd(.3,.46);h.node.classList.add('walk');
+      }
     }else{
+      h.tx=clamp(h.tx,lo,hi);
       const dx=h.tx-h.x,dy=h.ty-h.y,d=Math.hypot(dx,dy);
-      if(d<2){h.state='idle';h.wait=h.meet?rnd(3.5,5.5):rnd(1.2,3.6);h.node.classList.remove('walk')}
-      else{
-        const st=Math.min(d,h.speed*dt);h.x+=dx/d*st;h.y+=dy/d*st;
-        if(Math.abs(dx)>3)h.dir=dx>0?1:-1;
+      if(d<2){
+        const was=h.meet;h.meet=false;h.state='idle';h.wait=was?rnd(4,6):rnd(1.4,3.8);h.node.classList.remove('walk');
+        if(was)h.dir=o.x>h.x?1:-1;   /* face your partner */
+      }else{
+        h.v+=(h.top-h.v)*Math.min(1,dt*5);                 /* ease in */
+        const sp=Math.min(h.v,d*3+6),st=Math.min(d,sp*dt);   /* ease out near the target */
+        h.x+=dx/d*st;h.y+=dy/d*st;
+        if(Math.abs(dx)>1.5)h.dir=dx>0?1:-1;               /* always face where you are going */
       }
     }
-    h.x=clamp(h.x,minX,maxX);h.y=clamp(h.y,minY,maxY);place(h);
+    [lo,hi]=limits(i);hi=Math.max(lo,hi);
+    h.x=clamp(h.x,lo,hi);h.y=clamp(h.y,minY,maxY);place(h);
   });
-  /* when the two are side by side, only one bubble shows so the words never overlap */
-  hens[1].say.classList.toggle('hush',Math.abs(hens[0].x-hens[1].x)<Math.max(sayB.offsetWidth,sayC.offsetWidth,124)*.9);
+  /* when they stand side by side only one bubble shows, so words never overlap */
+  hens[1].say.classList.toggle('hush',Math.abs(hens[0].x-hens[1].x)<Math.max(sayB.offsetWidth,sayC.offsetWidth,HW*2.6)*.9);
 }
 function startHens(){
   bounds();
-  hens[0].x=clamp(FW*.28,minX,maxX);hens[0].y=clamp(FH*.8,minY,maxY);
-  hens[1].x=clamp(FW*.6,minX,maxX);hens[1].y=clamp(FH*.86,minY,maxY);
+  hens[0].x=minX+(maxX-minX)*.22;hens[0].y=minY+(maxY-minY)*.3;
+  hens[1].x=minX+(maxX-minX)*.72;hens[1].y=minY+(maxY-minY)*.75;
+  hens[1].dir=-1;
   hens.forEach(place);
   if(reduce)return;
   running=true;requestAnimationFrame(frame);
 }
-addEventListener('resize',()=>{bounds();hens.forEach(h=>{h.x=clamp(h.x,minX,maxX);h.y=clamp(h.y,minY,maxY);place(h)})});
+addEventListener('resize',()=>{bounds();hens.forEach((h,i)=>{let [lo,hi]=limits(i);hi=Math.max(lo,hi);h.x=clamp(h.x,lo,hi);h.y=clamp(h.y,minY,maxY);place(h)})});
 
 /* little floating messages: "I miss you." / "I love you." */
 const LINES=['I miss you.','I love you.'];
@@ -590,13 +653,18 @@ const read=new Set();let typing=0,userScrolled=false;
 ['wheel','touchstart','keydown'].forEach(ev=>svin.addEventListener(ev,()=>{userScrolled=true},{passive:true}));
 
 (function(){
+  /* residential post-mounted mailbox: arched box, hinged front door, wooden post, little flag */
   const BODY=sprite([
-    '...kkkkkkkkkkkkkk...','..krlllllllllllrrk..','.krllllllllllllllrk.',
-    'krwwwwwwwwwwwwrkBBBk','krrrrrrrrrrrrrrkBBBk','krrrrrrrrrrrrrrkBBBk','krrrrrrrrrrrrrrkBBBk','krrrrrrrrrrrrrrkBBBk','krrrrrrrrrrrrrrkBBBk','krrrrrrrrrrrrrrkBBBk','krrrrrrrrrrrrrrkBBBk',
-    'kRRRRRRRRRRRRRRkBBBk','.kRRRRRRRRRRRRRRRRk.','..kkkkkkkkkkkkkkkk..',
-    '.......kbbtBk.......','.......kbtbBk.......','.......kbbtBk.......','.......kbtbBk.......','.......kbbtBk.......','.......kbtbBk.......','.......kbbtBk.......','.......kbtbBk.......',
-    '....kBBBBBBBBBBk....','....kkkkkkkkkkkk....']);
-  const DOOR=sprite(['kwwrk','krrrk','krrrk','krrrk','kryrk','krrrk','krrrk','krrrk','kRRRk']);
+    '.....'+'k'.repeat(10)+'.....',
+    '...kk'+'l'.repeat(10)+'kk...',
+    '..k'+'l'.repeat(14)+'k..',
+    ...Array(6).fill('.k'+'r'.repeat(13)+'BBB'+'k.'),
+    '.k'+'R'.repeat(16)+'k.',
+    '.'+'k'.repeat(18)+'.',
+    ...Array.from({length:11},(_,i)=>i%2?'........ktbk........':'........kbBk........'),
+    '......kbbbbbbk......',
+    '......'+'k'.repeat(8)+'......']);
+  const DOOR=sprite(['kllrk','krrrk','krrrk','kryrk','krrrk','krrRk','kkkkk']);
   const PEEK=sprite(['kkkkkkkk','kwwwwwwk','kwtttwwk','kwwwwwwk','kwttwwwk','kwwpwwwk','kkkkkkkk']);
   const FLAG=sprite(['.....yy','....yyy','.....yy','.....k.','.....k.','.....k.','.....k.']);
   bubble.insertBefore(el(ENV,4),bubble.firstChild);
@@ -605,8 +673,8 @@ const read=new Set();let typing=0,userScrolled=false;
   mbx.style.setProperty('--mpx','var(--mb)');
   const peek=el(PEEK,'var(--mb)','mb-peek');peek.style.left=M(6);peek.style.top=M(1);
   const body=el(BODY,'var(--mb)','mb-body');
-  const door=el(DOOR,'var(--mb)','mb-door');door.style.left=M(15);door.style.top=M(3);
-  const flag=el(FLAG,'var(--mb)','mb-flag');flag.style.left=M(-5);flag.style.top=M(2);flag.style.transformOrigin=M(5.5)+' '+M(6.5);
+  const door=el(DOOR,'var(--mb)','mb-door');door.style.left=M(14);door.style.top=M(3);
+  const flag=el(FLAG,'var(--mb)','mb-flag');flag.style.left=M(-1.5);flag.style.top=M(-1);flag.style.transformOrigin=M(5.5)+' '+M(6.5);
   art.append(peek,body,door,flag);mbx.appendChild(art);
   const hs=sprite(['.p.p.','ppppp','.ppp.','..p..']);
   $('#hr').style.backgroundImage=hs.url;$('#hr').style.backgroundSize='auto 100%';
