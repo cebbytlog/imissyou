@@ -14,7 +14,7 @@
   --u:clamp(2.4px,calc(var(--vh)*.55),6px);
   --mu:clamp(3px,calc(var(--vh)*.78),10px);
   --mb:calc(var(--u)*.72);
-  --hor:calc(var(--vh)*38);
+  --hor:calc(var(--vh)*30);
   --wood:#8a4b1e; --wood-d:#5a2f10; --paper:#fbe7b5; --ink:#4a2a10;
 }
 @supports (height:1svh){:root{--vh:1svh}}
@@ -48,7 +48,7 @@ img{image-rendering:pixelated}
   padding:56px 10px 34px;
 }
 .sign{
-  display:block;width:min(calc(100vw - 20px),580px,calc(var(--vh)*54));height:auto;flex:none;
+  display:block;width:min(calc(100vw - 20px),520px,calc(var(--vh)*46));height:auto;flex:none;
   filter:drop-shadow(0 5px 0 rgba(0,20,60,.3));visibility:hidden;
 }
 body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
@@ -56,35 +56,58 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 
 /* the farm: everything is positioned in % of this box so it scales together.
    z-index of every object = its ground line (% from the top), so nearer things draw in front */
-.farm{position:relative;flex:none;width:min(100%,760px,calc((var(--vh)*100 - 112px - min(100vw - 20px,580px,var(--vh)*54)*.4436)/1.3));aspect-ratio:1/1.3;container-type:inline-size}
+.farm{position:relative;flex:none;width:min(100%,860px,calc((var(--vh)*100 - 112px - min(100vw - 20px,520px,var(--vh)*46)*.4436)/1.3));aspect-ratio:1/1.3;container-type:inline-size}
 .farm>*{position:absolute}
-.tree{display:block;height:auto}
-.w-only{display:none}
-#t3{left:1%;top:9.90%;width:11%;z-index:24}
-#n2{left:12%;top:10.09%;width:9%;z-index:26}
-#n1{left:22%;top:10.58%;width:9%;z-index:25}
-#t4{left:32%;top:10.92%;width:8%;z-index:24}
-#t5{left:84%;top:12.92%;width:8%;z-index:26}
-#t6{left:91%;top:18.47%;width:9%;z-index:30}
-#n3{left:0%;top:23.43%;width:9%;z-index:38}
-#t1{left:0%;top:48.06%;width:14%;z-index:66}
-#n4{left:13%;top:56.37%;width:11%;z-index:74}
-#t2{left:91.5%;top:52.11%;width:8.5%;z-index:66}
-.fence{left:calc(50% - 50vw);width:100vw;top:28%;height:calc(var(--u)*9);z-index:36;background-repeat:repeat-x;background-size:auto 100%;image-rendering:pixelated;pointer-events:none}
+.tree{display:none;height:auto}
+#a1{display:block;left:1%;top:8.09%;width:9%;z-index:24}
+#a2{display:block;left:12%;top:11.90%;width:11%;z-index:26}
+#a3{display:block;left:25%;top:6.58%;width:9%;z-index:21}
+#a4{display:block;left:36%;top:10.29%;width:9%;z-index:25}
+#a5{display:block;left:47%;top:4.43%;width:9%;z-index:19}
+#a6{display:block;left:58%;top:9.90%;width:11%;z-index:24}
+#a7{display:block;left:71%;top:6.58%;width:9%;z-index:21}
+#a8{display:block;left:82%;top:11.29%;width:9%;z-index:26}
+#b1{display:block;left:6%;top:-0.08%;width:8%;z-index:13}
+#b2{display:block;left:20%;top:2.18%;width:8%;z-index:15}
+#b3{display:block;left:33%;top:0.05%;width:8%;z-index:13}
+#b4{display:block;left:46%;top:0.74%;width:7.5%;z-index:14}
+#b5{display:block;left:58%;top:-0.08%;width:8%;z-index:13}
+#b6{display:block;left:70%;top:2.18%;width:8%;z-index:15}
+#b7{display:block;left:82%;top:0.05%;width:8%;z-index:13}
+#b8{display:block;left:92%;top:1.74%;width:7.5%;z-index:15}
+#f1{display:block;left:0%;top:66.54%;width:10.5%;z-index:80}
+#r1{display:none}
+#r2{display:none}
+#r3{display:none}
+#r4{display:none}
+#r5{display:none}
+#s1{display:none}
+#s2{display:none}
+#s3{display:none}
+#s4{display:none}
+#s5{display:none}
+#s6{display:none}
+#s7{display:none}
+#s8{display:none}
+.fence{left:calc(50% - 50vw);width:100vw;top:30%;height:calc(var(--u)*9);z-index:38;background-repeat:repeat-x;background-size:auto 100%;image-rendering:pixelated;pointer-events:none}
 @supports (width:1cqw){.fence{height:10.5cqw;background-size:14cqw 100%}}
-.hgrp{left:8%;top:16%;width:74%;aspect-ratio:1017/692;z-index:55}
+.hgrp{left:2%;top:24%;width:86%;aspect-ratio:820/568;z-index:70}
 .hgrp>img{position:absolute;display:block;height:auto}
 .hgrp .house{left:0;top:0;width:100%}
 .ch{transform-origin:50% 100%;animation:idle 2.6s steps(1,end) infinite;z-index:2}
-#girl{left:66.5%;top:79.6%;width:6.7%}
-#boy{left:73.5%;top:79.6%;width:6.4%;animation-delay:-1.3s;animation-duration:3s}
+#girl{left:66%;top:78.8%;width:6.7%}
+#boy{left:73%;top:78.8%;width:6.4%;animation-delay:-1.3s;animation-duration:3s}
+#dog{left:59.4%;top:87.3%;width:6.1%;animation-delay:-.7s;animation-duration:3.4s}
+#cat{left:79.8%;top:90.2%;width:5.9%;animation-delay:-2s;animation-duration:2.8s}
+.pheart{position:absolute;left:81.5%;top:80%;opacity:0;animation:pheart 7s steps(1,end) infinite;z-index:3}
+@keyframes pheart{0%,70%{opacity:0;transform:translateY(0)}72%{opacity:1;transform:translateY(0)}82%{opacity:1;transform:translateY(-90%)}92%{opacity:1;transform:translateY(-170%)}96%,100%{opacity:0;transform:translateY(-200%)}}
 @keyframes idle{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.5%)}}
-.smoke{position:absolute;left:83.5%;top:3.2%;width:3%;aspect-ratio:1;background:#fff;opacity:0;animation:smoke 3.6s steps(7) infinite;z-index:1}
+.smoke{position:absolute;left:83.5%;top:2.7%;width:3%;aspect-ratio:1;background:#fff;opacity:0;animation:smoke 3.6s steps(7) infinite;z-index:1}
 @keyframes smoke{0%{transform:translate(0,0) scale(.6);opacity:0}15%{opacity:.85}100%{transform:translate(60%,-900%) scale(1.7);opacity:0}}
-.yard{left:3%;top:76%;width:94%;height:23.5%;visibility:hidden;pointer-events:none}
-.jzone{left:26%;top:59%;width:62%;height:40%;visibility:hidden;pointer-events:none}
+.yard{left:12%;top:78%;width:85%;height:21.5%;visibility:hidden;pointer-events:none}
+.jzone{left:24%;top:72%;width:66%;height:27%;visibility:hidden;pointer-events:none}
 /* junimos */
-.jun{left:0;top:0;width:10.5%;z-index:100;will-change:transform}
+.jun{left:0;top:0;width:9%;z-index:100;will-change:transform}
 .jun img{display:block;width:100%;height:auto;image-rendering:pixelated}
 .jun .shadow{left:12%;right:12%;bottom:-3px;height:7px}
 .jb{position:relative;transform-origin:50% 100%;animation:jidle 1.8s steps(1,end) infinite}
@@ -95,8 +118,8 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 @keyframes jjump{0%{transform:translateY(0) scale(1.12,.86)}15%{transform:translateY(-55%) scale(.92,1.1)}35%{transform:translateY(-75%) scale(.92,1.1) rotate(-12deg)}55%{transform:translateY(-45%) rotate(8deg)}75%{transform:translateY(-8%)}90%{transform:translateY(0) scale(1.12,.86)}}
 
 /* mailbox */
-.mbwrap{left:83.5%;bottom:45.3%;z-index:56;flex:none;--mb:calc(var(--u)*.6)}
-@supports (width:1cqw){.mbwrap{--mb:calc(74cqw*.0052)}}
+.mbwrap{left:89%;bottom:30.2%;z-index:71;flex:none;--mb:calc(var(--u)*.55)}
+@supports (width:1cqw){.mbwrap{--mb:calc(86cqw*.0046)}}
 .mailbox{position:relative;display:block;background:none;border:0;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .mb-art{position:relative;display:block}
 .mb-art>.spr{position:absolute}
@@ -116,7 +139,7 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 @keyframes nb{0%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 
 /* chickens wander in the yard below the house */
-.hen{left:0;top:0;width:15%;z-index:100;will-change:transform}
+.hen{left:0;top:0;width:13%;z-index:100;will-change:transform}
 .shadow{position:absolute;left:12%;right:12%;bottom:-4px;height:10px;border-radius:50%;background:rgba(70,40,10,.3)}
 .fl{position:relative;transform:scaleX(var(--f,1))}
 .bob{position:relative;transform-origin:50% 100%;animation:breathe 2.6s steps(1,end) infinite}
@@ -163,6 +186,16 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 .pb:active{transform:translateY(4px);box-shadow:inset 0 -6px 0 #0003,0 2px 0 #5a2f10}
 #startBtn{background:#3fae5a}
 .pb:focus-visible,.mailbox:focus-visible,.music:focus-visible,.svb:focus-visible,.svok:focus-visible,.mail:focus-visible{outline:4px solid #fff;outline-offset:3px;box-shadow:0 0 0 7px #3d2b8a}
+
+
+/* password gate */
+.pw{display:flex;flex-direction:column;align-items:center;gap:14px;position:relative;z-index:3;width:100%;max-width:420px}
+.pwl{font-family:'Press Start 2P',monospace;font-size:clamp(10px,2.8vw,13px);color:#fff;text-shadow:2px 2px 0 #5a2f10;letter-spacing:.04em;text-align:center}
+#pw{width:min(100%,300px);font-family:"Courier New",monospace;font-weight:700;font-size:clamp(26px,8vw,36px);letter-spacing:.35em;text-indent:.35em;text-align:center;padding:10px 12px;background:#fff6dd;color:#4a2a10;border:4px solid #5a2f10;border-radius:4px;box-shadow:inset 0 0 0 3px #f3cf86,0 5px 0 #5a2f10;outline:none}
+#pw:focus{box-shadow:inset 0 0 0 3px #f3cf86,0 5px 0 #5a2f10,0 0 0 6px #3d2b8a}
+.pwerr{min-height:1.5em;margin:0;font-family:'Press Start 2P',monospace;font-size:clamp(9px,2.6vw,11px);line-height:1.5;color:#fff;text-shadow:2px 2px 0 #8f2a1c;text-align:center}
+.shake{animation:shake .45s steps(6,end)}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
 
 /* corner controls */
 .ctrl{position:fixed;z-index:40;top:8px;right:8px;display:flex;flex-direction:row;gap:8px}
@@ -235,34 +268,49 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 
 /* ===================== wide screens: iPad landscape + desktop (its own composition) ===================== */
 @media (min-width:700px) and (min-aspect-ratio:5/4){
+  :root{--hor:calc(var(--vh)*17);--mu:clamp(3px,calc(var(--vh)*.62),9px)}
   .ui{--fw:min(calc(100vw - 28px),1400px,calc(var(--vh)*139));max-width:none;justify-content:center;padding:calc(var(--vh)*2) 14px;gap:0}
-  .sign{position:absolute;margin:0;width:calc(var(--fw)*.3);z-index:300;left:calc(50% - var(--fw)/2 + var(--fw)*.02);top:calc(50% - var(--fw)*.345 + var(--fw)*.0104)}
+  .sign{position:absolute;margin:0;width:calc(var(--fw)*.38);z-index:300;left:calc(50% - var(--fw)/2 + var(--fw)*.02);top:calc(50% - var(--fw)*.345 + var(--fw)*.0104)}
   .farm{width:var(--fw);aspect-ratio:1/.69}
-  .w-only{display:block}
-#n2{left:1%;top:19.36%;width:8%;z-index:46}
-#t3{left:11%;top:26.68%;width:8%;z-index:46}
-#n1{left:33%;top:11.85%;width:8%;z-index:36}
-#t4{left:24%;top:22.44%;width:7%;z-index:44}
-#t5{left:78.5%;top:12.98%;width:6.5%;z-index:33}
-#t6{left:85%;top:19.10%;width:7%;z-index:36}
-#n3{left:92%;top:19.13%;width:7.5%;z-index:42}
-#t1{left:1%;top:47.03%;width:12%;z-index:76}
-#n4{left:12%;top:53.34%;width:8.5%;z-index:79}
-#t8{left:79%;top:33.52%;width:6%;z-index:52}
-#t2{left:85.5%;top:43.82%;width:8.5%;z-index:70}
-#t7{left:92.5%;top:55.89%;width:7.5%;z-index:74}
-#s1{left:-13%;top:33.81%;width:10%;z-index:64}
-#s2{left:-24%;top:25.36%;width:8%;z-index:50}
-#s3{left:104%;top:36.55%;width:9%;z-index:64}
-#s4{left:114%;top:23.36%;width:8%;z-index:50}
+#a1{display:block;left:0%;top:29.03%;width:12%;z-index:58}
+#a2{display:block;left:13%;top:31.81%;width:10%;z-index:62}
+#a3{display:block;left:24%;top:31.36%;width:8%;z-index:56}
+#a4{display:block;left:32.5%;top:28.03%;width:9%;z-index:58}
+#a5{display:block;left:42%;top:18.08%;width:8.5%;z-index:44}
+#a6{display:block;left:4%;top:55.03%;width:12%;z-index:84}
+#a7{display:block;left:16.5%;top:54.32%;width:9.5%;z-index:83}
+#r1{display:block;left:91.5%;top:33.82%;width:8.5%;z-index:60}
+#r2{display:block;left:84%;top:26.68%;width:8%;z-index:46}
+#r3{display:block;left:92%;top:7.60%;width:8%;z-index:32}
+#r4{display:block;left:78%;top:2.83%;width:9%;z-index:30}
+#r5{display:block;left:91%;top:59.06%;width:9.5%;z-index:82}
+#s1{display:block;left:-15%;top:34.79%;width:11%;z-index:68}
+#s2{display:block;left:-29%;top:24.28%;width:9%;z-index:52}
+#s3{display:block;left:-43%;top:33.50%;width:10%;z-index:64}
+#s4{display:block;left:-57%;top:25.85%;width:10%;z-index:50}
+#s5{display:block;left:104%;top:29.37%;width:11%;z-index:66}
+#s6{display:block;left:118%;top:27.85%;width:10%;z-index:52}
+#s7{display:block;left:132%;top:36.28%;width:9%;z-index:64}
+#s8{display:block;left:146%;top:19.81%;width:10%;z-index:50}
+#a8{display:none}
+#b1{display:none}
+#b2{display:none}
+#b3{display:none}
+#b4{display:none}
+#b5{display:none}
+#b6{display:none}
+#b7{display:none}
+#b8{display:none}
+#f1{display:none}
   .fence{top:34%;height:calc(var(--u)*7);z-index:41}
   @supports (width:1cqw){.fence{height:4.875cqw;background-size:6.5cqw 100%}}
-  .hgrp{left:21%;top:14%;width:56%;z-index:69}
-  .yard{left:4%;top:79%;width:92%;height:20.5%}
-  .jzone{left:24%;top:72%;width:56%;height:27.5%}
-  .mbwrap{left:78.2%;bottom:30.8%;z-index:70;--mb:calc(56cqw*.0052)}
+  .hgrp{left:27%;top:12%;width:56%;z-index:68}
+  .yard{left:17%;top:80%;width:68%;height:19.5%}
+  .jzone{left:27%;top:71%;width:56%;height:28.5%}
+  .mbwrap{left:84.2%;bottom:31.8%;z-index:69;--mb:calc(56cqw*.0052)}
   .hen{width:8.5%}
   .jun{width:5.2%}
+  .pheart .spr{transform:scale(1.4);transform-origin:50% 100%}
   .shadow{height:calc(var(--vh)*1.1);bottom:calc(var(--vh)*-.5)}
   .say-in{font-size:clamp(20px,2.3vw,30px);padding:4px 12px 5px}
   .mailnote{width:44px;height:33px;margin-left:-22px}
@@ -278,6 +326,9 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
   .start .dlg{max-width:620px}
   .start .q{font-size:clamp(22px,min(3vw,7vh),38px)}
   .pb{font-size:clamp(20px,min(2.6vw,6vh),28px);padding:16px 30px}
+  #pw{font-size:clamp(28px,min(3.4vw,7vh),42px);width:min(100%,360px)}
+  .pwl{font-size:clamp(11px,1.5vw,15px)}
+  .pwerr{font-size:clamp(10px,1.3vw,13px)}
 }
 /* very short landscape screens (phones turned sideways) */
 @media (orientation:landscape) and (max-height:520px){
@@ -345,7 +396,12 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
     <p class="q">Some idiot made a little farm just for you.</p>
     <span class="nx" aria-hidden="true">▼</span>
   </section>
-  <div class="btns"><button class="pb" id="startBtn" type="button">TAP TO OPEN 💌</button></div>
+  <div class="pw" id="pwBox">
+    <label class="pwl" for="pw">ENTER YOUR PASSWORD</label>
+    <input id="pw" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Password">
+    <p class="pwerr" id="pwErr" aria-live="polite"></p>
+    <button class="pb" id="startBtn" type="button">ENTER 💌</button>
+  </div>
 </div>
 
 <div class="page" id="page">
@@ -363,22 +419,36 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
   <img class="sign" src="assets/sign.png" data-asset="sign" onerror="__imgErr(this)" onload="__imgLoad(this)" alt="Wooden sign reading JEAM ABBY KEITH PANGANIBAN" width="1100" height="488">
 
   <section class="farm" id="farm" aria-label="Our little farm">
-    <img class="tree" id="t1" src="assets/tree-peach.png" alt="" width="512" height="853">
-    <img class="tree" id="t2" src="assets/tree-teal.png" alt="" width="192" height="408">
-    <img class="tree" id="t3" src="assets/tree-peach.png" alt="" width="512" height="853">
-    <img class="tree" id="t4" src="assets/tree-teal.png" alt="" width="192" height="408">
-    <img class="tree" id="t5" src="assets/tree-teal.png" alt="" width="192" height="408">
-    <img class="tree" id="t6" src="assets/tree-peach.png" alt="" width="512" height="853">
-    <img class="tree w-only" id="t7" src="assets/tree-peach.png" alt="" width="512" height="853">
-    <img class="tree w-only" id="t8" src="assets/tree-teal.png" alt="" width="192" height="408">
-    <img class="tree" id="n1" src="assets/tree-green.png" alt="" width="96" height="200">
-    <img class="tree" id="n2" src="assets/tree-blue.png" alt="" width="94" height="216">
-    <img class="tree" id="n3" src="assets/tree-pine.png" alt="" width="96" height="202">
-    <img class="tree" id="n4" src="assets/tree-green.png" alt="" width="96" height="200">
-    <img class="tree w-only" id="s1" src="assets/tree-green.png" alt="" width="96" height="200">
-    <img class="tree w-only" id="s2" src="assets/tree-teal.png" alt="" width="192" height="408">
-    <img class="tree w-only" id="s3" src="assets/tree-pine.png" alt="" width="96" height="202">
-    <img class="tree w-only" id="s4" src="assets/tree-blue.png" alt="" width="94" height="216">
+    <img class="tree" id="a1" src="assets/tree-peach.png" alt="" width="512" height="853">
+    <img class="tree" id="a2" src="assets/tree-green.png" alt="" width="96" height="200">
+    <img class="tree" id="a3" src="assets/tree-teal.png" alt="" width="192" height="408">
+    <img class="tree" id="a4" src="assets/tree-blue.png" alt="" width="94" height="216">
+    <img class="tree" id="a5" src="assets/tree-pine.png" alt="" width="96" height="202">
+    <img class="tree" id="a6" src="assets/tree-peach.png" alt="" width="512" height="853">
+    <img class="tree" id="a7" src="assets/tree-green.png" alt="" width="96" height="200">
+    <img class="tree" id="a8" src="assets/tree-teal.png" alt="" width="192" height="408">
+    <img class="tree" id="b1" src="assets/tree-teal.png" alt="" width="192" height="408">
+    <img class="tree" id="b2" src="assets/tree-green.png" alt="" width="96" height="200">
+    <img class="tree" id="b3" src="assets/tree-pine.png" alt="" width="96" height="202">
+    <img class="tree" id="b4" src="assets/tree-blue.png" alt="" width="94" height="216">
+    <img class="tree" id="b5" src="assets/tree-teal.png" alt="" width="192" height="408">
+    <img class="tree" id="b6" src="assets/tree-green.png" alt="" width="96" height="200">
+    <img class="tree" id="b7" src="assets/tree-pine.png" alt="" width="96" height="202">
+    <img class="tree" id="b8" src="assets/tree-blue.png" alt="" width="94" height="216">
+    <img class="tree" id="f1" src="assets/tree-peach.png" alt="" width="512" height="853">
+    <img class="tree" id="r1" src="assets/tree-teal.png" alt="" width="192" height="408">
+    <img class="tree" id="r2" src="assets/tree-peach.png" alt="" width="512" height="853">
+    <img class="tree" id="r3" src="assets/tree-pine.png" alt="" width="96" height="202">
+    <img class="tree" id="r4" src="assets/tree-green.png" alt="" width="96" height="200">
+    <img class="tree" id="r5" src="assets/tree-peach.png" alt="" width="512" height="853">
+    <img class="tree" id="s1" src="assets/tree-green.png" alt="" width="96" height="200">
+    <img class="tree" id="s2" src="assets/tree-teal.png" alt="" width="192" height="408">
+    <img class="tree" id="s3" src="assets/tree-pine.png" alt="" width="96" height="202">
+    <img class="tree" id="s4" src="assets/tree-peach.png" alt="" width="512" height="853">
+    <img class="tree" id="s5" src="assets/tree-blue.png" alt="" width="94" height="216">
+    <img class="tree" id="s6" src="assets/tree-peach.png" alt="" width="512" height="853">
+    <img class="tree" id="s7" src="assets/tree-teal.png" alt="" width="192" height="408">
+    <img class="tree" id="s8" src="assets/tree-green.png" alt="" width="96" height="200">
     <div class="fence" id="fence" aria-hidden="true"></div>
     <div class="yard" id="yard" aria-hidden="true"></div>
     <div class="jzone" id="jzone" aria-hidden="true"></div>
@@ -386,12 +456,16 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
     <div class="jun" id="jun1"><div class="say"><div class="say-in"></div></div><span class="shadow"></span><div class="jb"><img src="assets/junimo-yellow.png" alt="Junimo" width="17" height="16"></div></div>
     <div class="jun" id="jun2"><div class="say"><div class="say-in"></div></div><span class="shadow"></span><div class="jb"><img src="assets/junimo-purple.png" alt="Junimo" width="17" height="16"></div></div>
     <div class="jun" id="jun3"><div class="say"><div class="say-in"></div></div><span class="shadow"></span><div class="jb"><img src="assets/junimo-green.png" alt="Junimo" width="17" height="16"></div></div>
+    <div class="jun" id="jun4"><div class="say"><div class="say-in"></div></div><span class="shadow"></span><div class="jb"><img src="assets/junimo-pink.png" alt="Junimo" width="16" height="16"></div></div>
 
     <div class="hgrp" id="hgrp">
-      <img class="house" src="assets/house.png" alt="Our farmhouse" width="580" height="395">
+      <img class="house" src="assets/house.png" alt="Our farmhouse" width="820" height="568">
       <i class="smoke"></i><i class="smoke" style="animation-delay:-1.2s"></i><i class="smoke" style="animation-delay:-2.4s"></i>
       <img class="ch" id="girl" src="assets/girl.png" alt="Pink-haired girl" width="28" height="64">
       <img class="ch" id="boy" src="assets/boy.png" alt="Gray-haired boy" width="26" height="63">
+      <img class="ch" id="dog" src="assets/pet-dog.png" alt="Dog" width="36" height="56">
+      <img class="ch" id="cat" src="assets/pet-cat.png" alt="Cat" width="30" height="38">
+      <span class="pheart" id="pheart"></span>
     </div>
 
     <div class="mbwrap" id="mbwrap">
@@ -531,7 +605,7 @@ function mtnLayer(W,H,peaks,slope,minH,c){
     s.style.opacity=.6+R()*.4;sky.appendChild(s);
   }
   [[-3,22,2.6,0],[70,13,2.2,-20],[18,31,1.6,-35]].forEach(([x,y,sc,d])=>{
-    const c=el(CLOUD,`calc(var(--u)*${sc})`,'cl');c.style.left=x+'vw';c.style.top=`calc(var(--vh)*${y})`;c.style.animationDelay=d+'s';sky.appendChild(c);
+    const c=el(CLOUD,`calc(var(--u)*${sc})`,'cl');c.style.left=x+'vw';c.style.top=`calc(var(--hor)*${(y/38).toFixed(3)})`;c.style.animationDelay=d+'s';sky.appendChild(c);
   });
   const far=mtnLayer(128,22,[[16,20],[52,17],[88,21],[116,15]],.55,8,{f:'#86c4da',d:'#62a5c4',h:'#b0dcea'});
   const mid=mtnLayer(112,17,[[30,15],[70,13],[100,16]],.75,5,{f:'#6cc96d',d:'#3d9c5d',h:'#9de57f'});
@@ -550,7 +624,7 @@ function mtnLayer(W,H,peaks,slope,minH,c){
   const r2=rng(21),n=small?64:100,fp=small?3:'calc(var(--u)*1.2)';
   for(let i=0;i<n;i++){
     const f=el(FL[Math.floor(r2()*FL.length)],fp);
-    f.style.left=(1+r2()*96)+'%';f.style.top=`calc(var(--vh)*${40+r2()*17})`;decor.appendChild(f);
+    f.style.left=(1+r2()*96)+'%';f.style.top=`calc(var(--hor) + (var(--vh)*57 - var(--hor))*${r2().toFixed(3)})`;decor.appendChild(f);
   }
   for(let i=0;i<14;i++){
     const f=el(FL[Math.floor(r2()*FL.length)],fp);
@@ -558,7 +632,7 @@ function mtnLayer(W,H,peaks,slope,minH,c){
     f.style.left=left+'%';f.style.top=`calc(var(--vh)*${60+r2()*36})`;decor.appendChild(f);
   }
   for(let i=0;i<(small?22:36);i++){
-    const t=el(TUFT,small?3:'calc(var(--u)*1.1)');t.style.left=(r2()*98)+'%';t.style.top=`calc(var(--vh)*${39+r2()*17})`;decor.appendChild(t);
+    const t=el(TUFT,small?3:'calc(var(--u)*1.1)');t.style.left=(r2()*98)+'%';t.style.top=`calc(var(--hor) + (var(--vh)*57 - var(--hor))*${r2().toFixed(3)})`;decor.appendChild(t);
   }
   for(let i=0;i<(small?7:11);i++){
     const t=el(PEBBLE,small?3:'calc(var(--u)*1)');t.style.left=(r2()*98)+'%';t.style.top=`calc(var(--vh)*${60+r2()*34})`;decor.appendChild(t);
@@ -594,6 +668,7 @@ const blip=SFX(t=>tone(380+Math.random()*320,t,.06,'square',.05));
 const sClick=SFX(t=>{tone(520,t,.06,'square',.06);tone(780,t+.06,.08,'square',.06)});
 const sCreak=SFX(t=>{tone(160,t,.4,'sawtooth',.05,300);tone(1175,t+.45,.2,'sine',.1);tone(1568,t+.58,.3,'sine',.1)});
 const sRustle=SFX(t=>{noise(t,.18,.18,3000);noise(t+.12,.12,.12,5000)});
+const sBad=SFX(t=>{tone(220,t,.12,'square',.07);tone(165,t+.12,.2,'square',.07)});
 const sPop=SFX(t=>{tone(880,t,.07,'sine',.05,1320)});
 
 /* letters: reserve the full layout, reveal text as it types */
@@ -619,7 +694,7 @@ function typeReserve(p,text,cb,speed){
 
 /* ---------- junimos: hop around the ground in front of the house ---------- */
 const jzone=$('#jzone');
-const JCOL=[['orange','amping permi'],['yellow','eat well'],['purple','drink water!'],['green','guitarist']];
+const JCOL=[['orange','amping permi'],['yellow','eat well'],['purple','drink water!'],['green','guitarist'],['pink','']];
 const juns=JCOL.map(([c,t],i)=>{const node=$('#jun'+i);node.querySelector('.say-in').textContent=t;
   return {node,jb:node.querySelector('.jb'),say:node.querySelector('.say'),x:0,y:0,tx:0,ty:0,state:'idle',wait:.5+i*.7,v:0,top:0,jmp:2+i*.8}});
 let JW=0,JH=0,jx0=0,jx1=0,jy0=0,jy1=0;
@@ -634,7 +709,7 @@ function placeJ(j){
 }
 function spawnJ(){
   boundsJ();
-  juns.forEach((j,i)=>{j.x=clamp(jx0+(jx1-jx0)*(.06+.27*i),jx0,jx1);j.y=jy0+(jy1-jy0)*[.2,.65,.35,.8][i];placeJ(j)});
+  juns.forEach((j,i)=>{j.x=clamp(jx0+(jx1-jx0)*(.05+.22*i),jx0,jx1);j.y=jy0+(jy1-jy0)*[.2,.65,.35,.8,.5][i];placeJ(j)});
 }
 function refitJ(){boundsJ();juns.forEach(j=>{j.x=clamp(j.x,jx0,jx1);j.y=clamp(j.y,jy0,jy1);placeJ(j)})}
 function stepJ(dt){
@@ -662,15 +737,29 @@ function stepJ(dt){
     j.x=clamp(j.x,jx0,jx1);j.y=clamp(j.y,jy0,jy1);placeJ(j);
   });
 }
+function fitSay(say){   /* keep a bubble inside the farm */
+  say.style.marginLeft='0px';
+  const r=say.getBoundingClientRect(),f=document.querySelector('#farm').getBoundingClientRect();
+  let sh=0;if(r.left<f.left+4)sh=f.left+4-r.left;else if(r.right>f.right-4)sh=f.right-4-r.right;
+  say.style.marginLeft=sh+'px';
+}
+/* the pink junimo: one more word every 5 minutes -> "can we try again?" */
+const PINKW=['can','we','try','again?'];let pk=0;
+function pinkSay(){
+  const j=juns[4];
+  j.say.firstElementChild.textContent=PINKW.slice(0,pk+1).join(' ');pk=(pk+1)%PINKW.length;
+  j.say.classList.add('on');fitSay(j.say);
+  setTimeout(()=>j.say.classList.remove('on'),10000);
+}
 let jsay=0,slot=0;
 function nextSlot(){   /* hens, junimo, junimo, hens ... one message at a time */
-  juns.forEach(j=>j.say.classList.remove('on'));
+  juns.slice(0,4).forEach(j=>j.say.classList.remove('on'));
   if(slot++%3===0)cycleSay();
   else{hens.forEach(h=>h.say.classList.remove('on'));setTimeout(junSay,reduce?0:550)}
 }
 function junSay(){
-  const j=juns[jsay++%juns.length];
-  j.say.classList.add('on');
+  const j=juns[jsay++%4];
+  j.say.classList.add('on');fitSay(j.say);
 }
 
 /* ---------- chickens: each has its own side of the yard, never cross or overlap ---------- */
@@ -820,6 +909,7 @@ const read=new Set();let typing=0,userScrolled=false;
   $('#hr').style.width='60%';
 })();
 
+$('#pheart').appendChild(el(HEART,3));
 function updateBubble(){
   const left=LETTERS.length-read.size;
   if(left>0){
@@ -935,13 +1025,24 @@ sfxBtn.addEventListener('click',()=>{
 });
 
 /* ---------- start screen (unlocks sound, then the farm begins) ---------- */
-$('#startBtn').addEventListener('click',()=>{
-  unlock();sClick();setMusic(true);
+const pw=$('#pw'),pwErr=$('#pwErr'),PASS='080808';
+function enter(){
+  unlock();
+  if(pw.value.trim()!==PASS){
+    pwErr.textContent='Hmm, that is not it. Try again?';sBad();
+    pw.value='';const box=$('#pwBox');box.classList.remove('shake');void box.offsetWidth;box.classList.add('shake');pw.focus();
+    return;
+  }
+  sClick();setMusic(true);
   document.body.classList.add('go');
   const st=$('#start');st.classList.add('out');setTimeout(()=>st.remove(),650);
   startHens();
   setTimeout(()=>{nextSlot();setInterval(nextSlot,3700)},reduce?0:900);
-});
+  setTimeout(()=>{pinkSay();setInterval(pinkSay,300000)},reduce?0:3200);
+}
+pw.addEventListener('input',()=>{pw.value=pw.value.replace(/\D/g,'');pwErr.textContent=''});
+pw.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();enter()}});
+$('#startBtn').addEventListener('click',enter);
 })();
 </script>
 </body>
