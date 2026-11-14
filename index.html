@@ -12,7 +12,7 @@
 :root{
   --vh:1vh;
   --u:clamp(2.4px,calc(var(--vh)*.55),6px);
-  --mu:clamp(3px,calc(var(--hor)*.0318),12px);
+  --mu:clamp(3px,calc(var(--hor)*.0165),6px);
   --mb:calc(var(--u)*.72);
   --ftop:calc(56px + min(100vw - 20px,520px,var(--vh)*46)*.4436 + var(--vh)*1.5);
   --hor:calc(var(--ftop) + var(--vh)*4);
@@ -107,8 +107,8 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 @keyframes idle{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.5%)}}
 .smoke{position:absolute;left:83.5%;top:2.7%;width:3%;aspect-ratio:1;background:#fff;opacity:0;animation:smoke 3.6s steps(7) infinite;z-index:1}
 @keyframes smoke{0%{transform:translate(0,0) scale(.6);opacity:0}15%{opacity:.85}100%{transform:translate(60%,-900%) scale(1.7);opacity:0}}
-.yard{left:12%;top:80.5%;width:85%;height:19%;visibility:hidden;pointer-events:none}
-.jzone{left:24%;top:76%;width:66%;height:23.5%;visibility:hidden;pointer-events:none}
+.yard{left:0;top:75%;width:100%;height:24.5%;visibility:hidden;pointer-events:none}
+.jzone{left:0;top:75%;width:100%;height:24.5%;visibility:hidden;pointer-events:none}
 /* junimos */
 .jun{left:0;top:0;width:9%;z-index:100;will-change:transform}
 .jun img{display:block;width:100%;height:auto;image-rendering:pixelated}
@@ -187,8 +187,11 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 }
 .pb:hover{transform:translateY(-2px)}
 .pb:active{transform:translateY(4px);box-shadow:inset 0 -6px 0 #0003,0 2px 0 #5a2f10}
-#startBtn{background:#3fae5a}
-.pb:focus-visible,.mailbox:focus-visible,.music:focus-visible,.svb:focus-visible,.svok:focus-visible,.mail:focus-visible{outline:4px solid #fff;outline-offset:3px;box-shadow:0 0 0 7px #3d2b8a}
+.enterbtn{position:relative;z-index:3;background:none;border:0;padding:0;cursor:pointer;width:min(52vw,230px,calc(var(--vh)*26));-webkit-tap-highlight-color:transparent;filter:drop-shadow(0 6px 0 rgba(0,20,60,.35));transition:transform .1s steps(2)}
+.enterbtn img{display:block;width:100%;height:auto;image-rendering:pixelated}
+.enterbtn:hover{transform:translateY(-3px)}
+.enterbtn:active{transform:translateY(4px)}
+.pb:focus-visible,.enterbtn:focus-visible,.mailbox:focus-visible,.music:focus-visible,.svb:focus-visible,.svok:focus-visible,.mail:focus-visible{outline:4px solid #fff;outline-offset:3px;box-shadow:0 0 0 7px #3d2b8a}
 
 
 /* password gate */
@@ -207,9 +210,10 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 .music[aria-pressed="false"]::after{content:"";position:absolute;left:3px;right:3px;top:50%;border-top:4px solid #d9605a;transform:rotate(-38deg)}
 
 /* start screen */
-.start{position:fixed;inset:0;z-index:100;display:grid;place-items:center;align-content:center;gap:28px;padding:24px;background:linear-gradient(#2f86e0 0%,#5fb0f2 45%,#9fd6fa 80%,#d4eefd 100%);transition:opacity .5s steps(5);overflow:hidden}
+.start{position:fixed;inset:0;z-index:100;display:grid;place-items:center;align-content:center;gap:28px;padding:24px;background:url(assets/start-bg.jpg) center bottom/cover no-repeat,linear-gradient(#0b1650 0%,#1f6fd6 55%,#7fd8f0 100%);image-rendering:pixelated;transition:opacity .5s steps(5);overflow:hidden}
 .start::before{content:"";position:absolute;left:50%;bottom:calc(var(--vh)*12);width:150px;height:150px;margin-left:-75px;border-radius:50%;background:#fff1a8;box-shadow:0 0 0 12px #ffe08a88,0 0 0 26px #ffc46a55,0 0 70px 36px #ffb36b66}
 .start::after{content:"";position:absolute;left:0;right:0;bottom:0;height:calc(var(--vh)*17);background:#2a5d94;clip-path:polygon(0 55%,10% 55%,10% 35%,22% 35%,22% 15%,36% 15%,36% 40%,48% 40%,48% 22%,62% 22%,62% 5%,76% 5%,76% 30%,90% 30%,90% 48%,100% 48%,100% 100%,0 100%)}
+.start::before,.start::after{content:none!important}
 .start>*{position:relative;z-index:1}
 .start.out{opacity:0;pointer-events:none}
 .start .dlg{max-width:420px}
@@ -279,27 +283,27 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 
 /* ===================== wide screens: iPad landscape + desktop (its own composition) ===================== */
 @media (min-width:700px) and (min-aspect-ratio:5/4){
-  :root{--fw:min(calc(100vw - 28px),1400px,calc(var(--vh)*133));--ftop:calc(var(--vh)*7 + (var(--vh)*92 - var(--fw)*.69)/2);--hor:calc(var(--ftop) + var(--fw)*.69*.15)}
+  :root{--fw:min(calc(100vw - 28px),1400px,calc(var(--vh)*133));--ftop:calc(var(--vh)*7 + (var(--vh)*92 - var(--fw)*.69)/2);--hor:calc(var(--ftop) + var(--fw)*.69*.15);--mu:clamp(3px,calc(var(--hor)*.0318),12px)}
   .ui{max-width:none;justify-content:center;padding:calc(var(--vh)*7) 14px calc(var(--vh)*1);gap:0}
   .sign{position:absolute;margin:0;width:calc(var(--fw)*.38);z-index:300;left:calc(50% - var(--fw)/2 + var(--fw)*.02);top:calc(var(--ftop) + var(--fw)*.0104)}
   .farm{width:var(--fw);aspect-ratio:1/.69}
-#w1{display:block;left:1%;top:27.36%;width:8%;z-index:54}
-#w2{display:block;left:13%;top:33.44%;width:11%;z-index:60}
-#w3{display:block;left:1%;top:53.32%;width:9.5%;z-index:82}
-#w4{display:block;left:14%;top:59.36%;width:8%;z-index:84}
-#w5{display:block;left:41%;top:19.08%;width:8.5%;z-index:45}
-#w6{display:block;left:91.5%;top:35.82%;width:8.5%;z-index:62}
-#w7{display:block;left:85%;top:24.68%;width:8%;z-index:44}
-#w8{display:block;left:93%;top:15.60%;width:8%;z-index:40}
-#w9{display:block;left:91%;top:61.06%;width:9.5%;z-index:84}
-#s1{display:block;left:-15%;top:34.79%;width:11%;z-index:68}
-#s2{display:block;left:-29%;top:24.28%;width:9%;z-index:52}
-#s3{display:block;left:-43%;top:33.50%;width:10%;z-index:64}
-#s4{display:block;left:-57%;top:25.85%;width:10%;z-index:50}
-#s5{display:block;left:104%;top:29.37%;width:11%;z-index:66}
-#s6{display:block;left:118%;top:27.85%;width:10%;z-index:52}
-#s7{display:block;left:132%;top:36.28%;width:9%;z-index:64}
-#s8{display:block;left:146%;top:19.81%;width:10%;z-index:50}
+#w1{display:block;left:-12%;top:32.68%;width:5.5%;z-index:51}
+#w2{display:block;left:-1%;top:33.31%;width:6.5%;z-index:49}
+#w3{display:block;left:20%;top:35.39%;width:5.5%;z-index:52}
+#w4{display:block;left:9%;top:33.06%;width:5.5%;z-index:50}
+#w5{display:block;left:42%;top:24.75%;width:5%;z-index:40}
+#w6{display:block;left:100%;top:31.06%;width:5.5%;z-index:48}
+#w7{display:block;left:89%;top:34.31%;width:6.5%;z-index:50}
+#w8{display:block;left:88%;top:14.75%;width:5%;z-index:30}
+#w9{display:block;left:110%;top:35.31%;width:6.5%;z-index:51}
+#s1{display:block;left:-24%;top:33.39%;width:5.5%;z-index:50}
+#s2{display:block;left:-7%;top:13.06%;width:5.5%;z-index:30}
+#s3{display:block;left:-18%;top:15.75%;width:5%;z-index:31}
+#s4{display:block;left:-30%;top:13.31%;width:6.5%;z-index:29}
+#s5{display:block;left:98%;top:10.68%;width:5.5%;z-index:29}
+#s6{display:block;left:108%;top:15.31%;width:6.5%;z-index:31}
+#s7{display:block;left:120%;top:13.06%;width:5.5%;z-index:30}
+#s8{display:block;left:122%;top:32.39%;width:5.5%;z-index:49}
 #p1{display:none}
 #p2{display:none}
 #p3{display:none}
@@ -317,8 +321,8 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
   .fence{top:34%;height:calc(var(--u)*7);z-index:41}
   @supports (width:1cqw){.fence{height:4.875cqw;background-size:6.5cqw 100%}}
   .hgrp{left:27%;top:12%;width:56%;z-index:68}
-  .yard{left:23%;top:80%;width:62%;height:19.5%}
-  .jzone{left:27%;top:71%;width:56%;height:28.5%}
+  .yard{left:0;top:72%;width:100%;height:27%}
+  .jzone{left:0;top:72%;width:100%;height:27%}
   .mbwrap{--mb:calc(56cqw*.0052)}
   .hen{width:8.5%}
   .jun{width:5.2%}
@@ -340,6 +344,7 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
   .start .dlg{max-width:620px}
   .start .q{font-size:clamp(22px,min(3vw,7vh),38px)}
   .pb{font-size:clamp(20px,min(2.6vw,6vh),28px);padding:16px 30px}
+  .enterbtn{width:min(18vw,260px,calc(var(--vh)*30))}
   #pw{font-size:clamp(28px,min(3.4vw,7vh),42px);width:min(100%,360px)}
   .pwl{font-size:clamp(11px,1.5vw,15px)}
   .pwerr{font-size:clamp(10px,1.3vw,13px)}
@@ -417,7 +422,7 @@ window.__fb=function(img){var k=img.getAttribute('data-fb');if(k&&FB[k]){img.one
     <label class="pwl" for="pw">ENTER YOUR PASSWORD</label>
     <input id="pw" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Password">
     <p class="pwerr" id="pwErr" aria-live="polite"></p>
-    <button class="pb" id="startBtn" type="button">ENTER 💌</button>
+    <button class="enterbtn" id="startBtn" type="button" aria-label="Enter"><img src="assets/enter.png" alt="Enter" width="308" height="256"></button>
   </div>
 </div>
 
@@ -720,55 +725,96 @@ function typeReserve(p,text,cb,speed){
   },speed||18);
 }
 
-/* ---------- junimos: hop around the ground in front of the house ---------- */
-const jzone=$('#jzone');
+/* ---------- junimos + chickens: roam the whole ground, scatter everywhere ---------- */
+const jzone=$('#jzone'),farm=$('#farm'),yard=$('#yard');
+const rnd=(a,b)=>a+Math.random()*(b-a);
+const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
 const JCOL=[['orange','amping permi'],['yellow','eat well'],['purple','drink water!'],['green','guitarist'],['pink',''],['blue',"i'm sorry..."]];
 const juns=JCOL.map(([c,t],i)=>{const node=$('#jun'+i);node.querySelector('.say-in').textContent=t;
-  return {node,jb:node.querySelector('.jb'),say:node.querySelector('.say'),x:0,y:0,tx:0,ty:0,state:'idle',wait:.5+i*.7,v:0,top:0,jmp:2+i*.8}});
-let JW=0,JH=0,jx0=0,jx1=0,jy0=0,jy1=0;
-function boundsJ(){
-  JW=juns[0].node.offsetWidth||20;JH=juns[0].node.offsetHeight||JW;
-  const l=jzone.offsetLeft,t=jzone.offsetTop,w=jzone.offsetWidth,h=jzone.offsetHeight;
-  jx0=l;jx1=Math.max(l,l+w-JW);jy0=t;jy1=Math.max(t,t+h-JH);
+  return {node,jb:node.querySelector('.jb'),say:node.querySelector('.say'),x:0,y:0,tx:0,ty:0,state:'idle',wait:.2+i*.35,v:0,top:0,jmp:2+i*.8}});
+const henB=$('#henB'),henC=$('#henC'),sayB=$('#sayB'),sayC=$('#sayC');
+const HEN_IMG_FACES_RIGHT=true; /* the chicken art faces right; set to false if yours faces left */
+const hens=[henB,henC].map((node,i)=>({node,fl:node.querySelector('.fl'),say:i?sayC:sayB,x:0,y:0,tx:0,ty:0,maxY:0,state:'idle',wait:.3+i*.9,dir:i?-1:1,v:0,top:0,peck:1+i}));
+sayB.firstElementChild.textContent='i miss youuu';sayC.firstElementChild.textContent='i love youuu';
+let JW=0,JH=0,HW=0,Q=2,jx0=0,jx1=0,jy0=0,jy1=0,hx0=0,hx1=0,hy0=0;
+function bounds(){
+  const r=farm.getBoundingClientRect(),vw=document.documentElement.clientWidth;
+  Q=Math.max(2,Math.round(farm.clientWidth/300));
+  JW=juns[0].node.offsetWidth||20;JH=juns[0].node.offsetHeight||JW;HW=henB.offsetWidth||farm.clientWidth*.12;
+  const t=yard.offsetTop,h=yard.offsetHeight,m=4;
+  jx0=-r.left+m;jx1=Math.max(jx0,vw-r.left-JW-m);jy0=t;jy1=Math.max(t,t+h-JH);
+  const side=Math.round(Math.max(sayB.offsetWidth,sayC.offsetWidth,HW*2)/2-HW/2)+2;
+  hx0=Math.min(-r.left+side,vw/2-r.left-HW);hx1=Math.max(hx0,vw-r.left-HW-side);hy0=t;
+  hens.forEach(hn=>{hn.maxY=Math.max(hy0,t+h-(hn.node.offsetHeight||HW))});
 }
 function placeJ(j){
   const px=Math.round(j.x/Q)*Q,py=Math.round(j.y/Q)*Q;
   j.node.style.transform=`translate(${px}px,${py}px)`;j.node.style.zIndex=100+Math.floor(py/4);
 }
-function spawnJ(){
-  boundsJ();
-  juns.forEach((j,i)=>{j.x=clamp(jx0+(jx1-jx0)*(.04+.18*i),jx0,jx1);j.y=jy0+(jy1-jy0)*[.2,.65,.35,.8,.5,.12][i];placeJ(j)});
+function place(h){
+  const px=Math.round(h.x/Q)*Q,py=Math.round(h.y/Q)*Q;
+  h.node.style.transform=`translate(${px}px,${py}px)`;h.node.style.zIndex=100+Math.floor(py/4);
+  h.fl.style.setProperty('--f',(h.dir>0)===HEN_IMG_FACES_RIGHT?1:-1);
 }
-function refitJ(){boundsJ();juns.forEach(j=>{j.x=clamp(j.x,jx0,jx1);j.y=clamp(j.y,jy0,jy1);placeJ(j)})}
 function stepJ(dt){
-  juns.forEach((j,i)=>{
+  juns.forEach(j=>{
     if(j.state==='idle'){
       j.wait-=dt;j.jmp-=dt;
       if(j.jmp<=0){j.jmp=rnd(2.2,5);j.jb.classList.add('jump');setTimeout(()=>j.jb.classList.remove('jump'),640)}
       if(j.wait<=0){
-        j.tx=clamp(j.x+rnd(-1,1)*JW*7,jx0,jx1);j.ty=clamp(j.y+rnd(-1,1)*JH*2.5,jy0,jy1);
-        if(Math.hypot(j.tx-j.x,j.ty-j.y)<JW*1.2)j.tx=clamp(j.x+(Math.random()<.5?-1:1)*JW*3,jx0,jx1);
-        j.state='walk';j.top=JW*rnd(1.3,2.1);j.node.classList.add('walk');j.jb.classList.remove('jump');
+        if(Math.random()<.75){j.tx=rnd(jx0,jx1);j.ty=rnd(jy0,jy1)}
+        else{j.tx=clamp(j.x+rnd(-1,1)*JW*4,jx0,jx1);j.ty=clamp(j.y+rnd(-1,1)*JH*2,jy0,jy1)}
+        j.state='walk';j.top=JW*rnd(2.4,3.8);j.node.classList.add('walk');j.jb.classList.remove('jump');
       }
     }else{
       const dx=j.tx-j.x,dy=j.ty-j.y,d=Math.hypot(dx,dy);
-      if(d<2){j.state='idle';j.wait=rnd(.5,2.2);j.node.classList.remove('walk');j.v=0}
+      if(d<2){j.state='idle';j.wait=rnd(.2,1.4);j.node.classList.remove('walk');j.v=0}
       else{j.v+=(j.top-j.v)*Math.min(1,dt*6);const st=Math.min(d,j.v*dt);j.x+=dx/d*st;j.y+=dy/d*st}
     }
-    /* keep clear of the hens and of each other */
-    const others=[...hens.map(h=>({x:h.x,y:h.y,w:HW,h:h.node.offsetHeight||HW})),...juns.filter((_,k)=>k<i).map(o=>({x:o.x,y:o.y,w:JW,h:JH}))];
-    others.forEach(o=>{
-      const ox=(o.w+JW)/2*.92-Math.abs((j.x+JW/2)-(o.x+o.w/2));
-      const oy=(o.h+JH)/2*.6-Math.abs((j.y+JH/2)-(o.y+o.h/2));
-      if(ox>0&&oy>0){if(ox<oy*1.4)j.x+=((j.x+JW/2)<(o.x+o.w/2)?-1:1)*ox;else j.y+=((j.y+JH/2)<(o.y+o.h/2)?-1:1)*oy}
-    });
-    j.x=clamp(j.x,jx0,jx1);j.y=clamp(j.y,jy0,jy1);placeJ(j);
+    j.x=clamp(j.x,jx0,jx1);j.y=clamp(j.y,jy0,jy1);
   });
 }
-function fitSay(say){   /* keep a bubble inside the farm */
+function stepH(dt){
+  hens.forEach(h=>{
+    if(h.state==='idle'){
+      h.wait-=dt;h.v=0;h.peck-=dt;
+      if(h.peck<=0&&h.wait>.7){h.peck=rnd(1.8,4);h.node.classList.add('peck');setTimeout(()=>h.node.classList.remove('peck'),780)}
+      if(h.wait<=0){
+        const hh=h.node.offsetHeight||HW;
+        if(Math.random()<.7){h.tx=rnd(hx0,hx1);h.ty=rnd(hy0,h.maxY)}
+        else{h.tx=clamp(h.x+rnd(-2.5,2.5)*HW,hx0,hx1);h.ty=clamp(h.y+rnd(-1,1)*hh,hy0,h.maxY)}
+        h.state='walk';h.top=HW*rnd(.7,1.1);h.node.classList.add('walk');h.node.classList.remove('peck');
+      }
+    }else{
+      const dx=h.tx-h.x,dy=h.ty-h.y,d=Math.hypot(dx,dy);
+      if(d<2){h.state='idle';h.wait=rnd(.6,2.4);h.node.classList.remove('walk')}
+      else{
+        h.v+=(h.top-h.v)*Math.min(1,dt*5);
+        const st=Math.min(d,h.v*dt);h.x+=dx/d*st;h.y+=dy/d*st;
+        if(Math.abs(dx)>1.5)h.dir=dx>0?1:-1;   /* face where you are going */
+      }
+    }
+    h.x=clamp(h.x,hx0,hx1);h.y=clamp(h.y,hy0,h.maxY);
+  });
+}
+function sepAll(){   /* nobody stands on top of anybody else; junimos give way more than hens */
+  const all=[...hens.map(o=>({o,w:HW,h:o.node.offsetHeight||HW,m:.3,x0:hx0,x1:hx1,y0:hy0,y1:o.maxY})),...juns.map(o=>({o,w:JW,h:JH,m:1,x0:jx0,x1:jx1,y0:jy0,y1:jy1}))];
+  for(let a=0;a<all.length;a++)for(let b=a+1;b<all.length;b++){
+    const A=all[a],B=all[b];
+    const cx=(A.o.x+A.w/2)-(B.o.x+B.w/2),cy=(A.o.y+A.h/2)-(B.o.y+B.h/2);
+    const ox=(A.w+B.w)/2*.9-Math.abs(cx),oy=(A.h+B.h)/2*.55-Math.abs(cy);
+    if(ox>0&&oy>0){
+      const ka=A.m/(A.m+B.m),kb=1-ka;
+      if(ox<oy*1.4){const s=cx<0?-1:1;A.o.x+=s*ox*ka;B.o.x-=s*ox*kb}
+      else{const s=cy<0?-1:1;A.o.y+=s*oy*ka;B.o.y-=s*oy*kb}
+    }
+  }
+  all.forEach(c=>{c.o.x=clamp(c.o.x,c.x0,c.x1);c.o.y=clamp(c.o.y,c.y0,c.y1)});
+}
+function fitSay(say){   /* keep a bubble inside the screen */
   say.style.marginLeft='0px';
-  const r=say.getBoundingClientRect(),f=document.querySelector('#farm').getBoundingClientRect();
-  let sh=0;if(r.left<f.left+4)sh=f.left+4-r.left;else if(r.right>f.right-4)sh=f.right-4-r.right;
+  const r=say.getBoundingClientRect(),vw=document.documentElement.clientWidth;
+  let sh=0;if(r.left<4)sh=4-r.left;else if(r.right>vw-4)sh=vw-4-r.right;
   say.style.marginLeft=sh+'px';
 }
 /* the pink junimo: one word every 5 minutes: can / we / try / again? */
@@ -790,90 +836,25 @@ function junSay(){
   const j=juns[ROT[jsay++%ROT.length]];
   j.say.classList.add('on');fitSay(j.say);
 }
-
-/* ---------- chickens: each has its own side of the yard, never cross or overlap ---------- */
-const farm=$('#farm'),yard=$('#yard'),henB=$('#henB'),henC=$('#henC'),sayB=$('#sayB'),sayC=$('#sayC');
-const HEN_IMG_FACES_RIGHT=true; /* the chicken art faces right; set to false if yours faces left */
-const hens=[henB,henC].map((node,i)=>({node,fl:node.querySelector('.fl'),say:i?sayC:sayB,x:0,y:0,tx:0,ty:0,maxY:0,state:'idle',wait:1+i*1.7,dir:i?-1:1,v:0,top:0,meet:false,peck:1.5+i*1.3}));
-sayB.firstElementChild.textContent='i miss youuu';sayC.firstElementChild.textContent='i love youuu';
-let FW=0,FH=0,HW=0,GAP=0,Q=2,minX=0,maxX=0,minY=0,meetAt=9;
-function bounds(){
-  FW=farm.clientWidth;FH=farm.clientHeight;HW=henB.offsetWidth||FW*.15;GAP=HW*1.35;Q=Math.max(2,Math.round(FW/300));
-  const bw=Math.max(sayB.offsetWidth,sayC.offsetWidth,HW*2),side=Math.round(bw/2-HW/2)+2;
-  const yl=yard.offsetLeft,yt=yard.offsetTop,yw=yard.offsetWidth,yh=yard.offsetHeight;
-  minX=Math.max(yl,side);maxX=Math.max(minX+GAP*2.4,Math.min(yl+yw-HW,FW-side-HW));
-  minY=yt;hens.forEach(h=>{h.maxY=Math.max(minY,yt+yh-(h.node.offsetHeight||HW))});
-}
-const rnd=(a,b)=>a+Math.random()*(b-a);
-const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
-/* the brown hen always stays left of the cream hen, with a clear gap between them */
-function limits(i){const o=hens[1-i];const r=i===0?[minX,Math.min(maxX,o.x-GAP)]:[Math.max(minX,o.x+GAP),maxX];r[1]=Math.max(r[0],r[1]);return r}
-function place(h){
-  const px=Math.round(h.x/Q)*Q,py=Math.round(h.y/Q)*Q;
-  h.node.style.transform=`translate(${px}px,${py}px)`;
-  h.node.style.zIndex=100+Math.floor(py/4);
-  h.fl.style.setProperty('--f',(h.dir>0)===HEN_IMG_FACES_RIGHT?1:-1);
-}
-function zone(i){const mid=(minX+maxX)/2;return i===0?[minX,mid-GAP*.55]:[mid+GAP*.55,maxX]}
-function shortWalk(h,i){
-  const [zl,zh]=zone(i),hh=h.node.offsetHeight||HW;
-  let tx=clamp(h.x+rnd(-3,3)*HW,zl,zh);
-  if(Math.abs(tx-h.x)<HW*.8)tx=clamp(h.x+(Math.random()<.5?-1:1)*HW*rnd(1,2.2),zl,zh);
-  h.tx=tx;h.ty=clamp(h.y+rnd(-.9,.9)*hh,minY,h.maxY);
-}
-function startMeet(now){
-  meetAt=now+rnd(14,22);
-  const mid=(minX+maxX)/2,y=rnd(minY,Math.min(hens[0].maxY,hens[1].maxY));
-  hens.forEach((h,i)=>{
-    h.tx=mid+(i?1:-1)*GAP*.56;h.ty=clamp(y+(i?rnd(-5,5):0),minY,h.maxY);
-    h.meet=true;h.state='walk';h.top=HW*rnd(.3,.4);h.node.classList.add('walk');
-  });
-}
 let last=0,running=false;
 function frame(ts){
   if(!running)return;
   requestAnimationFrame(frame);
   const now=ts/1000,dt=Math.min(.05,last?now-last:.016);last=now;
   if(document.hidden)return;
-  stepJ(dt);
-  if(now>meetAt&&hens.every(h=>!h.meet))startMeet(now);
-  hens.forEach((h,i)=>{
-    const o=hens[1-i];let [lo,hi]=limits(i);
-    if(h.state==='idle'){
-      h.wait-=dt;h.v=0;h.peck-=dt;
-      if(h.peck<=0&&h.wait>.9){h.peck=rnd(1.8,4);h.node.classList.add('peck');setTimeout(()=>h.node.classList.remove('peck'),780)}
-      if(h.wait<=0){
-        if(!h.meet)shortWalk(h,i);
-        h.state='walk';h.top=HW*rnd(.28,.4);h.node.classList.add('walk');h.node.classList.remove('peck');
-      }
-    }else{
-      h.tx=clamp(h.tx,lo,hi);
-      const dx=h.tx-h.x,dy=h.ty-h.y,d=Math.hypot(dx,dy);
-      if(d<2){
-        const was=h.meet;h.meet=false;h.state='idle';h.wait=was?rnd(4,6):rnd(1.8,4.2);h.node.classList.remove('walk');
-        if(was)h.dir=o.x>h.x?1:-1;   /* face your partner */
-      }else{
-        h.v+=(h.top-h.v)*Math.min(1,dt*5);
-        const sp=Math.min(h.v,d*3+6),st=Math.min(d,sp*dt);
-        h.x+=dx/d*st;h.y+=dy/d*st;
-        if(Math.abs(dx)>1.5)h.dir=dx>0?1:-1;   /* always face where you are going */
-      }
-    }
-    [lo,hi]=limits(i);
-    h.x=clamp(h.x,lo,hi);h.y=clamp(h.y,minY,h.maxY);place(h);
-  });
+  stepJ(dt);stepH(dt);sepAll();
+  juns.forEach(placeJ);hens.forEach(place);
   hens[1].say.classList.toggle('hush',Math.abs(hens[0].x-hens[1].x)<Math.max(sayB.offsetWidth,sayC.offsetWidth,HW*2)*.9);
+  juns.forEach(j=>{if(j.say.classList.contains('on'))fitSay(j.say)});
+  hens.forEach(h=>{if(h.say.classList.contains('on'))fitSay(h.say)});
 }
-function spawn(){   /* both hens start standing in the yard, each on her own side */
+function spawn(){   /* start already spread out over the whole ground */
   bounds();
-  const [l0,h0]=zone(0),[l1,h1]=zone(1);
-  hens[0].x=l0+(h0-l0)*.35;hens[1].x=l1+(h1-l1)*.65;
-  hens[0].y=minY+(hens[0].maxY-minY)*.35;hens[1].y=minY+(hens[1].maxY-minY)*.7;
-  hens[0].dir=1;hens[1].dir=-1;
-  hens.forEach(place);
-  spawnJ();
+  hens.forEach(h=>{h.x=rnd(hx0,hx1);h.y=rnd(hy0,h.maxY);h.dir=Math.random()<.5?1:-1;place(h)});
+  juns.forEach(j=>{j.x=rnd(jx0,jx1);j.y=rnd(jy0,jy1);placeJ(j)});
+  sepAll();juns.forEach(placeJ);hens.forEach(place);
 }
-function refit(){bounds();refitJ();hens.forEach((h,i)=>{const [lo,hi]=limits(i);h.x=clamp(h.x,lo,hi);h.y=clamp(h.y,minY,h.maxY);place(h)})}
+function refit(){bounds();hens.forEach(h=>{h.x=clamp(h.x,hx0,hx1);h.y=clamp(h.y,hy0,h.maxY);place(h)});juns.forEach(j=>{j.x=clamp(j.x,jx0,jx1);j.y=clamp(j.y,jy0,jy1);placeJ(j)})}
 function startHens(){
   spawn();
   if(reduce||running)return;
@@ -887,7 +868,7 @@ spawn();   /* right away, so nothing is ever drawn at the wrong spot */
 /* little floating messages: "I miss you." / "I love you." */
 const LINES=['i miss youuu','i love youuu'];
 let turn=0;
-function showSay(h,text){h.say.firstElementChild.textContent=text;h.say.classList.add('on')}
+function showSay(h,text){h.say.firstElementChild.textContent=text;h.say.classList.add('on');fitSay(h.say)}
 function cycleSay(){
   hens.forEach(h=>h.say.classList.remove('on'));
   setTimeout(()=>{
