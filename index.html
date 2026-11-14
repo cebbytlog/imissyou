@@ -27,15 +27,11 @@ button{font:inherit;color:inherit}
 img{image-rendering:pixelated}
 .spr{display:inline-block;background-size:100% 100%;background-repeat:no-repeat;image-rendering:pixelated;flex:none}
 
-/* ===================== the world (sky, mountains, land) ===================== */
 .page{position:relative;min-height:calc(var(--vh)*100);overflow:hidden}
 .world{position:absolute;inset:0;overflow:hidden}
 .sky{position:absolute;left:0;right:0;top:0;height:var(--hor);background:linear-gradient(#2f86e0 0%,#4fa3ee 30%,#78bef6 60%,#a9dcfb 85%,#d4eefd 100%)}
-.sun{position:absolute;left:68%;top:calc(var(--hor)*.36);width:calc(var(--hor)*.5);height:calc(var(--hor)*.5);border-radius:50%;background:#fff7c2;box-shadow:0 0 0 calc(var(--hor)*.03) #fff2a088,0 0 0 calc(var(--hor)*.07) #ffffff55,0 0 calc(var(--hor)*.3) calc(var(--hor)*.12) #ffffff55}
-.star{display:none;position:absolute;width:3px;height:3px;background:#fff;animation:tw 2.4s steps(1) infinite}
-@keyframes tw{50%{opacity:.25}}
-.cl{position:absolute;animation:cl 70s linear infinite alternate}
-@keyframes cl{from{transform:translateX(-6vw)}to{transform:translateX(10vw)}}
+.cl{position:absolute;left:0;will-change:transform;animation:cl 100s linear infinite}
+@keyframes cl{from{transform:translateX(-55vw)}to{transform:translateX(110vw)}}
 .ml{position:absolute;left:0;right:0;background-repeat:repeat-x;image-rendering:pixelated}
 .grass{position:absolute;left:0;right:0;top:var(--hor);bottom:0;image-rendering:pixelated}
 .dirt{position:absolute;left:0;right:0;top:calc(var(--vh)*57);bottom:0;image-rendering:pixelated}
@@ -43,7 +39,6 @@ img{image-rendering:pixelated}
 .decor{position:absolute;inset:0;pointer-events:none}
 .decor .spr{position:absolute}
 
-/* ===================== foreground ===================== */
 .ui{
   position:relative;z-index:5;min-height:calc(var(--vh)*100);max-width:620px;margin:0 auto;
   display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:calc(var(--vh)*1.5);
@@ -56,8 +51,6 @@ img{image-rendering:pixelated}
 body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 @keyframes signdrop{0%{transform:translateY(-140%)}58%{transform:translateY(7%)}78%{transform:translateY(-3%)}100%{transform:translateY(0)}}
 
-/* the farm: everything is positioned in % of this box so it scales together.
-   z-index of every object = its ground line (% from the top), so nearer things draw in front */
 .farm{position:relative;flex:none;width:min(100%,860px,calc((var(--vh)*100 - 112px - min(100vw - 20px,520px,var(--vh)*46)*.4436)/1.38));aspect-ratio:1/1.38;container-type:inline-size}
 .farm>*{position:absolute}
 .tree{display:none;height:auto}
@@ -66,32 +59,15 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 #p3{display:block;left:43%;top:7.80%;width:8%;z-index:20}
 #p4{display:block;left:63%;top:6.68%;width:8%;z-index:19}
 #p5{display:block;left:83%;top:6.68%;width:8%;z-index:20}
-#p6{display:block;left:13%;top:15.72%;width:11%;z-index:29}
-#p7{display:block;left:33%;top:14.14%;width:9%;z-index:28}
-#p8{display:block;left:53%;top:15.41%;width:9%;z-index:29}
-#p9{display:block;left:73%;top:15.72%;width:11%;z-index:29}
-#p10{display:block;left:90.5%;top:16.04%;width:8.5%;z-index:29}
-#p11{display:block;left:1%;top:24.41%;width:9%;z-index:38}
-#p12{display:block;left:14%;top:26.91%;width:8.5%;z-index:40}
-#p13{display:block;left:25%;top:26.28%;width:9%;z-index:40}
-#p14{display:block;left:90.5%;top:26.41%;width:9%;z-index:40}
-#w1{display:none}
-#w2{display:none}
-#w3{display:none}
-#w4{display:none}
-#w5{display:none}
-#w6{display:none}
-#w7{display:none}
-#w8{display:none}
-#w9{display:none}
-#s1{display:none}
-#s2{display:none}
-#s3{display:none}
-#s4{display:none}
-#s5{display:none}
-#s6{display:none}
-#s7{display:none}
-#s8{display:none}
+#p6{display:block;left:13%;top:12.8%;width:11%;z-index:26}
+#p7{display:block;left:33%;top:11.1%;width:9%;z-index:25}
+#p8{display:block;left:53%;top:12.4%;width:9%;z-index:26}
+#p9{display:block;left:73%;top:12.7%;width:11%;z-index:26}
+#p10{display:block;left:90.5%;top:13%;width:8.5%;z-index:26}
+#p11{display:block;left:.5%;top:17.9%;width:7%;z-index:29}
+#p12{display:block;left:26%;top:17.7%;width:7%;z-index:29}
+#p13{display:block;left:44.5%;top:17.85%;width:7%;z-index:29}
+#p14{display:block;left:64%;top:17.95%;width:7%;z-index:29}
 .fence{left:calc(50% - 50vw);width:100vw;top:34%;height:calc(var(--u)*9);z-index:42;background-repeat:repeat-x;background-size:auto 100%;image-rendering:pixelated;pointer-events:none}
 @supports (width:1cqw){.fence{height:10.5cqw;background-size:14cqw 100%}}
 .hgrp{left:2%;top:30%;width:86%;aspect-ratio:820/568;z-index:73}
@@ -109,7 +85,6 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 @keyframes smoke{0%{transform:translate(0,0) scale(.6);opacity:0}15%{opacity:.85}100%{transform:translate(60%,-900%) scale(1.7);opacity:0}}
 .yard{left:0;top:75%;width:100%;height:24.5%;visibility:hidden;pointer-events:none}
 .jzone{left:0;top:75%;width:100%;height:24.5%;visibility:hidden;pointer-events:none}
-/* junimos */
 .jun{left:0;top:0;width:9%;z-index:100;will-change:transform}
 .jun img{display:block;width:100%;height:auto;image-rendering:pixelated}
 .jun .shadow{left:12%;right:12%;bottom:-3px;height:7px}
@@ -120,7 +95,6 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 .jb.jump{animation:jjump .62s steps(1,end)}
 @keyframes jjump{0%{transform:translateY(0) scale(1.12,.86)}15%{transform:translateY(-55%) scale(.92,1.1)}35%{transform:translateY(-75%) scale(.92,1.1) rotate(-12deg)}55%{transform:translateY(-45%) rotate(8deg)}75%{transform:translateY(-8%)}90%{transform:translateY(0) scale(1.12,.86)}}
 
-/* mailbox */
 .mbwrap{position:absolute;left:102%;bottom:0;z-index:5;flex:none;--mb:calc(var(--u)*.55)}
 @supports (width:1cqw){.mbwrap{--mb:calc(86cqw*.0046)}}
 .mailbox{position:relative;display:block;background:none;border:0;padding:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
@@ -141,7 +115,6 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 .badge{position:absolute;right:-8px;top:-9px;min-width:15px;height:15px;padding:0 2px;background:#e0443a;border:2px solid #5a2f10;color:#fff;font:700 9px/11px "Courier New",monospace;text-align:center}
 @keyframes nb{0%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 
-/* chickens wander in the yard below the house */
 .hen{left:0;top:0;width:13%;z-index:100;will-change:transform}
 .shadow{position:absolute;left:12%;right:12%;bottom:-4px;height:10px;border-radius:50%;background:rgba(70,40,10,.3)}
 .fl{position:relative;transform:scaleX(var(--f,1))}
@@ -153,7 +126,6 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 @keyframes breathe{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.96)}}
 @keyframes hop{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-7%) rotate(-2deg)}}
 
-/* pixel speech bubbles */
 .say{position:absolute;left:50%;bottom:calc(100% + 4px);transform:translateX(-50%);pointer-events:none;z-index:7;white-space:nowrap}
 .say-in{
   position:relative;padding:3px 10px 4px;background:#fff6dd;color:#7a2d45;
@@ -166,7 +138,6 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 .say.on .say-in{opacity:1;animation:sfloat 2.4s ease-in-out infinite}
 @keyframes sfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 
-/* start screen dialogue */
 .dlg{
   position:relative;z-index:3;width:100%;max-width:540px;flex:none;
   background:#fbe7b5;border:5px solid #8a4b1e;outline:4px solid #5a2f10;border-radius:6px;
@@ -179,22 +150,12 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 .nx{position:absolute;right:10px;bottom:4px;color:#8a4b1e;animation:nx .6s steps(2) infinite;font-size:20px}
 @keyframes nx{50%{transform:translateY(3px)}}
 .q{margin:0;width:100%;line-height:1.28;display:flex;align-items:center;justify-content:center;text-align:center}
-.btns{position:relative;z-index:3;display:flex;gap:18px;align-items:center;justify-content:center;flex:none}
-.pb{
-  font-family:"Courier New",ui-monospace,monospace;font-weight:700;font-size:clamp(18px,5.4vw,26px);
-  padding:calc(var(--vh)*1.3) 22px;border:4px solid #5a2f10;border-radius:4px;cursor:pointer;color:#fff;text-shadow:2px 2px 0 #0003;
-  box-shadow:inset 0 -6px 0 #0003,0 6px 0 #5a2f10;transition:transform .1s steps(2);min-width:118px
-}
-.pb:hover{transform:translateY(-2px)}
-.pb:active{transform:translateY(4px);box-shadow:inset 0 -6px 0 #0003,0 2px 0 #5a2f10}
 .enterbtn{position:relative;z-index:3;background:none;border:0;padding:0;cursor:pointer;width:min(52vw,230px,calc(var(--vh)*26));-webkit-tap-highlight-color:transparent;filter:drop-shadow(0 6px 0 rgba(0,20,60,.35));transition:transform .1s steps(2)}
 .enterbtn img{display:block;width:100%;height:auto;image-rendering:pixelated}
 .enterbtn:hover{transform:translateY(-3px)}
 .enterbtn:active{transform:translateY(4px)}
-.pb:focus-visible,.enterbtn:focus-visible,.mailbox:focus-visible,.music:focus-visible,.svb:focus-visible,.svok:focus-visible,.mail:focus-visible{outline:4px solid #fff;outline-offset:3px;box-shadow:0 0 0 7px #3d2b8a}
+.enterbtn:focus-visible,.mailbox:focus-visible,.music:focus-visible,.svb:focus-visible,.svok:focus-visible,.mail:focus-visible{outline:4px solid #fff;outline-offset:3px;box-shadow:0 0 0 7px #3d2b8a}
 
-
-/* password gate */
 .pw{display:flex;flex-direction:column;align-items:center;gap:14px;position:relative;z-index:3;width:100%;max-width:420px}
 .pwl{font-family:'Press Start 2P',monospace;font-size:clamp(10px,2.8vw,13px);color:#fff;text-shadow:2px 2px 0 #5a2f10;letter-spacing:.04em;text-align:center}
 #pw{width:min(100%,300px);font-family:"Courier New",monospace;font-weight:700;font-size:clamp(26px,8vw,36px);letter-spacing:.35em;text-indent:.35em;text-align:center;padding:10px 12px;background:#fff6dd;color:#4a2a10;border:4px solid #5a2f10;border-radius:4px;box-shadow:inset 0 0 0 3px #f3cf86,0 5px 0 #5a2f10;outline:none}
@@ -203,23 +164,19 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 .shake{animation:shake .45s steps(6,end)}
 @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
 
-/* corner controls */
 .ctrl{position:fixed;z-index:40;top:8px;right:8px;display:flex;flex-direction:row;gap:8px}
 .music{position:relative;width:40px;height:40px;font-size:20px;line-height:1;display:grid;place-items:center;background:#fbe7b5;border:4px solid #5a2f10;box-shadow:inset 0 0 0 2px #f3cf86,0 3px 0 #5a2f10;cursor:pointer;color:#4a2a10}
 .music[aria-pressed="false"]{opacity:.7}
 .music[aria-pressed="false"]::after{content:"";position:absolute;left:3px;right:3px;top:50%;border-top:4px solid #d9605a;transform:rotate(-38deg)}
 
-/* start screen */
-.start{position:fixed;inset:0;z-index:100;display:grid;place-items:center;align-content:center;gap:28px;padding:24px;background:url(assets/start-bg.jpg) center bottom/cover no-repeat,linear-gradient(#0b1650 0%,#1f6fd6 55%,#7fd8f0 100%);image-rendering:pixelated;transition:opacity .5s steps(5);overflow:hidden}
-.start::before{content:"";position:absolute;left:50%;bottom:calc(var(--vh)*12);width:150px;height:150px;margin-left:-75px;border-radius:50%;background:#fff1a8;box-shadow:0 0 0 12px #ffe08a88,0 0 0 26px #ffc46a55,0 0 70px 36px #ffb36b66}
-.start::after{content:"";position:absolute;left:0;right:0;bottom:0;height:calc(var(--vh)*17);background:#2a5d94;clip-path:polygon(0 55%,10% 55%,10% 35%,22% 35%,22% 15%,36% 15%,36% 40%,48% 40%,48% 22%,62% 22%,62% 5%,76% 5%,76% 30%,90% 30%,90% 48%,100% 48%,100% 100%,0 100%)}
-.start::before,.start::after{content:none!important}
+/* start screen: crisp pixel sky is drawn into the canvas */
+.start{position:fixed;inset:0;z-index:100;display:grid;place-items:center;align-content:center;gap:28px;padding:24px;background:linear-gradient(#140a3c,#0f5cc0 55%,#46c8ea 92%,#7fe6dc);image-rendering:pixelated;transition:opacity .5s steps(5);overflow:hidden}
 .start>*{position:relative;z-index:1}
+.start>.skycv{position:absolute;inset:0;width:100%;height:100%;z-index:0;image-rendering:pixelated}
 .start.out{opacity:0;pointer-events:none}
 .start .dlg{max-width:420px}
 .start .q{font-size:clamp(20px,6vw,28px);text-align:center;text-wrap:balance}
 
-/* ===================== Stardew-style mailbox + letters ===================== */
 .modal{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:14px;background:rgba(8,18,50,.62)}
 .sv{
   position:relative;width:min(94vw,540px);max-height:88vh;display:flex;flex-direction:column;
@@ -258,14 +215,11 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 .svok{margin-left:auto;width:58px;height:58px;display:grid;place-items:center;background:#4fbf5f;border:4px solid #5a2f10;cursor:pointer;box-shadow:inset 0 4px 0 rgba(255,255,255,.4),inset 0 -5px 0 rgba(0,0,0,.2),0 5px 0 #5a2f10;color:#fff;font-size:34px;line-height:1;text-shadow:2px 2px 0 #1f6b2c;font-family:'Press Start 2P',monospace}
 .svok:active,.svb:active{transform:translateY(3px)}
 
-
-/* "under maintenance" note */
 .note{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:18px;background:rgba(8,18,50,.5)}
 .note-box{width:min(88vw,420px);background:#fbe7b5;border:5px solid #8a4b1e;outline:4px solid #5a2f10;border-radius:6px;box-shadow:inset 0 0 0 4px #f3cf86,0 8px 0 #5a2f10;padding:24px 18px 18px;text-align:center;animation:unfold .4s steps(5,end) both}
 .note-t{font-family:'Press Start 2P',monospace;font-size:12px;line-height:1.8;color:#9b2f45;margin:0 0 12px}
 .note-b{font-family:'Courier New',ui-monospace,monospace;font-weight:700;font-size:clamp(17px,4.6vw,20px);line-height:1.4;color:#4a2a10;margin:0 0 18px}
 
-/* ambient */
 .amb{position:fixed;inset:0;z-index:20;pointer-events:none;overflow:hidden}
 .amb .spr{position:absolute}
 .rise{animation:rise linear forwards}
@@ -280,44 +234,29 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
 @keyframes fl2{0%{opacity:0}50%{opacity:1}}
 @keyframes fly{0%{transform:translate(-60px,0)}25%{transform:translate(28vw,-40px)}50%{transform:translate(55vw,30px)}75%{transform:translate(82vw,-30px)}100%{transform:translate(112vw,10px)}}
 
-
-/* ===================== wide screens: iPad landscape + desktop (its own composition) ===================== */
 @media (min-width:700px) and (min-aspect-ratio:5/4){
   :root{--fw:min(calc(100vw - 28px),1400px,calc(var(--vh)*133));--ftop:calc(var(--vh)*7 + (var(--vh)*92 - var(--fw)*.69)/2);--hor:calc(var(--ftop) + var(--fw)*.69*.15);--mu:clamp(3px,calc(var(--hor)*.0318),12px)}
   .ui{max-width:none;justify-content:center;padding:calc(var(--vh)*7) 14px calc(var(--vh)*1);gap:0}
   .sign{position:absolute;margin:0;width:calc(var(--fw)*.38);z-index:300;left:calc(50% - var(--fw)/2 + var(--fw)*.02);top:calc(var(--ftop) + var(--fw)*.0104)}
   .farm{width:var(--fw);aspect-ratio:1/.69}
-#w1{display:block;left:-12%;top:32.68%;width:5.5%;z-index:51}
-#w2{display:block;left:-1%;top:33.31%;width:6.5%;z-index:49}
-#w3{display:block;left:20%;top:35.39%;width:5.5%;z-index:52}
-#w4{display:block;left:9%;top:33.06%;width:5.5%;z-index:50}
-#w5{display:block;left:42%;top:24.75%;width:5%;z-index:40}
-#w6{display:block;left:100%;top:31.06%;width:5.5%;z-index:48}
-#w7{display:block;left:89%;top:34.31%;width:6.5%;z-index:50}
-#w8{display:block;left:88%;top:14.75%;width:5%;z-index:30}
-#w9{display:block;left:110%;top:35.31%;width:6.5%;z-index:51}
-#s1{display:block;left:-24%;top:33.39%;width:5.5%;z-index:50}
-#s2{display:block;left:-7%;top:13.06%;width:5.5%;z-index:30}
-#s3{display:block;left:-18%;top:15.75%;width:5%;z-index:31}
-#s4{display:block;left:-30%;top:13.31%;width:6.5%;z-index:29}
-#s5{display:block;left:98%;top:10.68%;width:5.5%;z-index:29}
-#s6{display:block;left:108%;top:15.31%;width:6.5%;z-index:31}
-#s7{display:block;left:120%;top:13.06%;width:5.5%;z-index:30}
-#s8{display:block;left:122%;top:32.39%;width:5.5%;z-index:49}
-#p1{display:none}
-#p2{display:none}
-#p3{display:none}
-#p4{display:none}
-#p5{display:none}
-#p6{display:none}
-#p7{display:none}
-#p8{display:none}
-#p9{display:none}
-#p10{display:none}
-#p11{display:none}
-#p12{display:none}
-#p13{display:none}
-#p14{display:none}
+  #w1{display:block;left:-23%;top:13.8%;width:5%;z-index:30}
+  #w2{display:block;left:3%;top:14.8%;width:6.5%;z-index:30}
+  #w3{display:block;left:13%;top:13.9%;width:5.5%;z-index:30}
+  #w4{display:block;left:-13%;top:13.6%;width:5.5%;z-index:30}
+  #w5{display:block;left:42%;top:24.75%;width:5%;z-index:40}
+  #w6{display:block;left:93%;top:15.1%;width:5%;z-index:30}
+  #w7{display:block;left:114.5%;top:17.2%;width:5.5%;z-index:30}
+  #w8{display:block;left:88%;top:14.75%;width:5%;z-index:30}
+  #w9{display:block;left:126%;top:14.8%;width:6.5%;z-index:30}
+  #s1{display:block;left:20.5%;top:13.9%;width:5.5%;z-index:30}
+  #s2{display:block;left:-7%;top:13.06%;width:5.5%;z-index:30}
+  #s3{display:block;left:-18%;top:15.75%;width:5%;z-index:31}
+  #s4{display:block;left:-30%;top:13.31%;width:6.5%;z-index:29}
+  #s5{display:block;left:98%;top:10.68%;width:5.5%;z-index:29}
+  #s6{display:block;left:108%;top:15.31%;width:6.5%;z-index:31}
+  #s7{display:block;left:120%;top:13.06%;width:5.5%;z-index:30}
+  #s8{display:block;left:133%;top:13.9%;width:5.5%;z-index:30}
+  #p1,#p2,#p3,#p4,#p5,#p6,#p7,#p8,#p9,#p10,#p11,#p12,#p13,#p14{display:none}
   .fence{top:34%;height:calc(var(--u)*7);z-index:41}
   @supports (width:1cqw){.fence{height:4.875cqw;background-size:6.5cqw 100%}}
   .hgrp{left:27%;top:12%;width:56%;z-index:68}
@@ -343,13 +282,11 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
   .note-t{font-size:clamp(13px,1.5vw,17px)}
   .start .dlg{max-width:620px}
   .start .q{font-size:clamp(22px,min(3vw,7vh),38px)}
-  .pb{font-size:clamp(20px,min(2.6vw,6vh),28px);padding:16px 30px}
   .enterbtn{width:min(18vw,260px,calc(var(--vh)*30))}
   #pw{font-size:clamp(28px,min(3.4vw,7vh),42px);width:min(100%,360px)}
   .pwl{font-size:clamp(11px,1.5vw,15px)}
   .pwerr{font-size:clamp(10px,1.3vw,13px)}
 }
-/* very short landscape screens (phones turned sideways) */
 @media (orientation:landscape) and (max-height:520px){
   .sv{max-height:94vh;padding:8px}
   .sv-in{padding:14px 14px 8px}
@@ -359,19 +296,14 @@ body.go .sign{visibility:visible;animation:signdrop 1.1s steps(9,end) both}
   .music{width:36px;height:36px;font-size:18px}
   .start{gap:14px}
   .start .dlg{padding:12px 16px}
-  .pb{padding:10px 20px}
 }
-
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;animation-delay:0s!important}
-  .amb,.cl,.star{display:none}
+  .amb{display:none}
 }
 </style>
 <script>
-/* new images load from assets/; if a file is missing the built-in copy is used */
 var FB={};
-window.__fb=function(img){var k=img.getAttribute('data-fb');if(k&&FB[k]){img.onerror=null;img.src=FB[k]}};
-/* If an image is not found at assets/<name>.png, try other likely paths (including the original upload names). */
 (function(){
   var CAND={
     sign:['assets/sign.png','Assets/sign.png','./sign.png','sign.png','assets/1000037414.png','Assets/1000037414.png','1000037414.png'],
@@ -382,7 +314,6 @@ window.__fb=function(img){var k=img.getAttribute('data-fb');if(k&&FB[k]){img.one
     var list=CAND[img.getAttribute('data-asset')]||[],i=+(img.getAttribute('data-try')||0)+1;
     if(i<list.length){img.setAttribute('data-try',i);img.src=list[i]}
   };
-  /* original uploads have a white / checkered background baked in: remove it in the browser */
   window.__imgLoad=function(img){
     if(img.getAttribute('data-clean')||!/1000037\d+\.png/.test(img.currentSrc||img.src))return;
     img.setAttribute('data-clean','1');
@@ -413,6 +344,7 @@ window.__fb=function(img){var k=img.getAttribute('data-fb');if(k&&FB[k]){img.one
 </div>
 
 <div class="start" id="start" role="dialog" aria-label="Start">
+  <canvas class="skycv" id="skycv"></canvas>
   <section class="dlg">
     <span class="tag">Psst...</span>
     <p class="q">Some idiot made a little farm just for you.</p>
@@ -429,7 +361,6 @@ window.__fb=function(img){var k=img.getAttribute('data-fb');if(k&&FB[k]){img.one
 <div class="page" id="page">
 <div class="world" id="world" aria-hidden="true">
   <div class="sky" id="sky"></div>
-  <div class="sun"></div>
   <div class="ml" id="m1"></div>
   <div class="ml" id="m2"></div>
   <div class="ml" id="m3"></div>
@@ -497,7 +428,6 @@ window.__fb=function(img){var k=img.getAttribute('data-fb');if(k&&FB[k]){img.one
       </div>
     </div>
 
-
     <div class="hen" id="henB">
       <div class="say" id="sayB"><div class="say-in"></div></div>
       <span class="shadow"></span>
@@ -551,7 +481,7 @@ const $=s=>document.querySelector(s);
 const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const small=innerWidth<520;
 
-/* ---------- tiny pixel sprite engine (SVG data URIs) ---------- */
+/* ---------- pixel sprite engine ---------- */
 const PAL={k:'#3a2214',r:'#d2432c',R:'#8f2a1c',l:'#ee6a4d',y:'#ffd93a',Y:'#d99a1e',w:'#fff6dd',g:'#4b9b3a',G:'#2e6a2b',h:'#82c957',b:'#9a6431',B:'#5a3418',t:'#d9a25a',p:'#ff8fb1',P:'#d9557f',o:'#f08a3c',s:'#c4cfe2',S:'#8892a6',u:'#6ec5ff',c:'#ffe6b0',L:'#98dc70'};
 function sprite(rows,over){
   const pal=Object.assign({},PAL,over||{}),h=rows.length,w=rows[0].length;let r='';
@@ -578,20 +508,18 @@ const FL=[
 const LHEART=sprite(['..kk.kk..','.kppkppk.','kpwpppppk','kppppppPk','kppppppPk','.kppppPk.','..kppPk..','...kPk...','....k....']);
 const TUFT=sprite(['..h.h...','.hgGgh..','hgGGGgh.','.GGGGG..'],{h:'#8fd860',g:'#5fa92f',G:'#47862a'});
 const PEBBLE=sprite(['.ssS.','sssSS','.SSS.'],{s:'#c9c2b2',S:'#8f897c'});
-const CLOUD=sprite(['.......wwww.........','.....wwwwwwww..ww...','..wwwwwwwwwwwwwwww..','.wwwwwwwwwwwwwwwwww.','wwwwwwwwwwwwwwwwwwww','.ssssssssssssssssss.'],{w:'#ffffff',s:'#cfe6f7'});
+const CLOUD=sprite(['.........wwwww..........','......wwwwwwwwww...ww...','....wwwwwwwwwwwwwwwwww..','..wwwwwwwwwwwwwwwwwwww..','.wwwwwwwwwwwwwwwwwwwwww.','wwwwwwwwwwwwwwwwwwwwwwww','.ssssssssssssssssssssss.'],{w:'#ffffff',s:'#cfe6f7'});
 const BF_O=['Pp.k.pP','pppkppp','.ppkpp.','.pp.pp.'],BF_C=['...k...','..pkp..','..pkp..','...k...'];
 const PETAL=sprite(['pp.','.pp'],{p:'#ffb3d1'});
 const ENV=sprite(['kkkkkkkkkkkk','kwwwwwwwwwwk','kkwwwwwwwwkk','kwkwwwwwwkwk','kwwkwwwwkwwk','kwwwkppkwwwk','kwwwwkkwwwwk','kwwwwwwwwwwk','kkkkkkkkkkkk']);
 const ENVO=sprite(['.....kk.....','...kkwwkk...','.kkwwwwwwkk.','kwwwwwwwwwwk','kwtttttttwwk','kwwwwwwwwwwk','kwwwwwwwwwwk','kwwwwwwwwwwk','kkkkkkkkkkkk']);
 
-/* wooden fence tile */
 function fenceTile(){
   const W=16,H=12,g=grid(W,H);
   for(let x=0;x<W;x++){g[2][x]='k';g[3][x]='b';g[4][x]='B';g[5][x]='k';g[7][x]='k';g[8][x]='b';g[9][x]='B';g[10][x]='k'}
   [[2,5],[10,13]].forEach(([a,b])=>{for(let y=0;y<H;y++)for(let x=a;x<=b;x++)g[y][x]=(x===a||x===b)?'k':(x===a+1?'t':'b');for(let x=a;x<=b;x++)g[0][x]='k'});
   return sprite(rows(g));
 }
-/* terrain tiles */
 function grassTile(){
   const R=rng(7),g=grid(16,16).map(r=>r.map(()=>'h'));
   for(let i=0;i<10;i++){const x=Math.floor(R()*14),y=1+Math.floor(R()*14);g[y][x]='g';g[y][x+1]='g';g[y-1][x]='g'}
@@ -610,39 +538,31 @@ function dirtEdge(){
   d.forEach((dep,x)=>{for(let y=5-dep;y<5;y++)g[y][x]='t'});
   return sprite(rows(g),{t:'#d6a05a'});
 }
-/* green mountains */
-function mtnLayer(W,H,peaks,slope,minH,c){
-  const g=grid(W,H);
+/* clean layered mountain ridges: light left slopes, shaded right slopes */
+function ridge(W,H,mn,wv,c){
+  const hs=[...Array(W)].map((_,x)=>Math.min(H-1,Math.round(wv.reduce((v,[k,a,p])=>v+a*(1-Math.abs(2*(((x*k/W+p)%1+1)%1)-1)),mn))));
+  const deep=Math.round(H*.55);let r='';
   for(let x=0;x<W;x++){
-    let best=minH,side=1;
-    peaks.forEach(([px,h])=>{
-      let dx=x-px;if(dx>W/2)dx-=W;if(dx<-W/2)dx+=W;
-      const v=Math.floor(h-Math.abs(dx)*slope);
-      if(v>best){best=v;side=dx}
-    });
-    const top=H-best;
-    for(let y=top;y<H;y++)g[y][x]=side>0?'d':'f';
-    if(side<=0)g[top][x]='h';
-    if(side<=0&&top+1<H)g[top+1][x]='h';
+    const top=H-hs[x],lit=hs[(x+2)%W]>=hs[(x+W-2)%W],k=lit?[c.h,c.f,c.g]:[c.e,c.d,c.D];
+    const h1=Math.min(deep,H-top-1),y2=top+1+h1;
+    r+=`<rect x="${x}" y="${top}" width="1" height="1" fill="${k[0]}"/>`;
+    if(h1>0)r+=`<rect x="${x}" y="${top+1}" width="1" height="${h1}" fill="${k[1]}"/>`;
+    if(y2<H)r+=`<rect x="${x}" y="${y2}" width="1" height="${H-y2}" fill="${k[2]}"/>`;
   }
-  return sprite(rows(g),{f:c.f,d:c.d,h:c.h});
+  return {url:'url("data:image/svg+xml,'+encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" shape-rendering="crispEdges">${r}</svg>`)+'")'};
 }
 
-/* ---------- the world: sky, stars, clouds, mountains, land, fence, flowers ---------- */
+/* ---------- the world ---------- */
 (function(){
   const sky=$('#sky'),decor=$('#decor');
-  const R=rng(5);
-  for(let i=0;i<28;i++){
-    const s=document.createElement('i');s.className='star';
-    s.style.left=(R()*100)+'%';s.style.top=(R()*17)+'%';s.style.animationDelay=(-R()*2.4)+'s';
-    s.style.opacity=.6+R()*.4;sky.appendChild(s);
-  }
-  [[-3,22,2.6,0],[70,13,2.2,-20],[18,31,1.6,-35]].forEach(([x,y,sc,d])=>{
-    const c=el(CLOUD,`calc(var(--u)*${sc})`,'cl');c.style.left=x+'vw';c.style.top=`calc(var(--hor)*${(y/38).toFixed(3)})`;c.style.animationDelay=d+'s';sky.appendChild(c);
+  /* drifting clouds */
+  [[.04,2.6,95,0],[.2,1.8,120,.35],[.38,3.2,80,.6],[.55,2,110,.15],[.7,2.8,90,.8],[.12,1.5,140,.5]].forEach(([y,sc,d,p])=>{
+    const c=el(CLOUD,`calc(var(--u)*${sc})`,'cl');
+    c.style.top=`calc(var(--hor)*${y})`;c.style.animationDuration=d+'s';c.style.animationDelay=(-d*p)+'s';sky.appendChild(c);
   });
-  const far=mtnLayer(128,22,[[16,20],[52,17],[88,21],[116,15]],.55,8,{f:'#7aa3d6',d:'#5f89c2',h:'#a9c8ee'});
-  const mid=mtnLayer(112,17,[[30,15],[70,13],[100,16]],.75,5,{f:'#4f8f86',d:'#376f6c',h:'#7fc4a3'});
-  const near=mtnLayer(96,11,[[14,10],[48,9],[78,10]],.9,3,{f:'#46a050',d:'#2f7d42',h:'#86d46a'});
+  const far=ridge(128,22,4,[[2,9,.15],[4,5,.6],[7,2,.3]],{h:'#b5d8f2',f:'#7fb4e0',g:'#6aa2d4',e:'#7aa9d6',d:'#5e92c8',D:'#4f82ba'});
+  const mid=ridge(112,17,3,[[3,7,.4],[5,3.5,.8],[9,1.5,.2]],{h:'#8fe0c4',f:'#4fb39b',g:'#3d9c8a',e:'#4aa690',d:'#2f8a7c',D:'#27766b'});
+  const near=ridge(96,11,2,[[4,4.5,.1],[7,2.5,.55],[11,1,.3]],{h:'#a6f07a',f:'#4cc055',g:'#3aa848',e:'#43b04d',d:'#2f8f43',D:'#277c3a'});
   [['#m1',far,22,128],['#m2',mid,17,112],['#m3',near,11,96]].forEach(([id,sp,H,W])=>{
     const n=$(id);n.style.height=`calc(var(--mu)*${H})`;n.style.top=`calc(var(--hor) - var(--mu)*${H} + 1px)`;
     n.style.backgroundImage=sp.url;n.style.backgroundSize=`calc(var(--mu)*${W}) calc(var(--mu)*${H})`;
@@ -652,7 +572,6 @@ function mtnLayer(W,H,peaks,slope,minH,c){
   gr.style.backgroundImage=gt.url;gr.style.backgroundSize='calc(var(--u)*16) calc(var(--u)*16)';
   di.style.backgroundImage=dt.url;di.style.backgroundSize='calc(var(--u)*16) calc(var(--u)*16)';di.style.setProperty('--edge',de.url);
 
-  const put=(n,css)=>{Object.assign(n.style,css);decor.appendChild(n);return n};
   $('#fence').style.backgroundImage=fenceTile().url;
   const r2=rng(21),n=small?64:100,fp=small?3:'calc(var(--u)*1.2)';
   for(let i=0;i<n;i++){
@@ -664,6 +583,12 @@ function mtnLayer(W,H,peaks,slope,minH,c){
     const left=r2()<.5?r2()*5:93+r2()*5;
     f.style.left=left+'%';f.style.top=`calc(var(--vh)*${60+r2()*36})`;decor.appendChild(f);
   }
+  /* lots more flowers across the brown field */
+  const r3=rng(77);
+  for(let i=0;i<(small?90:160);i++){
+    const f=el(FL[Math.floor(r3()*FL.length)],fp);
+    f.style.left=(r3()*97)+'%';f.style.top=`calc(var(--vh)*57 + (100% - var(--vh)*57 - 30px)*${r3().toFixed(3)})`;decor.appendChild(f);
+  }
   for(let i=0;i<(small?22:36);i++){
     const t=el(TUFT,small?3:'calc(var(--u)*1.1)');t.style.left=(r2()*98)+'%';t.style.top=`calc(var(--hor) + (var(--vh)*57 - var(--hor))*${r2().toFixed(3)})`;decor.appendChild(t);
   }
@@ -672,7 +597,31 @@ function mtnLayer(W,H,peaks,slope,minH,c){
   }
 })();
 
-/* ---------- audio: sound effects + typing blips (context created on first tap) ---------- */
+/* ---------- start screen: crisp pixel night sky with glow, stars and clouds ---------- */
+(function(){
+  const cv=$('#skycv');if(!cv)return;
+  const hx=h=>[1,3,5].map(i=>parseInt(h.substr(i,2),16));
+  const ST=[[0,'#140a3c'],[.28,'#0b2a7c'],[.55,'#0f5cc0'],[.78,'#1f93e6'],[.92,'#46c8ea'],[1,'#7fe6dc']].map(([t,c])=>[t,hx(c)]);
+  const col=t=>{let i=1;while(i<ST.length-1&&t>ST[i][0])i++;const[t0,a]=ST[i-1],[t1,b]=ST[i],q=Math.min(1,Math.max(0,(t-t0)/(t1-t0)));return a.map((v,k)=>Math.round(v+(b[k]-v)*q))};
+  const N=16,BAND=Array.from({length:N},(_,i)=>col(i/(N-1))),BY=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5];
+  const draw=()=>{
+    const R=rng(11),ps=innerWidth>700?5:4,H=Math.max(120,Math.round(innerHeight/ps)),W=Math.max(60,Math.round(innerWidth/ps));
+    cv.width=W;cv.height=H;const x=cv.getContext('2d'),im=x.createImageData(W,H),d=im.data;
+    const set=(px,py,c)=>{if(px<0||py<0||px>=W||py>=H)return;const i=(py*W+px)*4;d[i]=c[0];d[i+1]=c[1];d[i+2]=c[2];d[i+3]=255};
+    for(let py=0;py<H;py++){const p=py/(H-1)*(N-1),b=Math.min(N-2,Math.floor(p)),f=p-b;for(let px=0;px<W;px++)set(px,py,BAND[f>BY[(py&3)*4+(px&3)]/16?b+1:b])}
+    for(let i=0;i<W*H*.006;i++)set(Math.floor(R()*W),Math.floor(Math.pow(R(),1.4)*H*.72),R()<.7?[255,255,255]:[190,225,255]);
+    for(let i=0;i<9;i++){const px=2+Math.floor(R()*(W-4)),py=2+Math.floor(R()*H*.5);set(px,py,[255,255,255]);[[1,0],[-1,0],[0,1],[0,-1]].forEach(([a,b])=>set(px+a,py+b,[170,210,255]))}
+    const k=Math.min(1.7,Math.max(.7,W/130)),base=H*.97,CL=[[0,-6,7],[9,-12,10],[20,-8,9],[29,-4,7],[15,-4,8],[5,-2,6]];
+    const cloud=(ox,oy,s,fl)=>[[[140,196,238],2],[[205,232,251],1],[[255,255,255],0]].forEach(([c,dy])=>CL.forEach(([a,b,r])=>{
+      const cx=ox+(fl?-a:a)*s,cy=oy+b*s+dy,rr=r*s;
+      for(let yy=Math.floor(cy-rr);yy<=cy+rr;yy++){if(yy>oy+2*s+dy)continue;for(let xx=Math.floor(cx-rr);xx<=cx+rr;xx++)if((xx-cx)**2+(yy-cy)**2<=rr*rr)set(xx,yy,c)}}));
+    cloud(-4*k,base,k*1.25,0);cloud(W+4*k,base,k*1.4,1);cloud(W*.2,H*.62,k*.55,0);cloud(W*.82,H*.78,k*.5,1);
+    x.putImageData(im,0,0);
+  };
+  draw();addEventListener('resize',draw);
+})();
+
+/* ---------- audio ---------- */
 let ac=null,sfxBus=null,musicBus=null,sfxOn=true,noiseBuf=null;
 function unlock(){
   if(!ac){
@@ -704,7 +653,6 @@ const sRustle=SFX(t=>{noise(t,.18,.18,3000);noise(t+.12,.12,.12,5000)});
 const sBad=SFX(t=>{tone(220,t,.12,'square',.07);tone(165,t+.12,.2,'square',.07)});
 const sPop=SFX(t=>{tone(880,t,.07,'sine',.05,1320)});
 
-/* letters: reserve the full layout, reveal text as it types */
 function typeReserve(p,text,cb,speed){
   clearInterval(p._t);
   const a=document.createElement('span'),b=document.createElement('span');b.className='b';
@@ -725,7 +673,7 @@ function typeReserve(p,text,cb,speed){
   },speed||18);
 }
 
-/* ---------- junimos + chickens: roam the whole ground, scatter everywhere ---------- */
+/* ---------- junimos + chickens: roam the ground, never bump into each other ---------- */
 const jzone=$('#jzone'),farm=$('#farm'),yard=$('#yard');
 const rnd=(a,b)=>a+Math.random()*(b-a);
 const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
@@ -733,7 +681,7 @@ const JCOL=[['orange','amping permi'],['yellow','eat well'],['purple','drink wat
 const juns=JCOL.map(([c,t],i)=>{const node=$('#jun'+i);node.querySelector('.say-in').textContent=t;
   return {node,jb:node.querySelector('.jb'),say:node.querySelector('.say'),x:0,y:0,tx:0,ty:0,state:'idle',wait:.2+i*.35,v:0,top:0,jmp:2+i*.8}});
 const henB=$('#henB'),henC=$('#henC'),sayB=$('#sayB'),sayC=$('#sayC');
-const HEN_IMG_FACES_RIGHT=true; /* the chicken art faces right; set to false if yours faces left */
+const HEN_IMG_FACES_RIGHT=true;
 const hens=[henB,henC].map((node,i)=>({node,fl:node.querySelector('.fl'),say:i?sayC:sayB,x:0,y:0,tx:0,ty:0,maxY:0,state:'idle',wait:.3+i*.9,dir:i?-1:1,v:0,top:0,peck:1+i}));
 sayB.firstElementChild.textContent='i miss youuu';sayC.firstElementChild.textContent='i love youuu';
 let JW=0,JH=0,HW=0,Q=2,jx0=0,jx1=0,jy0=0,jy1=0,hx0=0,hx1=0,hy0=0;
@@ -756,48 +704,72 @@ function place(h){
   h.node.style.transform=`translate(${px}px,${py}px)`;h.node.style.zIndex=100+Math.floor(py/4);
   h.fl.style.setProperty('--f',(h.dir>0)===HEN_IMG_FACES_RIGHT?1:-1);
 }
+/* collision helpers */
+function allE(){return [...hens.map(o=>({o,w:HW,h:o.node.offsetHeight||HW})),...juns.map(o=>({o,w:JW,h:JH}))]}
+function hit(o,w,h,x,y){
+  for(const E of allE()){
+    if(E.o===o)continue;
+    if(Math.abs(x+w/2-E.o.x-E.w/2)<(w+E.w)/2*.98&&Math.abs(y+h/2-E.o.y-E.h/2)<(h+E.h)/2*.8)return true;
+  }
+  return false;
+}
+function mv(o,w,h,nx,ny){
+  const was=hit(o,w,h,o.x,o.y);
+  for(const[x,y]of[[nx,ny],[nx,o.y],[o.x,ny]])if(was||!hit(o,w,h,x,y)){o.x=x;o.y=y;o.blk=0;return true}
+  return false;
+}
+function pick(o,w,h,x0,x1,y0,y1,near,rx,ry){
+  for(let n=0;n<14;n++){
+    let tx,ty;
+    if(!near||n>5){tx=rnd(x0,x1);ty=rnd(y0,y1)}
+    else{tx=clamp(o.x+rnd(-1,1)*rx,x0,x1);ty=clamp(o.y+rnd(-1,1)*ry,y0,y1)}
+    if(!hit(o,w,h,tx,ty)){o.tx=tx;o.ty=ty;return true}
+  }
+  return false;
+}
 function stepJ(dt){
   juns.forEach(j=>{
     if(j.state==='idle'){
       j.wait-=dt;j.jmp-=dt;
       if(j.jmp<=0){j.jmp=rnd(2.2,5);j.jb.classList.add('jump');setTimeout(()=>j.jb.classList.remove('jump'),640)}
       if(j.wait<=0){
-        if(Math.random()<.75){j.tx=rnd(jx0,jx1);j.ty=rnd(jy0,jy1)}
-        else{j.tx=clamp(j.x+rnd(-1,1)*JW*4,jx0,jx1);j.ty=clamp(j.y+rnd(-1,1)*JH*2,jy0,jy1)}
-        j.state='walk';j.top=JW*rnd(2.4,3.8);j.node.classList.add('walk');j.jb.classList.remove('jump');
+        if(pick(j,JW,JH,jx0,jx1,jy0,jy1,Math.random()>.75,JW*4,JH*2)){j.state='walk';j.top=JW*rnd(2.4,3.8);j.node.classList.add('walk');j.jb.classList.remove('jump')}
+        else j.wait=.4;
       }
     }else{
       const dx=j.tx-j.x,dy=j.ty-j.y,d=Math.hypot(dx,dy);
       if(d<2){j.state='idle';j.wait=rnd(.2,1.4);j.node.classList.remove('walk');j.v=0}
-      else{j.v+=(j.top-j.v)*Math.min(1,dt*6);const st=Math.min(d,j.v*dt);j.x+=dx/d*st;j.y+=dy/d*st}
+      else{
+        j.v+=(j.top-j.v)*Math.min(1,dt*6);const st=Math.min(d,j.v*dt);
+        if(!mv(j,JW,JH,j.x+dx/d*st,j.y+dy/d*st)){j.blk=(j.blk||0)+dt;if(j.blk>.4){j.blk=0;j.state='idle';j.wait=rnd(.3,.9);j.node.classList.remove('walk');j.v=0}}
+      }
     }
     j.x=clamp(j.x,jx0,jx1);j.y=clamp(j.y,jy0,jy1);
   });
 }
 function stepH(dt){
   hens.forEach(h=>{
+    const hh=h.node.offsetHeight||HW;
     if(h.state==='idle'){
       h.wait-=dt;h.v=0;h.peck-=dt;
       if(h.peck<=0&&h.wait>.7){h.peck=rnd(1.8,4);h.node.classList.add('peck');setTimeout(()=>h.node.classList.remove('peck'),780)}
       if(h.wait<=0){
-        const hh=h.node.offsetHeight||HW;
-        if(Math.random()<.7){h.tx=rnd(hx0,hx1);h.ty=rnd(hy0,h.maxY)}
-        else{h.tx=clamp(h.x+rnd(-2.5,2.5)*HW,hx0,hx1);h.ty=clamp(h.y+rnd(-1,1)*hh,hy0,h.maxY)}
-        h.state='walk';h.top=HW*rnd(.7,1.1);h.node.classList.add('walk');h.node.classList.remove('peck');
+        if(pick(h,HW,hh,hx0,hx1,hy0,h.maxY,Math.random()>.7,HW*2.5,hh)){h.state='walk';h.top=HW*rnd(.7,1.1);h.node.classList.add('walk');h.node.classList.remove('peck')}
+        else h.wait=.5;
       }
     }else{
       const dx=h.tx-h.x,dy=h.ty-h.y,d=Math.hypot(dx,dy);
       if(d<2){h.state='idle';h.wait=rnd(.6,2.4);h.node.classList.remove('walk')}
       else{
-        h.v+=(h.top-h.v)*Math.min(1,dt*5);
-        const st=Math.min(d,h.v*dt);h.x+=dx/d*st;h.y+=dy/d*st;
-        if(Math.abs(dx)>1.5)h.dir=dx>0?1:-1;   /* face where you are going */
+        h.v+=(h.top-h.v)*Math.min(1,dt*5);const st=Math.min(d,h.v*dt);
+        if(Math.abs(dx)>1.5)h.dir=dx>0?1:-1;
+        if(!mv(h,HW,hh,h.x+dx/d*st,h.y+dy/d*st)){h.blk=(h.blk||0)+dt;if(h.blk>.4){h.blk=0;h.state='idle';h.wait=rnd(.4,1);h.node.classList.remove('walk')}}
       }
     }
     h.x=clamp(h.x,hx0,hx1);h.y=clamp(h.y,hy0,h.maxY);
   });
 }
-function sepAll(){   /* nobody stands on top of anybody else; junimos give way more than hens */
+function sepAll(){
   const all=[...hens.map(o=>({o,w:HW,h:o.node.offsetHeight||HW,m:.3,x0:hx0,x1:hx1,y0:hy0,y1:o.maxY})),...juns.map(o=>({o,w:JW,h:JH,m:1,x0:jx0,x1:jx1,y0:jy0,y1:jy1}))];
   for(let a=0;a<all.length;a++)for(let b=a+1;b<all.length;b++){
     const A=all[a],B=all[b];
@@ -811,13 +783,12 @@ function sepAll(){   /* nobody stands on top of anybody else; junimos give way m
   }
   all.forEach(c=>{c.o.x=clamp(c.o.x,c.x0,c.x1);c.o.y=clamp(c.o.y,c.y0,c.y1)});
 }
-function fitSay(say){   /* keep a bubble inside the screen */
+function fitSay(say){
   say.style.marginLeft='0px';
   const r=say.getBoundingClientRect(),vw=document.documentElement.clientWidth;
   let sh=0;if(r.left<4)sh=4-r.left;else if(r.right>vw-4)sh=vw-4-r.right;
   say.style.marginLeft=sh+'px';
 }
-/* the pink junimo: one word every 5 minutes: can / we / try / again? */
 const PINKW=['can','we','try','again?'];let pk=0;
 function pinkSay(){
   const j=juns[4];
@@ -825,9 +796,9 @@ function pinkSay(){
   j.say.classList.add('on');fitSay(j.say);
   setTimeout(()=>j.say.classList.remove('on'),10000);
 }
-const ROT=[0,1,2,3,5];   /* every junimo except the pink one, which has its own 5-minute schedule */
+const ROT=[0,1,2,3,5];
 let jsay=0,slot=0;
-function nextSlot(){   /* hens, junimo, junimo, hens ... one message at a time */
+function nextSlot(){
   ROT.forEach(k=>juns[k].say.classList.remove('on'));
   if(slot++%3===0)cycleSay();
   else{hens.forEach(h=>h.say.classList.remove('on'));setTimeout(junSay,reduce?0:550)}
@@ -848,10 +819,16 @@ function frame(ts){
   juns.forEach(j=>{if(j.say.classList.contains('on'))fitSay(j.say)});
   hens.forEach(h=>{if(h.say.classList.contains('on'))fitSay(h.say)});
 }
-function spawn(){   /* start already spread out over the whole ground */
+function spawn(){
   bounds();
-  hens.forEach(h=>{h.x=rnd(hx0,hx1);h.y=rnd(hy0,h.maxY);h.dir=Math.random()<.5?1:-1;place(h)});
-  juns.forEach(j=>{j.x=rnd(jx0,jx1);j.y=rnd(jy0,jy1);placeJ(j)});
+  hens.forEach(h=>{h.placed=false});juns.forEach(j=>{j.placed=false});
+  const E=allE();
+  E.forEach(e=>{
+    const o=e.o,isH=hens.includes(o),[a,b,c,d]=isH?[hx0,hx1,hy0,o.maxY]:[jx0,jx1,jy0,jy1];
+    for(let n=0;n<80;n++){o.x=rnd(a,b);o.y=rnd(c,d);if(!hit(o,e.w,e.h,o.x,o.y))break}
+    if(isH)o.dir=Math.random()<.5?1:-1;
+    o.placed=true;
+  });
   sepAll();juns.forEach(placeJ);hens.forEach(place);
 }
 function refit(){bounds();hens.forEach(h=>{h.x=clamp(h.x,hx0,hx1);h.y=clamp(h.y,hy0,h.maxY);place(h)});juns.forEach(j=>{j.x=clamp(j.x,jx0,jx1);j.y=clamp(j.y,jy0,jy1);placeJ(j)})}
@@ -863,9 +840,8 @@ function startHens(){
 addEventListener('resize',refit);addEventListener('load',refit);
 if(window.ResizeObserver){const ro=new ResizeObserver(refit);ro.observe(farm);ro.observe(henB);ro.observe(henC)}
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(refit);
-spawn();   /* right away, so nothing is ever drawn at the wrong spot */
+spawn();
 
-/* little floating messages: "I miss you." / "I love you." */
 const LINES=['i miss youuu','i love youuu'];
 let turn=0;
 function showSay(h,text){h.say.firstElementChild.textContent=text;h.say.classList.add('on');fitSay(h.say)}
@@ -873,13 +849,13 @@ function cycleSay(){
   hens.forEach(h=>h.say.classList.remove('on'));
   setTimeout(()=>{
     const a=turn%2;
-    if(turn%3===2){const only=Math.random()<.5?0:1;showSay(hens[only],LINES[a])}   /* sometimes only one chicken speaks */
+    if(turn%3===2){const only=Math.random()<.5?0:1;showSay(hens[only],LINES[a])}
     else{showSay(hens[0],LINES[a]);showSay(hens[1],LINES[1-a])}
     sPop();turn++;
   },reduce?0:600);
 }
 
-/* ---------- mailbox: 3 personal letters, each clicked open ---------- */
+/* ---------- mailbox: 3 personal letters ---------- */
 const LETTERS=[
 {title:"First Mail 💌",text:"i don't know if you'll ever get to read or see this, but i really hope you do. and if you do, thank you for giving me your time to read all of this. thank you rin sa kapatid mo. don't worry, hindi ko na rin siya guguluhin.\n\ncan you finish reading everything first, by? i still have two more messages pa.\n\ni guess this is my final act of love. i have another code pa, pero hanggang unfinished business na lang muna siya. maybe someday ko na lang tapusin. i don't know when, but for now, i'll just leave it as it is.\n\nand this is probably my last chance na rin in case mabasa mo pa 'to. so anyway, i just have a few more things i want to say. i don't want to keep bothering you, but i also don't want to leave without saying everything i've been keeping to myself. feel ko sasabog na rin kasi ako if i keep all of these to myself.\n\ndon't worry, i'm not writing this to change your mind or make you reconsider anything. i know things are the way they are now, and i respect that. i just want to say these things, not because i'm expecting anything in return, but because there are still words i want you to hear from me, even if you don't believe them anymore.\n\ni hope you can read these messages hanggang dulo. that's all i'm asking. thank you, baby."},
 {title:"2nd Mail 💌",text:"from the bottom of my heart, i just want to say i'm sorry. it's all my fault, by. always has been. sinira ko lang talaga lahat ng kung anong meron tayo. i'm sorry for all the fears, for the promises i made but couldn't keep, and for letting my situation at home affect us the way it did. i'm sorry for always worrying about the future and letting my anxiety get in the way.\n\nbut by, i still wanted it. i still wanted us. i wanted to make things work despite everything that was happening around me. i really thought magpahinga muna rin tayo, but i guess hindi mo na rin talaga kaya. and i cant blame you for that.\n\ni blame myself, by, for letting my fears ruin something so beautiful. i wish i had handled things better. i wish i had reassured you more pa, understood you better, and kept the promises i made.\n\ni know you hate me now, and you can't forgive me anymore. ang sakit lang, but i understand. i'm not going to tell you how you should feel after everything that happened. you have every reason to be hurt, and i'm sorry ako yung reason kung bakit ka nasasaktan ngayon.\n\ni'm sorry, by. i really am. i know i ruined something that meant so much to me, and that's something i'll have to live with for the rest of my life."},
@@ -891,7 +867,6 @@ const read=new Set();let typing=0,userScrolled=false;
 ['wheel','touchstart','keydown'].forEach(ev=>svin.addEventListener(ev,()=>{userScrolled=true},{passive:true}));
 
 (function(){
-  /* residential post-mounted mailbox: arched box, hinged front door, wooden post, little flag */
   const BODY=sprite([
     '.....'+'k'.repeat(10)+'.....',
     '...kk'+'l'.repeat(10)+'kk...',
@@ -1026,7 +1001,7 @@ if(!reduce){
   },1500);
 }
 
-/* ---------- music: your music.mp3 ---------- */
+/* ---------- music ---------- */
 const musicBtn=$('#music'),sfxBtn=$('#sfx');
 let on=false;
 const bgm=new Audio('assets/music.mp3');bgm.loop=true;bgm.volume=.5;bgm.preload='auto';
@@ -1041,7 +1016,7 @@ sfxBtn.addEventListener('click',()=>{
   if(sfxOn)sClick();
 });
 
-/* ---------- start screen (unlocks sound, then the farm begins) ---------- */
+/* ---------- start screen ---------- */
 const pw=$('#pw'),pwErr=$('#pwErr'),PASS='080808';
 function enter(){
   try{unlock()}catch(e){}
